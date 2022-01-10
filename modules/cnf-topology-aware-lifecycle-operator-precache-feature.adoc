@@ -37,7 +37,7 @@ In this state, TALO deletes any pre-caching namespace and Hub view resources of 
 .Prerequisites
 
 * Install the Topology Aware Lifecycle Operator.
-* Provision one or more managed clusters using ZTP.
+* Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
 
 .Procedure

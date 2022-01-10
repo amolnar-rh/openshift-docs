@@ -1,5 +1,5 @@
 :_content-type: ASSEMBLY
-[id="cnf-talo-for-cluster-upgrades"]
+[id="cnf-talo-for-cluster-updates"]
 = Topology Aware Lifecycle Operator for cluster updates
 include::_attributes/common-attributes.adoc[]
 :context: cnf-topology-aware-lifecycle-operator

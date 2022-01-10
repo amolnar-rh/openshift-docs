@@ -15,7 +15,7 @@ One `ClusterGroupUpgrade` CR can have multiple blocking CRs. In this case, all t
 .Prerequisites
 
 * Install the Topology Aware Lifecycle Operator.
-* Provision one or more managed clusters using ZTP.
+* Provision one or more managed clusters
 * Log in as a user with `cluster-admin` privileges.
 * Create {rh-rhacm} policies in the Hub cluster.
 

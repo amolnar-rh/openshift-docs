@@ -10,7 +10,7 @@
 
 * Install the Topology Aware Lifecycle Operator.
 * Update ZTP to the latest version. 
-* Provision one or more managed clusters using ZTP.
+* Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
 * Create {rh-rhacm} policies in the Hub cluster.
 
