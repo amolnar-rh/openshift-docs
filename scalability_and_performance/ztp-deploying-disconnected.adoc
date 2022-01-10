@@ -156,6 +156,27 @@ include::modules/ztp-configuring-ipv6.adoc[leveloffset=+2]
 include::modules/ztp-troubleshooting-the-managed-cluster.adoc[leveloffset=+2]
 
 include::modules/ztp-applying-source-custom-resource-policies.adoc[leveloffset=+2]
+// TALO
+
+include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
+
+include::modules/cnf-topology-aware-lifecycle-operator-create-cgu-cr.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-apply-policies.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-precache-feature.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
+
+.Additional resources
+
+For more information about Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
+
+//Troubleshooting
+
+include::modules/ztp-troubleshooting-gitops-ztp.adoc[leveloffset=+1]
 
 include::modules/ztp-things-to-consider-when-creating-custom-resource-policies.adoc[leveloffset=+2]
 
@@ -165,3 +186,4 @@ include::modules/ztp-validating-the-generation-of-policy-crs.adoc[leveloffset=+2
 include::modules/ztp-definition-of-done-for-ztp-installations.adoc[leveloffset=+1]
 include::modules/ztp-creating-a-validator-inform-policy.adoc[leveloffset=+2]
 include::modules/ztp-querying-the-policy-compliance-status-for-each-cluster.adoc[leveloffset=+2]
+include::modules/cnf-topology-aware-lifecycle-operator-troubleshooting.adoc[leveloffset=+2]
