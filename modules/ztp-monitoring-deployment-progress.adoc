@@ -6,7 +6,7 @@
 [id="ztp-monitoring-deployment-progress_{context}"]
 = Monitoring deployment progress
 
-The ArgoCD pipeline uses the `SiteConfig` and `PolicyGenTemplate` CRs in Git to generate the cluster configuration CRs & {rh-rhacm} policies and then sync them to the hub. The progress of this synchronization can be monitored in the ArgoCD dashboard.
+The ArgoCD pipeline uses the `SiteConfig` and `PolicyGenTemplate` CRs in Git to generate the cluster configuration CRs and {rh-rhacm} policies and then sync them to the hub. You can monitor the progress of this synchronization can be monitored in the ArgoCD dashboard.
 
 .Procedure
 
@@ -31,7 +31,7 @@ $ curl -sk $(oc get agentclusterinstall -n $CLUSTER $CLUSTER -o jsonpath='{.stat
 
 . The Topology Aware Lifecycle Operator (TALO) applies the configuration policies that are bound to the cluster.
 +
-After the cluster installation is complete and the cluster becomes `Ready`, a `ClusterGroupUpgrade` CR corresponding to this cluster, with a list of ordered policies defined by the `ran.openshift.io/ztp-deploy-wave annotations`, is automatically created by TALO. The cluster's policies are applied in the order listed in `ClusterGroupUpgrade` CR. The high-level progress of configuration policy reconciliation can be monitored using the following commmands:
+After the cluster installation is complete and the cluster becomes `Ready`, a `ClusterGroupUpgrade` CR corresponding to this cluster, with a list of ordered policies defined by the `ran.openshift.io/ztp-deploy-wave annotations`, is automatically created by the TALO. The cluster's policies are applied in the order listed in `ClusterGroupUpgrade` CR. You can monitor the high-level progress of configuration policy reconciliation using the following commmands:
 +
 [source,terminal]
 ----
@@ -50,6 +50,6 @@ $ oc get clustergroupupgrades -n ztp-install $CLUSTER -o jsonpath='{.status.cond
 $ oc get policies -n $CLUSTER
 ----
 
-The final policy that becomes compliant is the one defined in the `*-du-validator-policy` policies. This policy, when compliant on a cluster, ensures that all cluster configuration, Operator installation, and Operator configuration has completed.
+The final policy that becomes compliant is the one defined in the `*-du-validator-policy` policies. This policy, when compliant on a cluster, ensures that all cluster configuration, Operator installation, and Operator configuration is complete.
 
-After all policies become complaint, the `ztp-done` label is added to the cluster, indicating the entire ZTP pipeline has completed for the cluster.
+After all policies become complaint, the `ztp-done` label is added to the cluster, indicating the entire ZTP pipeline is complete for the cluster.

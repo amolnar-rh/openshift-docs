@@ -6,7 +6,7 @@
 [id="ztp-validating-the-generation-of-configuration-policy-crs_{context}"]
 = Validating the generation of configuration policy CRs
 
-Policy custom resources (CRs) are generated in the same namespace as the `PolicyGenTemplate` from which they were created. The same troubleshooting flow applies to all policy CRs generated from a `PolicyGenTemplate` regardless of whether they are ztp-common, ztp-group, or ztp-site based, as shown using the following commands:
+Policy custom resources (CRs) are generated in the same namespace as the `PolicyGenTemplate` from which they are created. The same troubleshooting flow applies to all policy CRs generated from a `PolicyGenTemplate` regardless of whether they are `ztp-common`, `ztp-group`, or `ztp-site` based, as shown using the following commands:
 
 [source,terminal]
 ----
@@ -24,14 +24,14 @@ If the policies failed synchronization, use the following troubleshooting steps.
 
 .Procedure
 
-. To return detailed information about the policies run the following command:
+. To return detailed information about the policies, run the following command:
 +
 [source,terminal]
 ----
 $ oc describe -n openshift-gitops application policies
 ----
 
-. Check for `Status: Conditions:` to show the error logs. For example, setting an invalid `sourceFile->fileName:` generates the error shown below:
+. Check for `Status: Conditions:` to show the error logs. For example, setting an invalid `sourceFile→fileName:` generates the error shown below:
 +
 [source,text]
 ----
@@ -43,7 +43,7 @@ Error: failure in plugin configured via /tmp/kust-plugin-config-52463179; exit s
     Type:  ComparisonError
 ----
 
-. Check for `Status: Sync:`. If there are log errors at `Status: Conditions:`, the `Sync: Status:` shows `Unknown` or `Error`:
+. Check for `Status: Sync:`. If there are log errors at `Status: Conditions:`, the `Status: Sync:` shows `Unknown` or `Error`:
 +
 [source,text]
 ----
@@ -60,7 +60,7 @@ Status:
     Status:               Error
 ----
 
-. When {rh-rhacm-first} recognizes that policies apply to a `ManagedCluster`, the policy CR objects are applied to the cluster namespace. Check to see if the policies were copied to the cluster namespace:
+. When {rh-rhacm-first} recognizes that policies apply to a `ManagedCluster` object, the policy CR objects are applied to the cluster namespace. Check to see if the policies were copied to the cluster namespace:
 +
 [source,terminal]
 ----
@@ -81,7 +81,7 @@ ztp-site.example-sno-config-policy           inform               Compliant     
 +
 {rh-rhacm} copies all applicable policies into the cluster namespace. The copied policy names have the format: `<policyGenTemplate.Namespace>.<policyGenTemplate.Name>-<policyName>`.
 
-. Check the placement rule for any policies not copied to the cluster namespace. The `matchSelector` in the `PlacementRule` for those policies should match labels on the `ManagedCluster`:
+. Check the placement rule for any policies not copied to the cluster namespace. The `matchSelector` in the `PlacementRule` for those policies should match labels on the `ManagedCluster` object:
 +
 [source,terminal]
 ----
@@ -95,10 +95,10 @@ $ oc get placementrule -n $NS
 $ oc get placementrule -n $NS <placementRuleName> -o yaml
 ----
 +
-* The status/decisions should include your cluster name.
-* The key value pair of the `matchSelector` in the spec must match the labels on your managed cluster.
+* The status-decisions should include your cluster name.
+* The key-value pair of the `matchSelector` in the spec must match the labels on your managed cluster.
 
-. Check the labels on the `ManagedCluster` using the following command:
+. Check the labels on the `ManagedCluster` object using the following command:
 +
 [source,terminal]
 ----
@@ -112,4 +112,4 @@ $ oc get ManagedCluster $CLUSTER -o jsonpath='{.metadata.labels}' | jq
 $ oc get policy -n $CLUSTER
 ----
 +
-If the `Namespace`, `OperatorGroup`, and `Subscription` policies are compliant but the Operator configuration policies are not it is likely that the Operators did not install on the spoke cluster. This causes the Operator configuration policies to fail to apply because the CRD is not yet applied to the spoke.
+If the `Namespace`, `OperatorGroup`, and `Subscription` policies are compliant but the Operator configuration policies are not, it is likely that the Operators did not install on the spoke cluster. This causes the Operator configuration policies to fail to apply because the CRD is not yet applied to the spoke.

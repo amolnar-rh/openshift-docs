@@ -2,7 +2,7 @@
 //
 // *scalability_and_performance/ztp-deploying-disconnected.adoc
 
-:_content-type: CONCEPT
+:_content-type: PROCEDURE
 [id="ztp-restarting-policies-reconciliation_{context}"]
 = Restarting policies reconciliation
 
@@ -22,7 +22,7 @@ $ export CLUSTER=<clusterName>
 $ oc get clustergroupupgrades -n ztp-install $CLUSTER
 ----
 
-. If there are unexpected issues and the policies fail to become complaint within the configured timeout, (the default is 4h), the status of the `ClusterGroupUpgrade` CR shows `UpgradeTimedOut`:
+. If there are unexpected issues and the policies fail to become complaint within the configured timeout (the default is 4 hours), the status of the `ClusterGroupUpgrade` CR shows `UpgradeTimedOut`:
 +
 [source,terminal]
 ----
@@ -36,6 +36,6 @@ $ oc get clustergroupupgrades -n ztp-install $CLUSTER -o jsonpath='{.status.cond
 $ oc delete clustergroupupgrades -n ztp-install $CLUSTER
 ----
 
-Note that when the `ClusterGroupUpgrade` CR completes with status `UpgradeCompleted` and the managed spoke cluster has the label `ztp-done` applied, you can make additional configuration changes using `PolicyGenTemplate`. Deleting the existing `ClusterGroupUpgrade` CR will not make TALO generate a new CR.
+Note that when the `ClusterGroupUpgrade` CR completes with status `UpgradeCompleted` and the managed spoke cluster has the label `ztp-done` applied, you can make additional configuration changes using `PolicyGenTemplate`. Deleting the existing `ClusterGroupUpgrade` CR will not make the TALO generate a new CR.
 
-At this point, ZTP has completed its interaction with the cluster and any further interactions should be treated as an upgrade. See the Topology-Aware Lifecycle Operator (TALO) documentation for instructions on how to construct your own `ClusterGroupUpgrade` CR to apply the new changes.
+At this point, ZTP has completed its interaction with the cluster and any further interactions should be treated as an upgrade. See the TALO documentation for instructions on how to construct your own `ClusterGroupUpgrade` CR to apply the new changes.

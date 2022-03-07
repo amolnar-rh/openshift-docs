@@ -10,7 +10,7 @@ Use the following procedure to prepare the hub cluster for site deployment and i
 
 .Procedure
 
-. Create the required secrets for the site. These resources must be in a namespace with a name matching the cluster name. In `out/argocd/example/siteconfig/example-sno.yaml` the cluster name and namespace is `example-sno`.
+. Create the required secrets for the site. These resources must be in a namespace with a name matching the cluster name. In `out/argocd/example/siteconfig/example-sno.yaml`, the cluster name and namespace is `example-sno`.
 +
 Create the namespace for the cluster using the following commands:
 +
@@ -167,7 +167,7 @@ spec:
 
 .. You can inspect the default set of extra-manifest `MachineConfig` CRs in `out/argocd/extra-manifest`. It is automatically applied to the cluster when it is installed.
 +
-Optional: For provisioning additional install-time manifests on the provisioned cluster, create a directory in your Git repository, for example, `sno-extra-manifest/` and add your custom manifest CRs to this directory. If your `SiteConfig.yaml` refers to this directory in the `extraManifestPath` field, any CRs in this referenced directory is appended to the default set of extra manifests.
+Optional: To provision additional install-time manifests on the provisioned cluster, create a directory in your Git repository, for example, `sno-extra-manifest/`, and add your custom manifest CRs to this directory. If your `SiteConfig.yaml` refers to this directory in the `extraManifestPath` field, any CRs in this referenced directory are appended to the default set of extra manifests.
 
 . Add the `SiteConfig` CR to the `kustomization.yaml` file in the `generators` section, similar to the example shown in `out/argocd/example/siteconfig/kustomization.yaml`.
 

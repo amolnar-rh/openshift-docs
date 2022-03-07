@@ -12,7 +12,7 @@ Create a Git repository for hosting site configuration data. The zero touch prov
 
 . Create a directory structure with separate paths for the `SiteConfig` and `PolicyGenTemplate` custom resources (CR).
 
-. Export the `argocd` directory from the ztp-site-generator container image using the following commands:
+. Export the `argocd` directory from the `ztp-site-generator` container image using the following commands:
 +
 [source,terminal]
 ----

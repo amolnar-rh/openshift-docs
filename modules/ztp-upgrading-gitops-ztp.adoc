@@ -6,7 +6,11 @@
 [id="ztp-upgrading-gitops-ztp_{context}"]
 = Upgrading GitOps ZTP
 
+<<<<<<< HEAD
 You can upgrade the Gitops zero touch provisioning (ZTP) infrastructure independently from the underlying cluster, {rh-rhacm-first}, and OpenShift version running on the spoke clusters. This procedure guides you though the upgrade process to avoid impact on the spoke clusters, however any changes to the content or settings of policies, including adding recommended content results in changes that must be rolled out and reconciled to the spoke clusters.
+=======
+You can upgrade the Gitops zero touch provisioning (ZTP) infrastructure independently from the underlying cluster, {rh-rhacm-first}, and OpenShift version running on the spoke clusters. This procedure guides you through the upgrade process to avoid impact on the spoke clusters. However, any changes to the content or settings of policies, including adding recommended content, results in changes that must be rolled out and reconciled to the spoke clusters.
+>>>>>>> d6825bf65e... TELCODOCS-364-multi-clusters:TOC review
 
 This procedure assumes that you have a fully operational hub cluster running the earlier version of the GitOps ZTP infrastructure.
 

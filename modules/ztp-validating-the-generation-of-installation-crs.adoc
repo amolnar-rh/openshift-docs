@@ -1,4 +1,4 @@
-// Module included in the following assemblies:
+file// Module included in the following assemblies:
 //
 // *scalability_and_performance/ztp-deploying-disconnected.adoc
 
@@ -6,7 +6,7 @@
 [id="ztp-validating-the-generation-of-installation-crs_{context}"]
 = Validating the generation of installation CRs
 
-Apply the installation custom resources (CRs) to the hub cluster in a namespace with name matching the site name using the following command:
+You can apply the installation custom resources (CRs) to the hub cluster in a namespace with name matching the site name using the following command:
 
 [source,terminal]
 ----
@@ -17,21 +17,21 @@ If no object is returned, use the following procedure to troubleshoot the ArgoCD
 
 .Procedure
 
-. Verify the `SiteConfig->ManagedCluster` was generated to the hub cluster:
+. Verify that the `SiteConfig->ManagedCluster` was generated to the hub cluster:
 +
 [source,terminal]
 ----
 $ oc get managedcluster
 ----
 
-. If the `SiteConfig->ManagedCluster` is missing, check to see if the `clusters` application failed to synchronize the files from the Git repository to the hub:
+. If the `SiteConfig` `ManagedCluster` is missing, check to see if the `clusters` application failed to synchronize the files from the Git repository to the hub:
 +
 [source,terminal]
 ----
 $ oc describe -n openshift-gitops application clusters
 ----
 
-. Check for `Status: Conditions:` to view the error logs. For example, setting invalid `extraManifestPath:` in the siteConfig raises an error as shown below:
+. Check for `Status: Conditions:` to view the error logs. For example, setting an invalid value for `extraManifestPath:` in the `siteConfig` file raises an error as shown below:
 +
 [source,text]
 ----
@@ -44,7 +44,7 @@ Error: failure in plugin configured via /tmp/kust-plugin-config-913473579; exit 
     Type:  ComparisonError
 ----
 
-. Check for `Status: Sync:`. If there are log errors, `Sync: Status:` could indicate an
+. Check for `Status: Sync:`. If there are log errors, `Status: Sync:` could indicate an
 `Unknown` error:
 +
 [source,text]

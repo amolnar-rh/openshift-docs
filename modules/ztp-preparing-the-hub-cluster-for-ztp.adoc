@@ -16,7 +16,7 @@ You can configure your hub cluster with a set of ArgoCD applications that genera
 
 .Procedure
 
-. Install the Topology Aware Lifecycle Operator, which coordinates with any new sites added by ZTP and manages application of the PGT-generated policies.
+. Install the Topology Aware Lifecycle Operator, which coordinates with any new sites added by ZTP and manages application of the `PolicyGenTemplate`-generated policies.
 
 . Patch the ArgoCD instance in the hub cluster using the patch files previously extracted into the `out/argocd/deployment/` directory:
 +
@@ -36,7 +36,7 @@ $ oc patch deployment openshift-gitops-repo-server -n openshift-gitops --patch-f
 
 .. Configure access to the repository using the ArgoCD UI. Under *Settings* configure the following:
 +
-* *Repositories* - Add the connection information, the URL must end in `.git`, for example, `https://repo.example.com/repo.git` and credentials.
+* *Repositories* - Add the connection information. The URL must end in `.git`, for example, `https://repo.example.com/repo.git` and credentials.
 
 * *Certificates* - Add the public certificate for the repository, if needed.
 
@@ -45,7 +45,7 @@ $ oc patch deployment openshift-gitops-repo-server -n openshift-gitops --patch-f
 * Update the URL to point to the Git repository. The URL must end with .git,must end in `.git`,
 for example, `https://repo.example.com/repo.git`.
 
-* The targetRevision must indicate which Git repository branch to monitor.
+* The `targetRevision` must indicate which Git repository branch to monitor.
 
 * The path should specify the path to the `SiteConfig` or `PolicyGenTemplate` CRs, respectively.
 

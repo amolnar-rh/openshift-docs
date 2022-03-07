@@ -6,7 +6,7 @@
 [id="ztp-stopping-the-existing-gitops-ztp-applications_{context}"]
 = Stopping the existing GitOps ZTP applications
 
-Removing the existing applications ensures that any changes to existing content in the Git repository is not rolled out until the new version of the tooling is available.
+Removing the existing applications ensures that any changes to existing content in the Git repository are not rolled out until the new version of the tooling is available.
 
 Use the application files from the `deployment` directory. If you used custom names for the applications you must update the names in these files first.
 
@@ -19,7 +19,7 @@ Use the application files from the `deployment` directory. If you used custom na
 $ oc delete -f clusters-app.yaml
 ----
 
-. Perform a cascaded-delete on the `policies` application to remove all previous policies:
+. Perform a cascaded delete on the `policies` application to remove all previous policies:
 +
 [source,terminal]
 ----

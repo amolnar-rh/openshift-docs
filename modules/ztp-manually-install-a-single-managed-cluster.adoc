@@ -31,13 +31,13 @@ console-openshift-console.apps.sno-managed-cluster-1.internal.domain.com
 api.sno-managed-cluster-1.internal.domain.com
 ----
 
-** A DNS Server that is IP reachable from the target bare-metal host.
+** A DNS server that is IP reachable from the target bare-metal host.
 
 * A target bare-metal host for the managed cluster with the following hardware minimums:
 
 ** 4 CPU or 8 vCPU
 ** 32 GiB RAM
-** 120 GiB Disk for root file system
+** 120 GiB disk for root file system
 
 * When working in a disconnected environment, the release image must be mirrored. Use this command to mirror the release image:
 +
@@ -69,7 +69,7 @@ spec:
    releaseImage: quay.io/openshift-release-dev/ocp-release:4.9.0-x86_64 <2>
 ----
 <1> The descriptive version that you want to deploy.
-<2> Points to the specific release image to deploy.
+<2> The location of the specific release image to deploy.
 
 
 . Create the `Namespace` definition for the managed cluster:
@@ -152,7 +152,7 @@ spec:
 <2> A block of IPv4 or IPv6 addresses in CIDR notation used for communication among cluster nodes.
 <3> A block of IPv4 or IPv6 addresses in CIDR notation used for the target bare-metal host external communication. Also used to determine the API and Ingress VIP addresses when provisioning DU single node clusters.
 <4> A block of IPv4 or IPv6 addresses in CIDR notation used for cluster services internal communication.
-<5> Entered as plain text. You can use the public key to SSH into the node after it has finished installing.
+<5> A plain text string. You can use the public key to SSH into the node after it has finished installing.
 +
 [NOTE]
 ====
@@ -215,7 +215,7 @@ spec:
     enabled: false <1>
 ----
 +
-<1> Set to `true` to enable the `KlusterletAddonConfig` CR or `false` to disable the `KlusterletAddonConfig` CR. Keep `searchCollector` disabled.
+<1> Keep `searchCollector` disabled. Set to `true` to enable the `KlusterletAddonConfig` CR or `false` to disable the `KlusterletAddonConfig` CR.
 
 . Create the `ManagedCluster` custom resource:
 +
@@ -281,6 +281,6 @@ Optionally, you can add `bmac.agent-install.openshift.io/hostname: <host-name>` 
 
 . After you have created the custom resources, push the entire directory of generated custom resources to the Git repository you created for storing the custom resources.
 
-.Next step
+.Next steps
 
 To provision additional clusters, repeat this procedure for each cluster.
