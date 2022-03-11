@@ -162,6 +162,7 @@ include::modules/cnf-topology-aware-lifecycle-operator-precache-feature.adoc[lev
 include::modules/cnf-topology-aware-lifecycle-operator-apply-policies.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
+
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-troubleshooting.adoc[leveloffset=+2]
