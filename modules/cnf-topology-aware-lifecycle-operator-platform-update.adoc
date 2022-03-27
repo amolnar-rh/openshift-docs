@@ -40,7 +40,6 @@ node/eko7.cnf20.example.redhat.com   Ready    master,worker   123d   v1.22.3+e79
 ----
 
 . Save the contents of your `PolicyGenTemplate` in the `du-upgrade.yaml` file.
-//This step has to be updated. Disconnected vs connected env 
 +
 .Example of `PolicyGenTemplate` for platform update
 +
