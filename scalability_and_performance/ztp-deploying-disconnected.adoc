@@ -121,7 +121,7 @@ include::modules/ztp-validating-the-generation-of-configuration-policy-crs.adoc[
 
 include::modules/ztp-restarting-policies-reconciliation.adoc[leveloffset=+2]
 .Additional resources
-* For information on using TALO to construct your own `ClusterGroupUpgrade` CR, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html#talo-about-cgu-crs_cnf-topology-aware-lifecycle-operator[About the ClusterGroupUpgrade CR].
+* For information about using TALO to construct your own `ClusterGroupUpgrade` CR, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#talo-about-cgu-crs_cnf-topology-aware-lifecycle-operator[About the ClusterGroupUpgrade CR].
 
 include::modules/ztp-site-cleanup.adoc[leveloffset=+1]
 [role="_additional-resources"]
@@ -147,7 +147,7 @@ include::modules/ztp-stopping-the-existing-gitops-ztp-applications.adoc[leveloff
 
 include::modules/ztp-topology-aware-lifecycle-operator.adoc[leveloffset=+2]
 .Additional resources
-* For information about Topology Aware Lifecycle Operator (TALO), see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html[Topology Aware Lifecycle Operator for cluster updates].
+* For information about Topology Aware Lifecycle Operator (TALO), see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator configuration].
 
 include::modules/ztp-required-changes-to-the-git-repository.adoc[leveloffset=+2]
 
@@ -155,7 +155,7 @@ include::modules/ztp-installing-the-new-gitops-ztp-applications.adoc[leveloffset
 
 include::modules/ztp-roll-out-the-configuration-changes.adoc[leveloffset=+2]
 .Additional resources
-* For information on creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.html#talo-create-cgu-cr_cnf-topology-aware-lifecycle-operator[Creating the ClusterGroupUpgrade CR].
+* For information about creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#talo-create-cgu-cr_ztp-deploying-disconnected[Creating the ClusterGroupUpgrade CR].
 
 
 // Manual installation moved here
@@ -174,8 +174,6 @@ include::modules/ztp-configuring-ipv6.adoc[leveloffset=+2]
 
 include::modules/ztp-troubleshooting-the-managed-cluster.adoc[leveloffset=+2]
 
-include::modules/ztp-applying-source-custom-resource-policies.adoc[leveloffset=+2]
-
 //Troubleshooting
 
 include::modules/ztp-validating-the-generation-of-policy-crs.adoc[leveloffset=+2]
@@ -187,7 +185,9 @@ include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
 
 .Additional resources
 
-For more information about Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
+* For more information about the Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
+
+* For more information about updating clusters in a disconnected environment, see xref:../updating/updating-restricted-network-cluster.adoc#update-service-overview_updating-restricted-network-cluster[Updating a restricted network cluster using the OpenShift Update Service].
 
 include::modules/cnf-topology-aware-lifecycle-operator-create-cgu-cr.adoc[leveloffset=+2]
 
