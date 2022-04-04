@@ -195,9 +195,13 @@ include::modules/cnf-topology-aware-lifecycle-operator-apply-policies.adoc[level
 
 include::modules/cnf-topology-aware-lifecycle-operator-precache-feature.adoc[leveloffset=+2]
 
+include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+2]
+
 include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-operator-and-platform-update.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-troubleshooting.adoc[leveloffset=+2]
 
