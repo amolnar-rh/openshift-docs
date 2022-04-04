@@ -105,7 +105,6 @@ ArgoCD pulls the changes from the git repository and generates the policies on t
 $ oc get policies -A | grep platform-upgrade
 ----
 
-
 . Apply the required catalog sources updates before starting the Operator update.
 
 .. Save the content of the `operator-upgrade-prep` `ClusterGroupUpgrade` CR with the catalog source policies and the target spoke clusters to the `cgu-operator-upgrade-prep.yml` file.
@@ -176,6 +175,19 @@ One `ClusterGroupUpgrade` CR can only pre-cache the images of the desired Operat
 ====
 
 .. Verify the subscription policy is `NonCompliant` at this point because the subscription is not at `AtLatestKnown` state by running the following command:
++
+[source,terminal]
+----
+$ oc get policy common-subscriptions-policy -n <policy_namespace>
+----
++
+.Example output
++
+[source,terminal]
+----
+NAME                        REMEDIATION ACTION   COMPLIANCE STATE     AGE
+common-subscriptions-policy   inform               NonCompliant       27d
+----
 
 .. Apply the `cgu-operator-upgrade.yaml` to the Hub cluster by running the following command:
 +

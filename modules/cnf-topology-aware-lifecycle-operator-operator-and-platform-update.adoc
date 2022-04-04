@@ -20,7 +20,7 @@
 
 . Apply the `prep-work` for the platform and the Operator update.
 
-.. Save the content of a CGU with the policies for platform update preparation work, catalog source updates, and target clusters to the `cgu-platform-operator-upgrade-prep.yml` file.
+.. Save the content of the `ClusterGroupUpgrade` CR with the policies for platform update preparation work, catalog source updates, and target clusters to the `cgu-platform-operator-upgrade-prep.yml` file.
 +
 [source,yaml]
 ----
@@ -81,7 +81,6 @@ spec:
   actions:
     afterCompletion:
       deleteObjects: true
-
 ----
 <1> This is the platform update policy.
 <2> This is the policy to update the catalog source.
@@ -102,11 +101,11 @@ $ oc get jobs,pods -n openshift-talo-pre-cache
 ----
 
 . Start the platform and Operator update.
-.. Enable the `cgu-platform-operator-upgrade` `ClusterGroupUpgrade` CR to start the platform and the Operator update by running the following command:
+.. Enable the `cgu-du-upgrade` `ClusterGroupUpgrade` CR to start the platform and the Operator update by running the following command:
 +
 [source,terminal]
 ----
-$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-platform-operator-upgrade \
+$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-du-upgrade \
 --patch '{"spec":{"enable":true}}' --type=merge
 ----
 
