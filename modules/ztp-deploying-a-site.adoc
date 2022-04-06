@@ -106,8 +106,8 @@ spec:
     machineNetwork: <3>
       - cidr: 1111:2222:3333:4444::/64
       # For 3-node and standard clusters with static IPs, the API and Ingress IPs must be configured here
-      apiVIP: 1111:2222:3333:4444::1:1 <4>
-      ingressVIP: 1111:2222:3333:4444::1:2 <5>
+    apiVIP: 1111:2222:3333:4444::1:1 <4>
+    ingressVIP: 1111:2222:3333:4444::1:2 <5>
 
     serviceNetwork:
       - 1001:2::/112
@@ -116,8 +116,7 @@ spec:
     nodes:
       - hostName: "example-node1.example.com" <6>
         role: "master"
-        bmcAddress: <7>
-  "idrac-virtualmedia+https://[1111:2222:3333:4444::bbbb:1]/redfish/v1/Systems/System.Embedded.1"
+        bmcAddress: "idrac-virtualmedia+https://[1111:2222:3333:4444::bbbb:1]/redfish/v1/Systems/System.Embedded.1" <7>
         bmcCredentialsName:
           name: "example-node1-bmh-secret" <8>
         bootMACAddress: "AA:BB:CC:DD:EE:11"

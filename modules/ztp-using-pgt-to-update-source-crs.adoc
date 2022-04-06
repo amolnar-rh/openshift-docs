@@ -4,16 +4,13 @@
 
 :_module-type: CONCEPT
 [id="ztp-using-pgt-to-update-source-crs_{context}"]
-= Using PolicyGenTemplate CRs to create updated source CRs
+= Using PolicyGenTemplate CRs to override source CRs content
 
-`PolicyGenTemplate` CRs allow you to overlay additional configuration details on top of the base source CRs that you extract from the `ztp-site-generate` container. You can think of `PolicyGenTemplate` CRs as a logical merge or patch to the base CR. Use `PolicyGenTemplate` CRs to update a single field of the base CR, or overlay the entire contents of the base CR. You can update values and insert fields that are not in the base CR.
+`PolicyGenTemplate` CRs allow you to overlay additional configuration details on top of the base source CRs provided in the `ztp-site-generate` container. You can think of `PolicyGenTemplate` CRs as a logical merge or patch to the base CR. Use `PolicyGenTemplate` CRs to update a single field of the base CR, or overlay the entire contents of the base CR. You can update values and insert fields that are not in the base CR.
 
 .Prerequisites
 
-* Install the OpenShift CLI (`oc`).
-* Log in to the hub cluster as a user with `cluster-admin` privileges.
-* Create a Git repository where you manage your custom site configuration data. The repo must be accessible from the hub cluster and be defined as a source repository for ArgoCD.
-* Extract the contents of the `/home/ztp` folder from the `ztp-site-generate` reference architecture container image.
+* Create a Git repository where you manage your custom site configuration data. The repo must be accessible from the hub cluster and be defined as a source repository for Argo CD.
 
 .Procedure
 

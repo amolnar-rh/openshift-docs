@@ -8,11 +8,7 @@
 
 To add or modify existing source CRs in the `ztp-site-generate` container, rebuild the `ztp-site-generate` container and make it available to the hub cluster, typically from the disconnected registry associated with the hub cluster. Any valid {product-title} CR can be added.
 
-To add new content to the ZTP pipeline, perform the following procedure:
-
-.Prerequisites
-
-* Create a Git repository where you manage your custom site configuration data.
+Perform the following procedure to add new content to the ZTP pipeline.
 
 .Procedure
 
@@ -49,3 +45,33 @@ $ podman build -t ztp-site-generate-rhel8-custom:v4.10-custom-1
 ----
 $ podman push localhost/ztp-site-generate-rhel8-custom:v4.10-custom-1 registry.example.com:5000/ztp-site-generate-rhel8-custom:v4.10-custom-1
 ----
+
+. Patch the Argo CD instance on the hub cluster to point to the newly built container image:
++
+[source,terminal]
+----
+$ oc patch -n openshift-gitops argocd openshift-gitops --type=json -p '[{"op": "replace", "path":"/spec/repo/initContainers/0/image", "value": "registry.example.com:5000/ztp-site-generate-rhel8-custom:v4.10-custom-1"} ]'
+----
++
+When the Argo CD instance is patched, the `openshift-gitops-repo-server` pod automatically restarts.
+
+.Verification
+
+. Verify that the new `openshift-gitops-repo-server` pod has completed initialization and that the previous repo pod has terminated:
++
+[source,terminal]
+----
+$ oc get pods | grep openshift-gitops-server
+----
++
+.Example output
++
+[source,terminal]
+----
+NAME                                              READY   STATUS    		 RESTARTS   AGE
+openshift-gitops-server-7df86f9774-db682          1/1     Running   	     1          28s
+openshift-gitops-server-2wf35g9226-255g8          0/1     Terminating        1          47h
+----
++
+You must wait until the new `openshift-gitops-repo-server` pod has completed initialization and the previous pod is terminated before the newly added container image content is available.
+

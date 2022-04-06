@@ -22,7 +22,7 @@ $ mkdir -p ./out
 +
 [source,terminal]
 ----
-$ podman run --rm ztp-site-generator:latest extract /home/ztp --tar | tar x -C ./out
+$ podman run -t --rm ztp-site-generator:latest extract /home/ztp --tar | tar x -C ./out
 ----
 +
 The `/out` directory contains the following subdirectories:
