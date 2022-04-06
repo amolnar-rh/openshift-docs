@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 //
-// * networking/using-rfhe.adoc
+// * monitoring/using-rfhe.adoc
 
 :_content-type: REFERENCE
 [id="cnf-rfhe-notifications-api-refererence_{context}"]
