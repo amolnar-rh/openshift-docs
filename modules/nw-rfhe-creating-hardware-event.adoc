@@ -6,7 +6,7 @@
 [id="nw-rfhe-creating-hardware-event_{context}"]
 = Creating the Redfish HardwareEvent and Secret CRs
 
-To start using baremetal hardware events, create the a `HardwareEvent` custom resource (CR) for the host where the Redfish hardware is present. Hardware events and faults are reported in the `hw-event-proxy` logs.
+To start using bare-metal hardware events, create the a `HardwareEvent` custom resource (CR) for the host where the Redfish hardware is present. Hardware events and faults are reported in the `hw-event-proxy` logs.
 
 .Prerequisites
 
