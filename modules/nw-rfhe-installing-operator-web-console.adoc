@@ -1,6 +1,7 @@
 // Module included in the following assemblies:
 //
-// * networking/using-rfhe.adoc
+// * monitoring/using-rfhe.adoc
+
 :_content-type: PROCEDURE
 [id="nw-rfhe-installing-operator-web-console_{context}"]
 = Installing the Baremetal Hardware Event Proxy Operator using the web console

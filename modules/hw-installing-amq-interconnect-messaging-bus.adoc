@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 //
-// * networking/using-rfhe.adoc
+// * monitoring/using-rfhe.adoc
 
 :_content-type: PROCEDURE
 [id="hw-installing-amq-interconnect-messaging-bus_{context}"]
@@ -34,7 +34,7 @@ amq-interconnect-645db76c76-k8ghs       1/1     Running   0          23h
 interconnect-operator-5cb5fc7cc-4v7qm   1/1     Running   0          23h
 ----
 
-. Check that the required `hw-event-proxy` hardware event producer pod is running in the `openshift-hw-events` namespace.
+. Verify that the required `hw-event-proxy` hardware event producer pod is running in the `openshift-hw-events` namespace.
 +
 [source,terminal]
 ----

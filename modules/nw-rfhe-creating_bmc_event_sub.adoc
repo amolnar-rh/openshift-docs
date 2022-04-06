@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 //
-// * networking/using-rfhe.adoc
+// * monitoring/using-rfhe.adoc
 
 :_content-type: PROCEDURE
 [id="nw-rfhe-creating_bmc_event_sub_{context}"]
@@ -15,10 +15,10 @@ You can only create a `BMCEventSubscription` CR for physical hardware that suppo
 
 [NOTE]
 ====
-Use the `BMCEventSubscription` CR to subscribe to pre-defined Redfish events. The Redfish standard does not provide an option to create specific alerts and thresholds. For example, to receive an alert event when an enclosure's temperature exceeds 40° Celsius, you need to manually configure the event according to the vendor's recommendations.
+Use the `BMCEventSubscription` CR to subscribe to predefined Redfish events. The Redfish standard does not provide an option to create specific alerts and thresholds. For example, to receive an alert event when an enclosure's temperature exceeds 40° Celsius, you must manually configure the event according to the vendor's recommendations.
 ====
 
-To subscribe to Redfish hardware events for the node using a `BMCEventSubscription` custom resource (CR), perform the following procedure:
+Perform the following procedure to subscribe to Redfish hardware events for the node using a `BMCEventSubscription` custom resource (CR).
 
 .Prerequisites
 * Install the OpenShift CLI (`oc`).

@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 //
-// * networking/using-rfhe.adoc
+// * monitoring/using-rfhe.adoc
 
 :_content-type: PROCEDURE
 [id="nw-rfhe-installing-operator-cli_{context}"]
@@ -88,7 +88,9 @@ spec:
 $ oc create -f hw-events-sub.yaml
 ----
 
-. To verify that the Operator is installed, enter the following command:
+.Verification
+
+To verify that the Operator is installed, run the following command:
 +
 [source,terminal]
 ----
