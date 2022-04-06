@@ -23,11 +23,13 @@ As a cluster administrator, you can install the Baremetal Hardware Event Proxy O
 
 .. On the *Install Operator* page, select or create a *Namespace*, select *baremetal-hardware-event-proxy-operator*, and then click *Install*.
 
-. Optional: Verify that the Baremetal Hardware Event Proxy Operator installed successfully:
+.Verification
 
-.. Switch to the *Operators* -> *Installed Operators* page.
+Optional: You can verify that the Operator installed successfully by performing the following check:
 
-.. Ensure that *Baremetal Hardware Event Proxy Operator* is listed in the project with a *Status* of *InstallSucceeded*.
+. Switch to the *Operators* -> *Installed Operators* page.
+
+. Ensure that *Baremetal Hardware Event Proxy Operator* is listed in the project with a *Status* of *InstallSucceeded*.
 +
 [NOTE]
 ====

@@ -19,7 +19,7 @@ To pass Redfish hardware event notifications between publisher and subscriber on
 
 .Verification
 
-. Check that the AMQ Interconnect Operator is available and the required pods are running:
+. Verify that the AMQ Interconnect Operator is available and the required pods are running:
 +
 [source,terminal]
 ----
