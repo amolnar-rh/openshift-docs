@@ -126,7 +126,7 @@ include::modules/ztp-adding-new-content-to-gitops-ztp.adoc[leveloffset=+2]
 
 include::modules/ztp-customizing-the-install-extra-manifests.adoc[leveloffset=+2]
 
-include::modules/ztp-deploying-a-site.adoc[leveloffset=+21]
+include::modules/ztp-deploying-a-site.adoc[leveloffset=+1]
 
 include::modules/ztp-talo-integration.adoc[leveloffset=+1]
 
