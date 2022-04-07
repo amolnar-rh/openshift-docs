@@ -1,18 +1,17 @@
 :_content-type: ASSEMBLY
-include::_attributes/serverless-document-attributes.adoc[]
+include::_attributes/common-attributes.adoc[]
 [id="serverless-cluster-admin-serving"]
 = Creating Knative Serving components in the Administrator perspective
-include::_attributes/common-attributes.adoc[]
 :context: serverless-cluster-admin-serving
 
 toc::[]
 
 ifdef::openshift-enterprise[]
-If you have cluster administrator permissions on an {product-title} cluster, you can create Knative Serving components with {ServerlessProductName} in the *Administrator* perspective of the web console or by using the `kn` and `oc` CLIs.
+If you have cluster administrator permissions on an {product-title} cluster, you can create Knative Serving components with {ServerlessProductName} in the *Administrator* perspective of the web console or by using the Knative (`kn`) and OpenShift (`oc`) CLIs.
 endif::[]
 
 ifdef::openshift-dedicated[]
-If you have cluster or dedicated administrator permissions on an {product-title} cluster, you can create Knative Serving components with {ServerlessProductName} in the *Administrator* perspective of the web console or by using the `kn` and `oc` CLIs.
+If you have cluster or dedicated administrator permissions on an {product-title} cluster, you can create Knative Serving components with {ServerlessProductName} in the *Administrator* perspective of the web console or by using the Knative (`kn`) and OpenShift (`oc`) CLIs.
 endif::[]
 
 // Create services as an admin

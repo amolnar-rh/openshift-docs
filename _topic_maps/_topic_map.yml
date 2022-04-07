@@ -1255,7 +1255,7 @@ Topics:
     File: persistent-storage-local
   - Name: Persistent storage using NFS
     File: persistent-storage-nfs
-  - Name: Persistent storage using Red Hat OpenShift Container Storage
+  - Name: Persistent storage using Red Hat OpenShift Data Foundation
     File: persistent-storage-ocs
   - Name: Persistent storage using VMware vSphere
     File: persistent-storage-vsphere
@@ -1553,12 +1553,6 @@ Topics:
   - Name: Setting up additional trusted certificate authorities for builds
     File: setting-up-trusted-ca
     Distros: openshift-enterprise,openshift-origin
-- Name: Migrating from Jenkins to Tekton
-  Dir: jenkins-tekton
-  Distros: openshift-enterprise
-  Topics:
-  - Name: Migrating from Jenkins to Tekton
-    File: migrating-from-jenkins-to-tekton
 - Name: Pipelines
   Dir: pipelines
   Distros: openshift-enterprise
@@ -1615,6 +1609,13 @@ Topics:
     File: configuring-sso-for-argo-cd-using-keycloak
   - Name: Running Control Plane Workloads on Infra nodes
     File: run-gitops-control-plane-workload-on-infra-nodes
+- Name: Jenkins
+  Dir: jenkins
+  Distros: openshift-enterprise
+  Topics:
+  - Name: Migrating from Jenkins to OpenShift Pipelines
+    File: migrating-from-jenkins-to-openshift-pipelines
+
 ---
 Name: Images
 Dir: openshift_images
@@ -1993,10 +1994,10 @@ Name: Windows Container Support for OpenShift
 Dir: windows_containers
 Distros: openshift-origin,openshift-enterprise
 Topics:
-- Name: Windows Container Support for Openshift overview
+- Name: Red Hat OpenShift support for Windows Containers overview
   File: index
-- Name: Windows Container Support for OpenShift release notes
-  File: windows-containers-release-notes-4-x
+- Name: Red Hat OpenShift support for Windows Containers release notes
+  File: windows-containers-release-notes-5-x
 - Name: Understanding Windows container workloads
   File: understanding-windows-container-workloads
 - Name: Enabling Windows container workloads
@@ -2199,6 +2200,9 @@ Topics:
 - Name: Provisioning and deploying a distributed unit (DU)
   File: cnf-provisioning-and-deploying-a-distributed-unit
   Distros: openshift-webscale
+- Name: Workload partitioning on single node OpenShift
+  File: sno-du-enabling-workload-partitioning-on-single-node-openshift
+  Distros: openshift-origin,openshift-enterprise  
 - Name: Deploying distributed units at scale in a disconnected environment
   File: ztp-deploying-disconnected
   Distros: openshift-origin,openshift-enterprise
@@ -2244,7 +2248,7 @@ Topics:
       File: installing-oadp-gcp
     - Name: Installing and configuring OADP with MCG
       File: installing-oadp-mcg
-    - Name: Installing and configuring OADP with OCS
+    - Name: Installing and configuring OADP with ODF
       File: installing-oadp-ocs
     - Name: Uninstalling OADP
       File: uninstalling-oadp
