@@ -6,7 +6,7 @@ file// Module included in the following assemblies:
 [id="ztp-validating-the-generation-of-installation-crs_{context}"]
 = Validating the generation of installation CRs
 
-You can apply the installation custom resources (CRs) to the hub cluster in a namespace with name matching the site name using the following command:
+The GitOps ZTP infrastructure generates a set of installation CRs on the hub cluster in response to a `SiteConfig` CR pushed to your Git repository. You can check that the installation CRs were created by using the following command:
 
 [source,terminal]
 ----

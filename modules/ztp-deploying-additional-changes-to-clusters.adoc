@@ -20,7 +20,7 @@ When the GitOps ZTP pipeline deployment is complete, the deployed cluster is rea
 
 Add content to the ZTP library::
 
-The base source CRs that you deploy with the GitOps ZTP pipline can be augmented with custom content as required.
+The base source CRs that you deploy with the GitOps ZTP pipeline can be augmented with custom content as required.
 
 Create extra manifests for the cluster installation::
 

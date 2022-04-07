@@ -6,11 +6,13 @@
 [id="ztp-policygentemplates-for-ran_{context}"]
 = PolicyGenTemplate CRs for RAN deployments
 
-You can customize cluster custom resources (CRs) that you deploy using the GitOps ZTP pipeline. Use `PolicyGenTemplate` CRs as the basis to create a hierarchy of configuration files tailored to your specific site requirements.
+You use `PolicyGenTemplate` custom resources (CRs) to customize the configuration applied to the cluster using the GitOps ZTP pipeline. The baseline configuration, obtained from the GitOps ZTP container, is designed to provide a set of critical features and node tuning settings that ensure the cluster can support the stringent performance and resource utilization constraints typical of RAN Distributed Unit (DU) applications. Changes or omissions from the baseline configuration can affect feature availability, performance, and resource utilization. Use `PolicyGenTemplate` CRs as the basis to create a hierarchy of configuration files tailored to your specific site requirements.
 
-The `PolicyGenTemplate` CRs that are relevant to RAN cluster configuration can be found in the `/home/ztp/argocd/example` folder in the `registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.10` reference architecture container image. The reference architecture has a `/policygentemplates` and `/siteconfig` folder. The `/policygentemplates` folder has common, group, and site-specific configuration CRs. Each `PolicyGenTemplate` CR refers to other CRs that are in the `/source-crs` folder of the reference architecture.
+The baseline `PolicyGenTemplate` CRs that are defined for RAN DU cluster configuration can be extracted from the GitOps ZTP `ztp-site-generator`. See "Preparing the ZTP Git repository" for further details.
 
-The `PolicyGenTemplate` CRs relevant to RAN cluster configuration are described below.
+The `PolicyGenTemplate` CRs can be found in the `./out/argocd/example/policygentemplates` folder. The reference architecture has common, group, and site-specific configuration CRs. Each `PolicyGenTemplate` CR refers to other CRs that can be found in the `./out/source-crs` folder.
+
+The `PolicyGenTemplate` CRs relevant to RAN cluster configuration are described below. Variants are provided for the group `PolicyGenTemplate` CRs to account for differences in single-node, three-node compact, and standard cluster configurations. Similarly, site-specific configuration variants are provided for single-node clusters and multi-node (compact or standard) clusters. Use the group and site-specific configuration variants that are relevant for your deployment.
 
 .PolicyGenTemplate CRs for RAN deployments
 [cols=2*, options="header"]
@@ -19,7 +21,7 @@ The `PolicyGenTemplate` CRs relevant to RAN cluster configuration are described 
 |Description
 
 |`common-ranGen.yaml`
-|Contains the common RAN policies that get applied to all clusters. To deploy the Operators to your clusters, you configure `Namespace`, `Subscription`, and `OperatorGroup` CRs.
+|Contains a set of common RAN CRs that get applied to all clusters. These CRs subscribe to a set of operators providing cluster features typical for RAN as well as baseline cluster tuning.
 
 |`group-du-3node-ranGen.yaml`
 |Contains the RAN policies for three-node clusters only.

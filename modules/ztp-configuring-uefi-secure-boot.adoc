@@ -32,7 +32,7 @@ spec:
     - efi=runtime
 ----
 
-. In your custom `/siteconfig` directory, create a `/sno-extra-manifest` folder and add the `uefi-secure-boot.yaml` file, for example:
+. In your Git repository custom `/siteconfig` directory, create a `/sno-extra-manifest` folder and add the `uefi-secure-boot.yaml` file, for example:
 +
 [source,text]
 ----
@@ -43,85 +43,27 @@ siteconfig
     └── uefi-secure-boot.yaml
 ----
 
-. In your `SiteConfig` CR, enter the directory name in the `extraManifestPath` field and set the value for `bootMode` to `UEFISecureBoot`, for example:
+. In your cluster `SiteConfig` CR, specify the required values for `extraManifestPath` and `bootMode`:
+
+.. Enter the directory name in the `.spec.clusters.extraManifestPath` field, for example:
 +
 [source,yaml]
 ----
-apiVersion: ran.openshift.io/v1
-kind: SiteConfig
-metadata:
-  name: "example-cluster"
-  namespace: "example-cluster"
-spec:
-  baseDomain: "ran.base-domain.lab"
-  pullSecretRef:
-    name: "pull-secret"
-  clusterImageSetNameRef: "img4.9.9-x86-64-appsub"
-  sshPublicKey: "<ssh_public_key>"
-  clusters:
-    - clusterName: "example-cluster"
-      extraManifestPath: siteconfig/sno-extra-manifest/
-      networkType: "OVNKubernetes"
-      clusterType: sno
-      clusterProfile: du
-      clusterLabels:
-        group-du-sno: ""
-        group-example-cluster: ""
-        common-example-cluster: true
-        siteName : "example-cluster"
-      clusterNetwork:
-        - cidr: 10.128.0.0/14
-          hostPrefix: 23
-      machineNetwork:
-        - cidr: 192.168.203.0/24
-      serviceNetwork:
-        - 172.30.0.0/16
-      additionalNTPSources:
-        - "2.pool.ntp.org"
-      nodes:
-        - hostName: "ran.example.lab"
-          bmcAddress: "idrac-virtualmedia+https://192.168.200.15/redfish/v1/Systems/System.Embedded.1"
-          bmcCredentialsName:
-            name: "bmh-secret"
-          bootMACAddress: "0c:42:a1:bc:68:c4"
-          bootMode: "UEFISecureBoot"
-          cpuset: "0-1,52-53"
-          nodeNetwork:
-            interfaces:
-              - name: eno1
-                macAddress: "0c:42:a1:bc:68:c4"
-            config:
-              interfaces:
-                - ipv6:
-                    enabled: false
-                  ipv4:
-                    address:
-                      - ip: 192.168.203.10
-                        prefix-length: 24
-                      - ip: 192.168.203.11
-                        prefix-length: 24
-                      - ip: 192.168.203.12
-                        prefix-length: 24
-                    enabled: true
-                  macAddress: "0c:42:a1:bc:68:c4"
-                  name: eno1
-                  state: up
-                  type: ethernet
-              routes:
-                config:
-                  - destination: 0.0.0.0/0
-                    next-hop-address: 192.168.203.9
-                    next-hop-interface: eno1
-                    table-id: 254
-              dns-resolver:
-                config:
-                  search:
-                    - example.com
-                  server:
-                    - 192.168.203.9
+clusters:
+  - clusterName: "example-cluster"
+    extraManifestPath: sno-extra-manifest/
 ----
 
-. Deploy the cluster.
+.. Set the value for `.spec.clusters.nodes.bootMode` to `UEFISecureBoot`, for example:
++
+[source,yaml]
+----
+nodes:
+  - hostName: "ran.example.lab"
+    bootMode: "UEFISecureBoot"
+----
+
+. Deploy the cluster using the GitOps ZTP pipeline.
 
 .Verification
 
@@ -132,7 +74,7 @@ spec:
 $ oc debug node/node-1.example.com
 ----
 
-. Verify that the SecureBoot feature is enabled:
+. Verify that the `SecureBoot` feature is enabled:
 +
 [source,terminal]
 ----

@@ -6,11 +6,11 @@
 [id="ztp-how-to-plan-your-ran-policies_{context}"]
 = How to plan your RAN policies
 
-Zero touch provisioning (ZTP) uses {rh-rhacm-first} to apply the radio access network (RAN) policies using a policy-based governance approach to automatically monitor cluster activity.
+Zero touch provisioning (ZTP) uses {rh-rhacm-first} to apply the radio access network (RAN) configuration using a policy-based governance approach to apply the configuration.
 
-The policy generator or `PolicyGen` is a Kustomize plugin that facilitates creating {rh-rhacm} policies from predefined custom resources. There are three main items: Policy Categorization, Source CR policy, and `PolicyGenTemplate`. `PolicyGen` relies on these to generate the policies and their placement bindings and rules.
+The policy generator or `PolicyGen` is a part of the GitOps ZTP tooling that facilitates creating {rh-rhacm} policies from a set of predefined custom resources. There are three main items: policy categorization, source CR policy, and the `PolicyGenTemplate` CR. `PolicyGen` uses these to generate the policies and their placement bindings and rules.
 
-The following diagram shows how the RAN policy generator interacts with GitOps and ACM.
+The following diagram shows how the RAN policy generator interacts with GitOps and {rh-rhacm}.
 
 image::217_OpenShift_Zero_Touch_Provisioning_updates_0222_3.png[RAN policy generator]
 
