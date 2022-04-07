@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 // Epic CNF-2600 (CNF-2133) (4.10), Story TELCODOCS-285
-// * scalability_and_performance/ztp-deploying-disconnected.adoc
+// * scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc
 
 :_content-type: PROCEDURE
 [id="talo-precache-feature_{context}"]
@@ -52,14 +52,11 @@ metadata:
   name: du-upgrade-4918
   namespace: ztp-group-du-sno
 spec:
-  actions:
-    preCaching: true <1>
-    afterCompletion:
-      deleteObjects: true
+  preCaching: true <1>
   clusters:
   - cnfdb1
   - cnfdb2
-  enable: true
+  enable: false
   managedPolicies:
   - du-upgrade-platform-upgrade
   remediationStrategy:
@@ -133,15 +130,16 @@ $ oc get cgu -n ztp-group-du-sno du-upgrade-4918 -o jsonpath='{.status}' | jq
       "cnfdb1" <2>
     ],
     "spec": {
-      "platformImage": "image.example.io"
- },
+      "platformImage": "image.example.io"},
     "status": {
-      "cnfdb1": "Active"
+      "cnfdb1": "Active"}
+    }
+}
 ----
 <1> Displays that the update is in progress.
 <2> Displays the list of identified clusters.
 
-. Check the status of the pre-caching job by running the following command:
+. Check the status of the pre-caching job by running the following command on the spoke cluster:
 +
 [source,terminal]
 ----
@@ -170,7 +168,7 @@ $ oc get cgu -n ztp-group-du-sno du-upgrade-4918 -o jsonpath='{.status}' | jq
 +
 [source,json]
 ----
-conditions": [
+"conditions": [
     {
       "lastTransitionTime": "2022-01-27T19:30:41Z",
       "message": "The ClusterGroupUpgrade CR has all clusters compliant with all the managed policies",

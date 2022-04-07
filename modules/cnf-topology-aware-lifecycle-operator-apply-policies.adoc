@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 // Epic CNF-2600 (CNF-2133) (4.10), Story TELCODOCS-285
-// * scalability_and_performance/ztp-deploying-disconnected.adoc
+// * scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc
 
 :_content-type: PROCEDURE
 [id="talo-apply-policies_{context}"]
@@ -10,7 +10,7 @@ The Topology Aware Lifecycle Operator remediates a set of `inform` policies for 
 
 One by one, TALO adds each cluster from the current batch to the placement rule that corresponds with the applicable managed policy. If a cluster is already compliant with a policy, TALO skips applying that policy on the compliant cluster. TALO then moves on to applying the next policy, with which the cluster is non-compliant. After a batch is updated, all clusters are removed from the placement rules associated with the copied policies. Then, the update of the next batch starts.
 
-Due to managed cluster or {rh-rhacm} issues, the managed policies can be missing status information that TALO needs. TALO handles these cases in the following ways:
+If a spoke cluster does not report any compliant state to {rh-rhacm}, the managed policies on the hub cluster can be missing status information that TALO needs. TALO handles these cases in the following ways:
 
 * If a policy's `status.compliant` field is missing, TALO ignores the policy and TALO adds a log entry. Then TALO continues looking at the policy's `status.status` field.
 * If a policy's `status.status` is missing, TALO throws an error.
@@ -308,4 +308,25 @@ oc get clusterversion
 ----
 NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
 version   4.9.5     True        True          43s     Working towards 4.9.7: 71 of 735 done (9% complete)
+----
+
+. Check the 
++
+[source,terminal]
+----
+$ oc get subs
+----
+
+. Check the 
++
+[source,terminal]
+----
+$ oc get installplans
+----
+
+. Check the 
++
+[source,terminal]
+----
+$ oc get csv
 ----

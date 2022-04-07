@@ -34,8 +34,8 @@ spec:
     group-du-sno: ""
   mcp: "master"
   remediationAction: inform
-  sourceFiles: <1>
-    - fileName: ImageSignature.yaml
+  sourceFiles: 
+    - fileName: ImageSignature.yaml <1>
       policyName: "platform-upgrade-prep"
       binaryData:
         ${DIGEST_ALGO}-${DIGEST_ENCODED}: ${SIGNATRUE_BASE64} <2>
@@ -71,13 +71,13 @@ spec:
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
 <2> Shows the image signature of the desired {product-title} release. To get the signature and replace the variables with the values, see step 2-7 of xref:../updating/updating-restricted-network-cluster.html#update-configuring-image-signature[Creating an image signature config map manually].
 <3> Shows the mirror repository that contains the desired {product-title} image.
-<4> Shows the source repository that the desired {product-title} image is pulled from.
+<4> Shows the source repository that the desired {product-title} image is pulled from. You can list the required mirror registries by running the `oc adm release mirror` command.
 <5> Shows the `ClusterVersion` CR to update upstream.
 <6> Shows the `ClusterVersion` CR to trigger the update. The `channel`, `upstream`, and `desiredVersion` fields are all required for image pre-caching.
 +
 The `PolicyGenTemplate` CR generates two policies:
 
-`du-upgrade-platform-prep`:: This policy does the preparation work for the platform update. It creates the `ConfigMap` CR for the desired release image signature, creates the image content source of the mirrored release image repository, and updates the cluster version with the upgrade graph.
+`du-upgrade-platform-upgrade-prep`:: This policy does the preparation work for the platform update. It creates the `ConfigMap` CR for the desired release image signature, creates the image content source of the mirrored release image repository, and updates the cluster version with the desired update channel and the update graph reachable by the spoke cluster in the disconnected environment.
 
 `du-upgrade-platform-upgrade`:: This is the policy used to perform platform upgrade.
 
@@ -111,9 +111,6 @@ spec:
   remediationStrategy:
     maxConcurrency: 1
   enable: true
-  actions:
-    afterCompletion:
-      deleteObjects: true
 ----
 
 .. Apply the policy to the Hub cluster by running the following command:
@@ -143,15 +140,12 @@ metadata:
 spec:
   managedPolicies:
   - du-upgrade-platform-upgrade
-    preCaching: true
+  preCaching: true
   clusters:
   - spoke1
   remediationStrategy:
     maxConcurrency: 1
   enable: false
-  actions:
-    afterCompletion:
-      deleteObjects: true
 ----
 
 .. Apply the CR to the Hub cluster by running the following command:
@@ -161,7 +155,7 @@ spec:
 $ oc apply -f cgu-platform-upgrade-prep.yml
 ----
 
-.. Monitor the date process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command:
+.. Monitor the date process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
 +
 [source,terminal]
 ----

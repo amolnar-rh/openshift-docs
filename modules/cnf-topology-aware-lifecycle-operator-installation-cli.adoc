@@ -12,7 +12,7 @@ You can use the OpenShift CLI (`oc`) to install the Topology Aware Lifecycle Ope
 
 * Install the OpenShift CLI (`oc`).
 * Install the latest version of {rh-rhacm} Operator.
-* Set up a Hub cluster with disconnected regitry.
+* Set up a Hub cluster with disconnected registry.
 * Log in as a user with `cluster-admin` privileges.
 
 .Procedure

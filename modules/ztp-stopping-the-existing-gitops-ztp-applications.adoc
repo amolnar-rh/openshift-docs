@@ -16,7 +16,7 @@ Use the application files from the `deployment` directory. If you used custom na
 +
 [source,terminal]
 ----
-$ oc delete -f clusters-app.yaml
+$ oc delete -f out/argocd/deployment/clusters-app.yaml
 ----
 
 . Perform a cascaded delete on the `policies` application to remove all previous policies:
@@ -28,5 +28,5 @@ $ oc patch -f policies-app.yaml -p '{"metadata": {"finalizers": ["resources-fina
 +
 [source,terminal]
 ----
-$ oc delete -f policies-app.yaml
+$ oc delete -f out/argocd/deployment/policies-app.yaml
 ----

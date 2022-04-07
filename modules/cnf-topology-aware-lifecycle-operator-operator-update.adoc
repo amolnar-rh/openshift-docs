@@ -102,12 +102,12 @@ ArgoCD pulls the changes from the git repository and generates the policies on t
 +
 [source,terminal]
 ----
-$ oc get policies -A | grep platform-upgrade
+$ oc get policies -A | grep -E "catsrc-policy|subscription"
 ----
 
 . Apply the required catalog sources updates before starting the Operator update.
 
-.. Save the content of the `operator-upgrade-prep` `ClusterGroupUpgrade` CR with the catalog source policies and the target spoke clusters to the `cgu-operator-upgrade-prep.yml` file.
+.. Save the content of the `cgu-operator-upgrade-prep` `ClusterGroupUpgrade` CR with the catalog source policies and the target spoke clusters to the `cgu-operator-upgrade-prep.yml` file.
 +
 [source,yaml]
 ----
@@ -162,9 +162,6 @@ spec:
   remediationStrategy:
     maxConcurrency: 1
   enable: false
-  actions:
-    afterCompletion:
-      deleteObjects: true
 ----
 <1> The policy that updates the catalog source
 <2> The policy contains the Operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following the xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-upgrading-gitops-ztp_ztp-deploying-disconnected[Upgrading GitOps ZTP] procedure, all Operator subscriptions should be grouped into the `common-subscriptions-policy` policy.
@@ -196,7 +193,7 @@ common-subscriptions-policy   inform               NonCompliant       27d
 $ oc apply -f cgu-operator-upgrade.yml
 ----
 
-.. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command:
+.. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
 +
 [source,terminal]
 ----

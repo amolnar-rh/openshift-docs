@@ -26,8 +26,9 @@ For more information, see xref:../scalability_and_performance/ztp-deploying-disc
 . Prepare the update graph. You can do this the following ways:
 .. Use the OpenShift Update Service.
 +
-For more information, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/latest/html/clusters/managing-your-clusters#upgrading-disconnected-clusters[Upgrading disconnected clusters].
-.. Make a local copy of the upstream graph and save the graph in the disconnected environment.
+For more information, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#upgrading-disconnected-clusters[Upgrading disconnected clusters].
+
+.. Make a local copy of the upstream graph and host it on a http or https server in the disconnected environment to which spoke cluster has access.
 
 * For Operator updates, you have to do the following:
 +

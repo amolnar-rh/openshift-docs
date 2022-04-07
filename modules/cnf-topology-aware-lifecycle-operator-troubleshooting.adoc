@@ -87,7 +87,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.spec.managedPolicies}'
 +
 [source,json]
 ----
-[group-du-sno-validator-du-validator-policy policy2-common-pao-sub-policy policy3-common-ptp-sub-policy]
+["group-du-sno-validator-du-validator-policy", "policy2-common-pao-sub-policy", "policy3-common-ptp-sub-policy"]
 ----
 
 [discrete]
@@ -272,7 +272,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.spec.clusters}'
 +
 [source,json]
 ----
-[spoke1 spoke3]
+["spoke1", "spoke3"]
 ----
 
 . Check if the canary clusters are present in the list of clusters that match `clusterSelector` labels by running the following command:
@@ -315,7 +315,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.spec.remediationStrategy}'
 +
 [source,json]
 ----
-map[canaries:[spoke3] maxConcurrency:2 timeout:240]
+map{"canaries":["spoke3"], "maxConcurrency":2, "timeout":240}
 ----
 
 [discrete]
@@ -356,7 +356,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.status.conditions}'
 +
 [source,json]
 ----
-[map[lastTransitionTime:2022-02-17T22:25:28Z message:The ClusterGroupUpgrade CR has managed policies that are missing: [policyThatDoesntExist] reason:UpgradeCannotStart status:False type:Ready]]
+[map{"lastTransitionTime":"2022-02-17T22:25:28Z", "message":"The ClusterGroupUpgrade CR has managed policies that are missing:[policyThatDoesntExist]", "reason":"UpgradeCannotStart", "status":"False", "type":"Ready"}]
 ----
 
 [discrete]
@@ -400,7 +400,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.status.remediationPlan}'
 +
 [source,json]
 ----
-[[spoke2 spoke3]]
+[["spoke2", "spoke3"]]
 ----
 
 [discrete]

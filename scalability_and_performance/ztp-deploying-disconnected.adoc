@@ -188,33 +188,7 @@ include::modules/ztp-installing-the-new-gitops-ztp-applications.adoc[leveloffset
 
 include::modules/ztp-roll-out-the-configuration-changes.adoc[leveloffset=+2]
 .Additional resources
-* For information about creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#talo-create-cgu-cr_ztp-deploying-disconnected[Creating the ClusterGroupUpgrade CR].
-
-// TALO
-
-include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
-
-.Additional resources
-
-* For more information about the Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
-
-* For more information about updating clusters in a disconnected environment, see xref:../updating/updating-restricted-network-cluster.adoc#update-service-overview_updating-restricted-network-cluster[Updating a restricted network cluster using the OpenShift Update Service].
-
-include::modules/cnf-topology-aware-lifecycle-operator-create-cgu-cr.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-apply-policies.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-precache-feature.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-operator-and-platform-update.adoc[leveloffset=+2]
-
-include::modules/cnf-topology-aware-lifecycle-operator-troubleshooting.adoc[leveloffset=+2]
+* For information about creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#talo-precache-autocreated-cgu-for-ztp_ztp-deploying-disconnected[About the auto-created ClusterGroupUpgrade CR for ZTP].
 
 // Manual installation moved here
 
@@ -233,3 +207,21 @@ include::modules/ztp-configuring-the-cluster-for-a-disconnected-environment.adoc
 include::modules/ztp-configuring-ipv6.adoc[leveloffset=+2]
 
 include::modules/ztp-troubleshooting-the-managed-cluster.adoc[leveloffset=+2]
+
+// TALO
+
+include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
+
+.Additional resources
+
+* For more information about the Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
+
+include::modules/cnf-topology-aware-lifecycle-operator-autocreate-cgu-cr-ztp.adoc[leveloffset=+1]
+
+include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
+
+include::modules/cnf-topology-aware-lifecycle-operator-operator-and-platform-update.adoc[leveloffset=+2]

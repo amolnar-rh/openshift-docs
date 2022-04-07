@@ -33,14 +33,11 @@ spec:
   managedPolicies:
   - du-upgrade-platform-upgrade-prep
   - du-upgrade-operator-catsrc-policy
-  clusters:
-  - spoke1
+  clusterSelector:
+  - group-du-sno
   remediationStrategy:
-    maxConcurrency: 1
+    maxConcurrency: 10
   enable: true
-  actions:
-    afterCompletion:
-      deleteObjects: true
 ----
 
 .. Apply the `cgu-platform-operator-upgrade-prep.yml` to the Hub cluster by running the following command:
@@ -57,8 +54,8 @@ $ oc apply -f cgu-platform-operator-upgrade-prep.yml
 $ oc get policies --all-namespaces
 ----
 
-. Pre-cache the images for the Operator update.
-.. Save the content of the Operator upgrade `ClusterGroupUpgrade` CR with the policies and the target clusters to the `cgu-platform-operator-upgrade.yml file`. This `ClusterGroupUpgrade` CR is configured to only perform the pre-caching job without the actual platform and Operator update.
+. Pre-cache the images for the platform and the Operator update.
+.. Save the content of the platform and the Operator update `ClusterGroupUpgrade` CR with the policies and the target clusters to the `cgu-platform-operator-upgrade.yml file`. This `ClusterGroupUpgrade` CR is configured to only perform the pre-caching job without the actual platform and Operator update.
 +
 [source,yaml]
 ----
@@ -73,17 +70,14 @@ spec:
   - du-upgrade-operator-catsrc-policy <2>
   - common-subscriptions-policy <3>
   preCaching: true
-  clusters:
-  - spoke1
+  clusterSelector:
+  - group-du-sno
   remediationStrategy:
     maxConcurrency: 1
   enable: false
-  actions:
-    afterCompletion:
-      deleteObjects: true
 ----
 <1> This is the platform update policy.
-<2> This is the policy to update the catalog source.
+<2> This is the policy containing the catalog source information for the Operators to be updated. It is needed for the pre-caching feature to determine which Operator images to download to the spoke cluster.
 <3> This is the policy to update the Operators.
 
 .. Apply the `cgu-platform-operator-upgrade.yml` to the Hub cluster by running the following command:
@@ -93,7 +87,7 @@ spec:
 $ oc apply -f cgu-platform-operator-upgrade.yml
 ----
 
-.. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command:
+.. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
 +
 [source,terminal]
 ----
