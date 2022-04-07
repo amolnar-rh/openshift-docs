@@ -35,25 +35,14 @@ include::modules/ztp-low-latency-for-distributed-units-dus.adoc[leveloffset=+1]
 
 include::modules/ztp-acm-preparing-to-install-disconnected-acm.adoc[leveloffset=+1]
 
-include::modules/ztp-disconnected-environment-prereqs.adoc[leveloffset=+2]
-
-include::modules/installation-about-mirror-registry.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
 .Additional resources
 
-* For information about using the CRI-O logs to view the image source,
-see xref:../installing/validating-an-installation.adoc#viewing-the-image-pull-source_validating-an-installation[Viewing the image pull source].
+* For more information about creating the disconnected mirror registry, see xref:../installing/disconnected_install/installing-mirroring-creating-registry.adoc#installing-mirroring-creating-registry[Creating a mirror registry].
 
-include::modules/ztp-installing-preparing-mirror.adoc[leveloffset=+2]
+* For more information about mirroring images to the disconnected registry, see xref:../installing/disconnected_install/installing-mirroring-installation-images.html#installing-mirroring-installation-images[Mirroring images for a disconnected installation].
 
-include::modules/cli-installing-cli.adoc[leveloffset=+3]
-
-include::modules/installation-adding-registry-pull-secret.adoc[leveloffset=+3]
-
-include::modules/installation-mirror-repository.adoc[leveloffset=+3]
-
-include::modules/ztp-acm-adding-images-to-mirror-registry.adoc[leveloffset=+3]
+include::modules/ztp-acm-adding-images-to-mirror-registry.adoc[leveloffset=+2]
 
 include::modules/ztp-acm-installing-disconnected-rhacm.adoc[leveloffset=+1]
 
@@ -117,14 +106,14 @@ include::modules/ztp-deploying-additional-changes-to-clusters.adoc[leveloffset=+
 
 * See xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-customizing-the-install-extra-manifests_ztp-deploying-disconnected[Customizing the ZTP GitOps pipeline with extra manifests] for more information on adding extra manifests.
 
-include::modules/ztp-adding-new-content-to-gitops-ztp.adoc[leveloffset=+2]
+include::modules/ztp-adding-new-content-to-gitops-ztp.adoc[leveloffset=+1]
 
 [role="_additional-resources"]
 .Additional resources
 
 * Alternatively, you can patch the Argo CD instance as described in xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-preparing-the-hub-cluster-for-ztp_ztp-deploying-disconnected[Preparing the hub cluster for ZTP] by modifying `argocd-openshift-gitops-patch.json` with an updated `initContainer` image before applying the patch file.
 
-include::modules/ztp-customizing-the-install-extra-manifests.adoc[leveloffset=+2]
+include::modules/ztp-customizing-the-install-extra-manifests.adoc[leveloffset=+1]
 
 include::modules/ztp-deploying-a-site.adoc[leveloffset=+1]
 

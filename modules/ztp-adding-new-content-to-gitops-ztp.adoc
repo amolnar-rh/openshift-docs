@@ -6,7 +6,7 @@
 [id="ztp-adding-new-content-to-gitops-ztp_{context}"]
 = Adding new content to the GitOps ZTP pipeline
 
-To add or modify existing source CRs in the `ztp-site-generate` container, rebuild the `ztp-site-generate` container and make it available to the hub cluster, typically from the disconnected registry associated with the hub cluster. Any valid {product-title} CR can be added.
+The source CRs in the GitOps ZTP site generator container provide a set of critical features and node tuning settings for RAN Distributed Unit (DU) applications. These are applied to the clusters that you deploy with ZTP. To add or modify existing source CRs in the `ztp-site-generate` container, rebuild the `ztp-site-generate` container and make it available to the hub cluster, typically from the disconnected registry associated with the hub cluster. Any valid {product-title} CR can be added.
 
 Perform the following procedure to add new content to the ZTP pipeline.
 
@@ -57,20 +57,18 @@ When the Argo CD instance is patched, the `openshift-gitops-repo-server` pod aut
 
 .Verification
 
-. Verify that the new `openshift-gitops-repo-server` pod has completed initialization and that the previous repo pod has terminated:
+. Verify that the new `openshift-gitops-repo-server` pod has completed initialization and that the previous repo pod is terminated:
 +
 [source,terminal]
 ----
-$ oc get pods | grep openshift-gitops-server
+$ oc get pods -n openshift-gitops | grep openshift-gitops-repo-server
 ----
 +
 .Example output
 +
 [source,terminal]
 ----
-NAME                                              READY   STATUS    		 RESTARTS   AGE
 openshift-gitops-server-7df86f9774-db682          1/1     Running   	     1          28s
-openshift-gitops-server-2wf35g9226-255g8          0/1     Terminating        1          47h
 ----
 +
 You must wait until the new `openshift-gitops-repo-server` pod has completed initialization and the previous pod is terminated before the newly added container image content is available.

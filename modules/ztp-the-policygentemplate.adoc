@@ -12,20 +12,21 @@ The following example shows a `PolicyGenTemplate.yaml` file:
 
 [source,yaml]
 ----
+---
 apiVersion: ran.openshift.io/v1
 kind: PolicyGenTemplate
 metadata:
   name: "group-du-sno"
-  namespace: "ztp-group"
+  namespace: "group-du-sno-policies"
 spec:
   bindingRules:
     group-du-sno: ""
   mcp: "master"
   sourceFiles:
     - fileName: ConsoleOperatorDisable.yaml
-      policyName: "config-policy"
+      policyName: "console-policy"
     - fileName: ClusterLogForwarder.yaml
-      policyName: "config-policy"
+      policyName: "log-forwarder-policy"
       spec:
         outputs:
           - type: "kafka"
@@ -44,7 +45,7 @@ spec:
             outputRefs:
              - kafka-open
     - fileName: ClusterLogging.yaml
-      policyName: "config-policy"
+      policyName: "log-policy"
       spec:
         curation:
           curator:
@@ -53,8 +54,13 @@ spec:
           logs:
             type: "fluentd"
             fluentd: {}
-    - fileName: PtpConfigSlave.yaml   # Change to PtpConfigSlaveCvl.yaml for ColumbiaVille NIC
-      policyName: "config-policy"
+    - fileName: MachineConfigSctp.yaml
+      policyName: "mc-sctp-policy"
+      metadata:
+        labels:
+          machineconfiguration.openshift.io/role: master
+    - fileName: PtpConfigSlave.yaml
+      policyName: "ptp-config-policy"
       metadata:
         name: "du-ptp-slave"
       spec:
@@ -64,55 +70,20 @@ spec:
           ptp4lOpts: "-2 -s --summary_interval -4"
           phc2sysOpts: "-a -r -n 24"
     - fileName: SriovOperatorConfig.yaml
-      policyName: "config-policy"
+      policyName: "sriov-operconfig-policy"
       spec:
         disableDrain: true
-    - fileName: StorageLV.yaml
-      policyName: "config-policy"
-      spec:
-        storageClassDevices:
-          - storageClassName: "example-storage-class-1"
-            volumeMode: Filesystem
-            fsType: xfs
-            devicePaths:
-              - /dev/sdb1
-          - storageClassName: "example-storage-class-2"
-            volumeMode: Filesystem
-            fsType: xfs
-            devicePaths:
-              - /dev/sdb2
-    - fileName: DisableSnoNetworkDiag.yaml
-      policyName: "config-policy"
-    - fileName: PerformanceProfile.yaml
-      policyName: "config-policy"
+    - fileName: MachineConfigAcceleratedStartup.yaml
+      policyName: "mc-accelerated-policy"
       metadata:
-        name: openshift-node-performance-profile
-      spec:
-        cpu:
-          isolated: "2-19,22-39"
-          reserved: "0-1,20-21"
-        hugepages:
-          defaultHugepagesSize: 1G
-          pages:
-            - size: 1G
-              count: 32
-    - fileName: TunedPerformancePatch.yaml
-      policyName: "config-policy"
-      spec:
-        profile:
-          - name: performance-patch
-            data: |
-              [main]
-              summary=Configuration changes profile inherited from performance created tuned
-              include=openshift-node-performance-openshift-node-performance-profile
-              [bootloader]
-              cmdline_crash=nohz_full=2-19,22-39
-              [sysctl]
-              kernel.timer_migration=1
-              [scheduler]
-              group.ice-ptp=0:f:10:*:ice-ptp.*
-              [service]
-              service.stalld=start,enable
+        name: 04-accelerated-container-startup-master
+        labels:
+          machineconfiguration.openshift.io/role: master
+    - fileName: DisableSnoNetworkDiag.yaml
+      policyName: "disable-network-diag"
+      metadata:
+        labels:
+          machineconfiguration.openshift.io/role: master
 ----
 
 The `group-du-ranGen.yaml` file defines a group of policies under a group named `group-du`. A {rh-rhacm-first} policy is generated for every source file that exists in `sourceFiles`. And, a single placement binding and placement rule is generated to apply the cluster selection rule for `group-du` policies.
