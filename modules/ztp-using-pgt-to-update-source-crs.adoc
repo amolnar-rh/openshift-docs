@@ -29,7 +29,7 @@ $ mkdir -p ./out
 +
 [source,terminal]
 ----
-$ podman run -t --rm ztp-site-generate-rhel8:v4.10 extract /home/ztp --tar | tar x -C ./out
+$ podman run --log-driver=none --rm registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.10 extract /home/ztp --tar | tar x -C ./out
 ----
 
 . The baseline `PerformanceProfile` CR is found in `./out/source-crs/PerformanceProfile.yaml`.
