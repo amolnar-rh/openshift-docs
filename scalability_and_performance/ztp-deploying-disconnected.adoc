@@ -152,7 +152,9 @@ include::modules/ztp-validating-the-generation-of-configuration-policy-crs.adoc[
 
 include::modules/ztp-restarting-policies-reconciliation.adoc[leveloffset=+2]
 
+[role="_additional-resources"]
 .Additional resources
+
 * For information about using TALO to construct your own `ClusterGroupUpgrade` CR, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#talo-about-cgu-crs_cnf-topology-aware-lifecycle-operator[About the ClusterGroupUpgrade CR].
 
 include::modules/ztp-site-cleanup.adoc[leveloffset=+1]
@@ -160,7 +162,7 @@ include::modules/ztp-site-cleanup.adoc[leveloffset=+1]
 [role="_additional-resources"]
 .Additional resources
 
-* For information on removing a cluster, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#remove-managed-cluster[Removing a cluster from management].
+* For information about removing a cluster, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#remove-managed-cluster[Removing a cluster from management].
 
 include::modules/ztp-removing-obsolete-content.adoc[leveloffset=+2]
 
@@ -179,6 +181,8 @@ include::modules/ztp-stopping-the-existing-gitops-ztp-applications.adoc[leveloff
 
 include::modules/ztp-topology-aware-lifecycle-operator.adoc[leveloffset=+2]
 
+[role="_additional-resources"]
+
 .Additional resources
 * For information about Topology Aware Lifecycle Operator (TALO), see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator configuration].
 
@@ -187,6 +191,8 @@ include::modules/ztp-required-changes-to-the-git-repository.adoc[leveloffset=+2]
 include::modules/ztp-installing-the-new-gitops-ztp-applications.adoc[leveloffset=+2]
 
 include::modules/ztp-roll-out-the-configuration-changes.adoc[leveloffset=+2]
+
+[role="_additional-resources"]
 .Additional resources
 * For information about creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#talo-precache-autocreated-cgu-for-ztp_ztp-deploying-disconnected[About the auto-created ClusterGroupUpgrade CR for ZTP].
 
@@ -212,16 +218,38 @@ include::modules/ztp-troubleshooting-the-managed-cluster.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
 
+[role="_additional-resources"]
 .Additional resources
 
 * For more information about the Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
 
-include::modules/cnf-topology-aware-lifecycle-operator-autocreate-cgu-cr-ztp.adoc[leveloffset=+1]
+include::modules/cnf-topology-aware-lifecycle-operator-autocreate-cgu-cr-ztp.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+2]
 
+[role="_additional-resources"]
+.Additional resources
+
+* For more information about how to update ZTP, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-upgrading-gitops-ztp_ztp-deploying-disconnected[Upgrading GitOps ZTP].
+
+* For more information about how to prepare the disconnected environment, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment].
+
+* For more information about mirroring the desired image repository, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#installation-mirror-repository_ztp-deploying-disconnected[Mirroring the OpenShift Container Platform image repository]
+
+* For more information about update channels and releases, see xref:../updating/understanding-upgrade-channels-release.html[Understanding upgrade channels and releases].
+
 include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
 
+[role="_additional-resources"]
+.Additional resources
+
+* For more information xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#installation-mirror-repository_ztp-deploying-disconnected[Mirroring the OpenShift Container Platform image repository]
+
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
+
+[role="_additional-resources"]
+.Additional resources
+
+* For more information about updating GitOps ZTP, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-upgrading-gitops-ztp_ztp-deploying-disconnected[Upgrading GitOps ZTP].
 
 include::modules/cnf-topology-aware-lifecycle-operator-operator-and-platform-update.adoc[leveloffset=+2]

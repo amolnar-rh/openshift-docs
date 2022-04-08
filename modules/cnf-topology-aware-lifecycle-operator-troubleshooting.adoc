@@ -8,13 +8,14 @@
 
 The Topology Aware Lifecycle Operator is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details, logs and take steps in debugging the issues.
 
+
 For more information about related topics, see the following documentation:
 
 * link:https://access.redhat.com/articles/6218901[Red Hat Advanced Cluster Management for Kubernetes 2.4 Support Matrix]
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.0/html/troubleshooting/troubleshooting[Red Hat Advanced Cluster Management Troubleshooting]
 
-* link:https://docs.openshift.com/container-platform/latest/support/troubleshooting/troubleshooting-operator-issues.html[OpenShift Container Platform Troubleshooting Operator Issues]
+* OpenShift Container Platform Troubleshooting Operator Issues section
 
 [id="talo-general-troubleshooting_{context}"]
 == General troubleshooting

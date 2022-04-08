@@ -47,7 +47,7 @@ spec:
             interval: 10m
 ----
 <1> The index image URL contains the desired Operator images. If the index images are always pushed to the same image name and tag, this change is not needed.
-<2> Set how frequently OLM pulls the index image for new Operator versions with the `registrypoll.interval` field. This change is not needed if a new index image tag is always pushed for y-stream and z-stream Pperator updates.
+<2> Set how frequently OLM pulls the index image for new Operator versions with the `registrypoll.interval` field. This change is not needed if a new index image tag is always pushed for y-stream and z-stream Operator updates.
 +
 This update generates one policy, `du-upgrade-operator-catsrc-policy`, to update the `redhat-operators` catalog source with the new index images that contain the desired Operators images. 
 +
@@ -137,7 +137,7 @@ $ oc apply -f cgu-operator-upgrade-prep.yml
 +
 [source,terminal]
 ----
-$ oc get policies --all-namespaces
+$ oc get policies A | grep -E "catsrc-policy"
 ----
 
 . Pre-cache the images for the Operator update.
@@ -164,14 +164,14 @@ spec:
   enable: false
 ----
 <1> The policy that updates the catalog source
-<2> The policy contains the Operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following the xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-upgrading-gitops-ztp_ztp-deploying-disconnected[Upgrading GitOps ZTP] procedure, all Operator subscriptions should be grouped into the `common-subscriptions-policy` policy.
+<2> The policy contains the Operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following the "Upgrading GitOps ZTP" procedure, all Operator subscriptions should be grouped into the `common-subscriptions-policy` policy.
 +
 [NOTE]
 ====
 One `ClusterGroupUpgrade` CR can only pre-cache the images of the desired Operators defined in the subscription policy from one catalog source included in the `ClusterGroupUpgrade` CR. If the desired Operators are from different catalog sources, like in the example of the SRIOV-FEC Operator, another `ClusterGroupUpgrade` CR should be created with `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy` policies for the SRIOV-FEC Operator images pre-caching and update.
 ====
 
-.. Verify the subscription policy is `NonCompliant` at this point because the subscription is not at `AtLatestKnown` state by running the following command:
+.. Verify that the subscription policy is `NonCompliant` at this point by running the following command:
 +
 [source,terminal]
 ----
@@ -200,14 +200,32 @@ $ oc apply -f cgu-operator-upgrade.yml
 $ oc get jobs,pods -n openshift-talo-pre-cache
 ----
 
+.. Check if the pre-caching is completed before starting the update by running the following command:
++
+[source,terminal]
+----
+$ oc get cgu cgu-upgrade-complete -ojson | jq '.status.conditions'
+----
++
+.Example output
++
+[source,json]
+----
+- lastTransitionTime: 2022-03-08T20:55:30Z
+    message: Precaching is completed
+    reason: PrecachingCompleted
+    status: "True"
+    type: PrecachingDone
+----
+
 . Start the Operator update.
 
-.. Enable the `cgu-operator-upgrade` `ClusterGroupUpgrade` CR and disable the preCaching to start the Operator update by running the following command:
+.. Enable the `cgu-operator-upgrade` `ClusterGroupUpgrade` CR and disable pre-caching to start the Operator update by running the following command:
 +
 [source,terminal]
 ----
 $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-operator-upgrade \
---patch '{"spec":{"enable":true}}' --type=merge
+--patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 
 .. Monitor the process and wait for completion. Then ensure that the policy becomes compliant by running the following command:

@@ -100,7 +100,7 @@ $ oc get jobs,pods -n openshift-talo-pre-cache
 [source,terminal]
 ----
 $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-du-upgrade \
---patch '{"spec":{"enable":true}}' --type=merge
+--patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 
 .. Monitor the process and wait for completion. Then, ensure that the policies becomes compliant by running the following command:

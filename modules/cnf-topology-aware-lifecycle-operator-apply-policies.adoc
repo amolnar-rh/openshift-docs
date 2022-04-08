@@ -295,11 +295,39 @@ $ oc get cgu -n default cgu-1 -ojson | jq '.status'
 ----
 <1> Reflects the update progress of the current batch. Run this command again to receive updated information about the progress.
 
+. If the policies include Operator subscriptions, you can checnk the installation progress directly on the single node cluster.
+
+.. Export the `KUBECONFIG` of the single node cluster you want to check the installation progress for by running the following command:
++
+[source,terminal]
+----
+$ export KUBECONFIG=<absolute path to the cluster kubeconfig>
+----
+
+.. Check all the subscriptions present on the single node cluster and look for the one in the policy you are trying to install through the `ClusterGroupUpgrade` CR by running the following command:
++
+[source,terminal]
+----
+oc get subs -A | grep -i <name of the subscription you are looking for>
+----
++
+.Example output for `cluster-logging` policy
++
+[source,terminal]
+----
+NAMESPACE                              NAME                         PACKAGE                      SOURCE             CHANNEL
+openshift-logging                      cluster-logging              cluster-logging              redhat-operators   stable
+----
+
+
+
+
+
 . If one of the managed policies includes a `ClusterVersion` CR, check the status of platform updates in the current batch by running the following command against the spoke cluster:
 +
 [source,terminal]
 ----
-oc get clusterversion
+$ oc get clusterversion
 ----
 +
 .Example output
@@ -310,23 +338,40 @@ NAME      VERSION   AVAILABLE   PROGRESSING   SINCE   STATUS
 version   4.9.5     True        True          43s     Working towards 4.9.7: 71 of 735 done (9% complete)
 ----
 
-. Check the 
+. Check the Operator subscription by running the following command:
 +
 [source,terminal]
 ----
-$ oc get subs
+$ oc get subs -n <operator-namespace> <operator-subscription> -ojsonpath="{.status}"
 ----
 
-. Check the 
+. Check the install plans present on the single node cluster that is associated with the desired subscription by running the following command:
 +
 [source,terminal]
 ----
-$ oc get installplans
+$ oc get installplan -n <subscription namespace>
 ----
++
+.Example output for `cluster-logging` Operator
++
+[source,terminal]
+----
+NAMESPACE                              NAME            CSV                                 APPROVAL   APPROVED
+openshift-logging                      install-6khtw   cluster-logging.5.3.3-4             Manual     true <1>
+----
+<1> The install plans have their `Approval` field set to `Manual` and their `Approved` field changes from `true` to `false` after TALO approves the install plan.
 
-. Check the 
+. Check if the cluster service version for the Operator of the policy that the `ClusterGroupUpgrade` is installing reached the `Succeeded` phase by running the following command:
 +
 [source,terminal]
 ----
-$ oc get csv
+$ oc get csv -n <operator namespace>
+----
++
+.Example output for `cluster-logging` Operator
++
+[source,terminal]
+----
+NAMESPACE                              NAME            DISPLAY          VERSION   REPLACES   PHASE
+openshift-operator-lifecycle-manager   packageserver   Package Server   0.18.3               Succeeded
 ----

@@ -69,7 +69,7 @@ spec:
             state: "Completed"
 ----
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
-<2> Shows the image signature of the desired {product-title} release. To get the signature and replace the variables with the values, see step 2-7 of xref:../updating/updating-restricted-network-cluster.html#update-configuring-image-signature[Creating an image signature config map manually].
+<2> Shows the image signature of the desired {product-title} release. If you followed the steps in "Mirroring the OpenShift Container Platform image repository" section, you can get the image signature at `${REMOVABLE_MEDIA_PATH}/mirror/config/<image_signature_file>`.
 <3> Shows the mirror repository that contains the desired {product-title} image.
 <4> Shows the source repository that the desired {product-title} image is pulled from. You can list the required mirror registries by running the `oc adm release mirror` command.
 <5> Shows the `ClusterVersion` CR to update upstream.
@@ -163,12 +163,12 @@ $ oc get jobs,pods -n openshift-talo-pre-cache
 ----
 
 . Start platform update.
-.. To start the update, enable the `cgu-platform-upgrade` by running the following command:
+.. To start the update, enable the `cgu-platform-upgrade` and disable pre-caching by running the following command:
 +
 [source,terminal]
 ----
 oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-platform-upgrade \
---patch '{"spec":{"enable":true}}' --type=merge
+--patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 
 .. Monitor the process and wait for completion. Then ensure that the policy becomes compliant by running the following command:
