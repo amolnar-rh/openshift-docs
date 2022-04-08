@@ -34,6 +34,6 @@ include::modules/cnf-topology-aware-lifecycle-operator-troubleshooting.adoc[leve
 
 .Additional resources
 
-* For more information about troubleshooting, see xref:../troubleshooting/troubleshooting-operator-issues.adoc[OpenShift Container Platform Troubleshooting Operator Issues]
+* For more information about troubleshooting, see xref:../support/troubleshooting/troubleshooting-operator-issues.adoc[OpenShift Container Platform Troubleshooting Operator Issues]
 
-For more information about using Topology Aware Lifecycle Operator in the ZTP workflow, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#cnf-topology-aware-lifecycle-operator[Updating managed policies with the Topology Aware Lifecycle Operator].
+* For more information about using Topology Aware Lifecycle Operator in the ZTP workflow, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#cnf-topology-aware-lifecycle-operator[Updating managed policies with the Topology Aware Lifecycle Operator].
