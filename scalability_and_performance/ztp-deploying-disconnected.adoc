@@ -223,7 +223,7 @@ include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.ado
 
 * For more information about how to prepare the disconnected environment, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment].
 
-* For more information about mirroring the desired image repository, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#installation-mirror-repository_ztp-deploying-disconnected[Mirroring the OpenShift Container Platform image repository]
+* For more information about mirroring the desired image repository, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment].
 
 * For more information about update channels and releases, see xref:../updating/understanding-upgrade-channels-release.html[Understanding upgrade channels and releases].
 
@@ -232,7 +232,7 @@ include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leve
 [role="_additional-resources"]
 .Additional resources
 
-* For more information xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#installation-mirror-repository_ztp-deploying-disconnected[Mirroring the OpenShift Container Platform image repository]
+* For more information on mirorring the images in a disconnected environment, xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment]
 
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
 
