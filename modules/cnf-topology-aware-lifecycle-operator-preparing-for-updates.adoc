@@ -43,11 +43,11 @@ imageContentSources:
 
 . Prepare the update graph. You have two options to prepare the update graph:
 
-* Use the OpenShift Update Service.
+.. Use the OpenShift Update Service.
 +
 For more information about how to set up the graph on the hub cluster, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#build-the-graph-data-init-container[Build the graph data init container].
 
-* Make a local copy of the upstream graph and host the update graph on a http or https server in the disconnected environment to which the spoke cluster has access. To download the update graph, use the following command:
+.. Make a local copy of the upstream graph and host the update graph on a http or https server in the disconnected environment to which the spoke cluster has access. To download the update graph, use the following command:
 +
 [source,terminal]
 ----
