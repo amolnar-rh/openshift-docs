@@ -6,22 +6,22 @@
 [id="cnf-about-topology-aware-lifecycle-operator-blocking-crs_{context}"]
 = Blocking ClusterGroupUpgrade CRs
 
-You can create multiple `ClusterGroupUpgrade` CRs and control their order of application. 
+You can create multiple `ClusterGroupUpgrade` CRs and control their order of application.
 
-For example, if you create `ClusterGroupUpgrade` CR C that blocks the start of `ClusterGroupUpgrade` CR A, then `ClusterGroupUpgrade` CR A cannot start until the status of `ClusterGroupUpgrade` CR C becomes `UpgradeComplete`. 
+For example, if you create `ClusterGroupUpgrade` CR C that blocks the start of `ClusterGroupUpgrade` CR A, then `ClusterGroupUpgrade` CR A cannot start until the status of `ClusterGroupUpgrade` CR C becomes `UpgradeComplete`.
 
 One `ClusterGroupUpgrade` CR can have multiple blocking CRs. In this case, all the blocking CRs must complete before the upgrade for the current CR can start.
 
 .Prerequisites
 
-* Install the Topology Aware Lifecycle Operator.
-* Provision one or more managed clusters
+* Install the Topology Aware Lifecycle Operator (TALO).
+* Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
 * Create {rh-rhacm} policies in the Hub cluster.
 
 .Procedure
 
-. Save the content of the `ClusterGroupUpgrade` CRs in the in the `cgu-a.yaml`, `cgu-b.yaml`, and `cgu-c.yaml` files.
+. Save the content of the `ClusterGroupUpgrade` CRs in the `cgu-a.yaml`, `cgu-b.yaml`, and `cgu-c.yaml` files.
 +
 [source,yaml]
 ----
@@ -185,7 +185,7 @@ status:
   - - spoke6
   status: {}
 ----
-<1> The `cgu-c` update does not have any blocking CRs. TALO starts the `cgu-c` update when `enable` is set to `true`.
+<1> The `cgu-c` update does not have any blocking CRs. TALO starts the `cgu-c` update when the `enable` field is set to `true`.
 
 . Create the `ClusterGroupUpgrade` CRs by running the following command for each relevant CR:
 +
@@ -202,7 +202,9 @@ $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/<name> \
 --type merge -p '{"spec":{"enable":true}}'
 ----
 +
-.Example blocking ClusterGroupUpgrade CRs after the `enable` field is set to `true`
+The following examples show `ClusterGroupUpgrade` CRs where the `enable` field is set to `true`:
++
+.Example for `cgu-a` with blocking CRs
 +
 [source,yaml]
 ----
@@ -229,7 +231,7 @@ spec:
     - spoke1
     maxConcurrency: 2
     timeout: 240
-status: 
+status:
   conditions:
   - message: 'The ClusterGroupUpgrade CR is blocked by other CRs that have not yet
       completed: [cgu-c]' <1>
@@ -261,6 +263,8 @@ status:
   status: {}
 ----
 <1> Shows the list of blocking CRs.
++
+.Example for `cgu-b` with blocking CRs
 +
 [source,yaml]
 ----
@@ -322,6 +326,8 @@ status:
   status: {}
 ----
 <1> Shows the list of blocking CRs.
++
+.Example for `cgu-c` with blocking CRs
 +
 [source,yaml]
 ----
