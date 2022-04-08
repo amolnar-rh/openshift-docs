@@ -40,7 +40,7 @@ include::modules/ztp-acm-preparing-to-install-disconnected-acm.adoc[leveloffset=
 
 * For more information about creating the disconnected mirror registry, see xref:../installing/disconnected_install/installing-mirroring-creating-registry.adoc#installing-mirroring-creating-registry[Creating a mirror registry].
 
-* For more information about mirroring images to the disconnected registry, see xref:../installing/disconnected_install/installing-mirroring-installation-images.html#installing-mirroring-installation-images[Mirroring images for a disconnected installation].
+* For more information about mirroring OpenShift Platform image to the disconnected registry, see xref:../installing/disconnected_install/installing-mirroring-installation-images.html#installing-mirroring-installation-images[Mirroring images for a disconnected installation].
 
 include::modules/ztp-acm-adding-images-to-mirror-registry.adoc[leveloffset=+2]
 

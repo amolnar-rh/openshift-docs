@@ -211,11 +211,15 @@ $ oc get cgu cgu-upgrade-complete -ojson | jq '.status.conditions'
 +
 [source,json]
 ----
-- lastTransitionTime: 2022-03-08T20:55:30Z
-    message: Precaching is completed
-    reason: PrecachingCompleted
-    status: "True"
-    type: PrecachingDone
+[
+  {
+    "lastTransitionTime": "2022-04-08T14:14:40Z",
+    "message": "The ClusterGroupUpgrade CR has all clusters already compliant with the specified managed policies",
+    "reason": "UpgradeCompleted",
+    "status": "False",
+    "type": "Ready"
+  }
+]
 ----
 
 . Start the Operator update.

@@ -44,10 +44,13 @@ spec:
       metadata:
         name: disconnected-internal-icsp-for-ocp
       spec:
-        repositoryDigestMirrors:
+        repositoryDigestMirrors: <3>
           - mirrors:
-              - registry.example.com:5000/openshift4 <3>
-            source: quay.io/openshift-release-dev/ocp-release <4>
+            - quay-intern.example.com/ocp4/openshift-release-dev
+            source: quay.io/openshift-release-dev/ocp-release
+          - mirrors:
+            - quay-intern.example.com/ocp4/openshift-release-dev
+            source: quay.io/openshift-release-dev/ocp-v4.0-art-dev <4>
     - fileName: ClusterVersion.yaml <5>
       policyName: "platform-upgrade-prep"
       metadata:

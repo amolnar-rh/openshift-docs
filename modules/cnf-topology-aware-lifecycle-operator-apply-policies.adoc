@@ -319,10 +319,6 @@ NAMESPACE                              NAME                         PACKAGE     
 openshift-logging                      cluster-logging              cluster-logging              redhat-operators   stable
 ----
 
-
-
-
-
 . If one of the managed policies includes a `ClusterVersion` CR, check the status of platform updates in the current batch by running the following command against the spoke cluster:
 +
 [source,terminal]

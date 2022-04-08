@@ -6,6 +6,8 @@
 [id="talo-platform-prepare-end-to-end_{context}"]
 = End-to-end procedures for updating clusters in a disconnected environment
 
+If you have deployed spoke clusters with distributed unit (DU) profiles using the GitOps ZTP with Topology Aware Lifecycle Operator pipeline described in "Deploying distributed units at scale in a disconnected environment", this procedure tells you how to upgrade your spoke clusters and Operators.
+
 [id="talo-platform-prepare-for-update_{context}"]
 == Preparing for the updates
 
@@ -26,13 +28,16 @@ TALO can perform both platform and Operator updates:
 ====
 The `imageContentSources` section, which can be retrieved with the `oc adm release mirror` command, needs to be saved for platform updates.
 For example, this is the output of the `imageContentSources` which contains the information of your mirrors:
-+
+
 [source,terminal]
 ----
 imageContentSources:
-       - mirrors:
-         - registry.example.com:5000/openshift4
-         source: quay.io/openshift-release-dev/ocp-v4.0-art
+ - mirrors:
+   - mirror-ocp-registry.ibmcloud.io.cpak:5000/openshift-release-dev/openshift4
+   source: quay.io/openshift-release-dev/ocp-release
+ - mirrors:
+   - mirror-ocp-registry.ibmcloud.io.cpak:5000/openshift-release-dev/openshift4
+   source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
 ----
 ====
 
