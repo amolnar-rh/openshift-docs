@@ -12,7 +12,6 @@ Use the following procedure to prepare your site for the GitOps zero touch provi
 
 . Obtain the latest version of the GitOps ZTP container from which you can extract a set of custom resources (CRs) used to configure the GitOps operator on the hub cluster for use in the GitOps ZTP solution.
 
-
 . Extract the `argocd/deployment` directory using the following commands:
 +
 [source,terminal]
@@ -22,7 +21,7 @@ $ mkdir -p ./out
 +
 [source,terminal]
 ----
-$ podman run -t --rm ztp-site-generator:latest extract /home/ztp --tar | tar x -C ./out
+$ podman run -t --rm ztp-site-generate-rhel8:v4.10 extract /home/ztp --tar | tar x -C ./out
 ----
 +
 The `/out` directory contains the following subdirectories:
