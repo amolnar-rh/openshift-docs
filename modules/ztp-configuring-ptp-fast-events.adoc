@@ -29,13 +29,21 @@ You can configure PTP fast events for vRAN clusters that are deployed using the 
 
 . Apply the following `PolicyGenTemplate` changes to `group-du-3node-ranGen.yaml`, `group-du-sno-ranGen.yaml`, or `group-du-standard-ranGen.yaml` files according to your requirements:
 
-.. In `.sourceFiles`, add the `PtpOperatorConfig` and `Interconnect` CR files that configure the AMQ transport host to the `config-policy`:
+.. In `.sourceFiles`, add the `PtpOperatorConfig` CR file that configures the AMQ transport host to the `config-policy`:
++
+[source,yaml]
+----
+- fileName: PtpOperatorConfigForEvent.yaml
+  policyName: "config-policy"
+----
+
+. Apply the following `PolicyGenTemplate` changes to your specific site yaml files, for example, `example-sno-site.yaml`:
+
+.. In `.sourceFiles`, add the `Interconnect` CR file that configures the AMQ router to the `config-policy`:
 +
 [source,yaml]
 ----
 - fileName: AmqInstance.yaml
-  policyName: "config-policy"
-- fileName: PtpOperatorConfigForEvent.yaml
   policyName: "config-policy"
 ----
 
