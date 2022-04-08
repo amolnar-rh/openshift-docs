@@ -2,7 +2,7 @@
 //
 // scalability_and_performance/ztp-deploying-disconnected.adoc
 
-:_module-type: PROCEDURE
+:_content-type: PROCEDURE
 [id="ztp-adding-new-content-to-gitops-ztp_{context}"]
 = Adding new content to the GitOps ZTP pipeline
 
@@ -72,4 +72,3 @@ openshift-gitops-server-7df86f9774-db682          1/1     Running   	     1     
 ----
 +
 You must wait until the new `openshift-gitops-repo-server` pod has completed initialization and the previous pod is terminated before the newly added container image content is available.
-

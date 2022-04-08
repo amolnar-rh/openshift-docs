@@ -9,7 +9,7 @@
 Zero touch provisioning (ZTP) simplifies the process of checking the ZTP installation status for a cluster. The ZTP status moves through three phases: cluster installation, cluster configuration, and ZTP done.
 
 Cluster installation phase::
-The cluster installation phase is shown by the `ManagedCluster` CR `ManagedClusterJoined` condition. If the `ManagedCluster` CR does not have this condition, or the condition is set to `False`, the cluster is still in the installation phase. Additional details about installation are available from the `AgentClusterInstall` and `ClusterDeployment` CRs. See "Troubleshooting GitOps ZTP" for more information.
+The cluster installation phase is shown by the `ManagedCluster` CR `ManagedClusterJoined` condition. If the `ManagedCluster` CR does not have this condition, or the condition is set to `False`, the cluster is still in the installation phase. Additional details about installation are available from the `AgentClusterInstall` and `ClusterDeployment` CRs. For more information, see "Troubleshooting GitOps ZTP".
 
 Cluster configuration phase::
 The cluster configuration phase is shown by a `ztp-running` label applied the the `ManagedCluster` CR for the cluster.
@@ -24,8 +24,8 @@ Operators have completed their initialization. The policy validates the followin
 +
 * The target `MachineConfigPool` contains the expected entries and has finished
 updating. All nodes are available and not degraded.
-* The SRIOV Operator has completed initialization as indicated by at least one `SriovNetworkNodeState` with `syncStatus: Succeeded`.
-* The PTP Operator daemon set exists.
+* The `SRIOV` Operator has completed initialization as indicated by at least one `SriovNetworkNodeState` with `syncStatus: Succeeded`.
+* The `PTP` Operator daemon set exists.
 +
 The policy captures the existing criteria for a completed installation and validates that it moves
 to a compliant state only when ZTP provisioning of the spoke cluster is complete.

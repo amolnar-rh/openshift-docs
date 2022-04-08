@@ -169,9 +169,7 @@ include::modules/ztp-labeling-the-existing-clusters.adoc[leveloffset=+2]
 include::modules/ztp-stopping-the-existing-gitops-ztp-applications.adoc[leveloffset=+2]
 
 include::modules/ztp-topology-aware-lifecycle-operator.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
-
 .Additional resources
 * For information about Topology Aware Lifecycle Operator (TALO), see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator configuration].
 
@@ -180,7 +178,6 @@ include::modules/ztp-required-changes-to-the-git-repository.adoc[leveloffset=+2]
 include::modules/ztp-installing-the-new-gitops-ztp-applications.adoc[leveloffset=+2]
 
 include::modules/ztp-roll-out-the-configuration-changes.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
 .Additional resources
 * For information about creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#talo-precache-autocreated-cgu-for-ztp_ztp-deploying-disconnected[About the auto-created ClusterGroupUpgrade CR for ZTP].
@@ -206,7 +203,6 @@ include::modules/ztp-troubleshooting-the-managed-cluster.adoc[leveloffset=+2]
 // TALO
 
 include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
-
 [role="_additional-resources"]
 .Additional resources
 
@@ -215,7 +211,6 @@ include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
 include::modules/cnf-topology-aware-lifecycle-operator-autocreate-cgu-cr-ztp.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
 .Additional resources
 
@@ -228,14 +223,12 @@ include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.ado
 * For more information about update channels and releases, see xref:../updating/understanding-upgrade-channels-release.html[Understanding upgrade channels and releases].
 
 include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
 .Additional resources
 
 * For more information on mirorring the images in a disconnected environment, xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment]
 
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
 .Additional resources
 

@@ -24,7 +24,7 @@ $ export CLUSTERNS=example-sno
 $ oc create namespace $CLUSTERNS
 ----
 
-. Create a pull secret for the cluster. The pull secret must contain all the credentials necessary for installing OpenShift and all required Operators. In all of the example `SiteConfig` CRs, the pull secret is named `assisted-deployment-pull-secret`, as shown below:
+. Create a pull secret for the cluster. The pull secret must contain all the credentials necessary for installing {product-title} and all required Operators. In all of the example `SiteConfig` CRs, the pull secret is named `assisted-deployment-pull-secret`, as shown below:
 +
 [source,terminal]
 ----

@@ -27,7 +27,7 @@ $ oc patch argocd openshift-gitops -n openshift-gitops  --type=merge --patch-fil
 
 . Prepare the ArgoCD pipeline configuration:
 +
-.. Create a Git repository with the directory structure similar to the example directory. See "Preparing the ZTP Git repository" for further details.
+.. Create a Git repository with the directory structure similar to the example directory. For more information, see "Preparing the ZTP Git repository".
 
 .. Configure access to the repository using the ArgoCD UI. Under *Settings* configure the following:
 +
@@ -37,8 +37,7 @@ $ oc patch argocd openshift-gitops -n openshift-gitops  --type=merge --patch-fil
 
 .. Modify the two ArgoCD Applications, `out/argocd/deployment/clusters-app.yaml` and `out/argocd/deployment/policies-app.yaml`, based on your Git repository:
 +
-* Update the URL to point to the Git repository. The URL must end with .git,must end in `.git`,
-for example, `https://repo.example.com/repo.git`.
+* Update the URL to point to the Git repository. The URL must end with `.git`, for example, `https://repo.example.com/repo.git`.
 
 * The `targetRevision` must indicate which Git repository branch to monitor.
 

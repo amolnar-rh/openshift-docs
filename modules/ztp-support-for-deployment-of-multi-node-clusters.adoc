@@ -26,7 +26,7 @@ The overall flow is identical to the ZTP support for single node clusters, with 
 
 * For single node clusters, the `SiteConfig` file must have exactly one entry in the `nodes` section.
 * For three-node clusters, the `SiteConfig` file must have exactly three entries defined in the `nodes` section.
-* For standard clusters, the `SiteConfig` file must have exactly three entries in the `nodes` section with `role: master` and one or more additional entries with `role: worker`.
+* For standard clusters, the `SiteConfig` file must have exactly three entries in the `nodes` section with `role: master` and two or more additional entries with `role: worker`.
 
 `PolicyGenTemplate`:
 

@@ -6,7 +6,7 @@
 [id="talo-about-cgu-crs_{context}"]
 = About the ClusterGroupUpgrade CR
 
-TALO builds the remediation plan from the `ClusterGroupUpgrade` CR for a group of clusters. You can define the following specifications in a `ClusterGroupUpgrade` CR:
+Topology Aware Lifecycle Operator (TALO) builds the remediation plan from the `ClusterGroupUpgrade` CR for a group of clusters. You can define the following specifications in a `ClusterGroupUpgrade` CR:
 
 * Clusters in the group
 * Blocking `ClusterGroupUpgrade` CRs
@@ -16,7 +16,7 @@ TALO builds the remediation plan from the `ClusterGroupUpgrade` CR for a group o
 * Actions to perform before and after the update
 * Update timing
 
-As TALO works through remediation of the policies to the specified clusters, the `ClusterGroupUpgrade` CR can be in the following states:
+As TALO works through remediation of the policies to the specified clusters, the `ClusterGroupUpgrade` CR can have the following states:
 
 * `UpgradeNotStarted`
 * `UpgradeCannotStart`
@@ -26,22 +26,22 @@ As TALO works through remediation of the policies to the specified clusters, the
 
 [NOTE]
 ====
-After a cluster update performed by TALO is complete, the cluster will not be updated again under the control of the same `ClusterGroupUpgrade` CR. You need to create a new `ClusterGroupUpgrade` CR in the following cases:
+After TALO completes a cluster update, the cluster does not update again under the control of the same `ClusterGroupUpgrade` CR. You must create a new `ClusterGroupUpgrade` CR in the following cases:
 
-* If you need to update the cluster again
-* If the cluster changes to non-compliant with the `inform` policy after being updated
+* When you need to update the cluster again
+* When the cluster changes to non-compliant with the `inform` policy after being updated
 ====
 
-[discrete]
+[id="upgrade_not_started"]
 == The UpgradeNotStarted state
 
-`UpgradeNotStarted` is the initial state of the `ClusterGroupUpgrade` CR.
+The initial state of the `ClusterGroupUpgrade` CR is `UpgradeNotStarted`.
 
 TALO builds a remediation plan based on the following fields:
 
 * The `clusterSelector` field specifies the labels of the clusters that you want to update.
 * The `clusters` field specifies a list of clusters to update.
-* The `canaries` fields specifies the clusters for canary updates.
+* The `canaries` field specifies the clusters for canary updates.
 * The `maxConcurrency` field specifies the number of clusters to update in a batch.
 
 You can use the `clusters` and the `clusterSelector` fields together to create a combined list of clusters.
@@ -57,10 +57,10 @@ The `ClusterGroupUpgrade` CR transitions to the `UpgradeNotCompleted` state afte
 
 [NOTE]
 ====
-You can only make changes to the `spec` fields if the `ClusterGroupUpgrade` CR is either in the `UpgradeNotStarted` or the `UpgradeCannotStart` state. 
+You can only make changes to the `spec` fields if the `ClusterGroupUpgrade` CR is either in the `UpgradeNotStarted` or the `UpgradeCannotStart` state.
 ====
 
-.Sample ClusterGroupUpgrade CR in the UpgradeNotStarted state
+.Sample `ClusterGroupUpgrade` CR in the `UpgradeNotStarted` state
 
 [source,yaml]
 ----
@@ -108,10 +108,10 @@ status: <6>
 <2> Lists the user-defined set of policies to remediate.
 <3> Defines the specifics of the cluster updates.
 <4> Defines the clusters for canary updates.
-<5> Defines the maximum number of concurrent updates in a batch. The number of remediation batches is the number of canary clusters, plus the number of clusters (except the canary clusters) divided by `maxConcurrency`. The clusters that are already compliant with all the managed policies are excluded from the remediation plan.
+<5> Defines the maximum number of concurrent updates in a batch. The number of remediation batches is the number of canary clusters, plus the number of clusters, except the canary clusters, divided by the `maxConcurrency` value. The clusters that are already compliant with all the managed policies are excluded from the remediation plan.
 <6> Displays information about the status of the updates.
 
-[discrete]
+[id="upgrade_cannot_start"]
 == The UpgradeCannotStart state
 
 In the `UpgradeCannotStart` state, the update cannot start because of the following reasons:
@@ -119,7 +119,7 @@ In the `UpgradeCannotStart` state, the update cannot start because of the follow
 * Blocking CRs are missing from the system
 * Blocking CRs have not yet finished
 
-[discrete]
+[id="upgrade_not_completed"]
 == The UpgradeNotCompleted state
 
 In the `UpgradeNotCompleted` state, TALO enforces the policies following the remediation plan defined in the `UpgradeNotStarted` state.
@@ -128,10 +128,10 @@ Enforcing the policies for subsequent batches starts immediately after all the c
 
 [NOTE]
 ====
-The managed policies apply in the order they are listed in the `managedPolicies` field in the `ClusterGroupUpgrade` CR. One managed policy is applied to the specified clusters at a time. After the specified clusters become compliant to the current policy, the next managed policy, for which the cluster is non-compliant, will be applied.
+The managed policies apply in the order they are listed in the `managedPolicies` field in the `ClusterGroupUpgrade` CR. One managed policy is applied to the specified clusters at a time. After the specified clusters comply with the current policy, the next managed policy is applied to the next non-compliant cluster.
 ====
 
-.Sample ClusterGroupUpgrade CR in the UpgradeNotCompleted state
+.Sample `ClusterGroupUpgrade` CR in the `UpgradeNotCompleted` state
 
 [source,yaml]
 ----
@@ -181,25 +181,25 @@ status: <2>
 <2> The `status` fields change accordingly when the update begins.
 <3> Lists the clusters in the batch and the index of the policy that is being currently applied to each cluster. The index of the policies starts with `0` and the index follows the order of the `status.managedPoliciesForUpgrade` list.
 
-[discrete]
+[id=upgrade_timed_out"]
 == The UpgradeTimedOut state
 
-In the `UpgradeTimedOut` state, TALO checks every hour if all the policies for the `ClusterGroupUpgrade` CR are compliant. The checks continue until the `ClusterGroupUpgrade` CR is deleted or the updates are completed.
-The periodic checks allow the updates to complete if they get prolonged due to network, CPU, or other issues. 
+In the `UpgradeTimedOut` state, TALO checks every hour that all the policies for the `ClusterGroupUpgrade` CR are compliant. The checks continue until the `ClusterGroupUpgrade` CR is deleted or the updates are completed.
+The periodic checks allow the updates to complete if prolonged due to network, CPU, or other issues.
 
-TALO transitions to the `UpgradeTimedOut` state in two cases:
+TALO transitions to the `UpgradeTimedOut` state in the following cases:
 
-* If the current batch is of canary type and the cluster in the batch does not become compliant with all the managed policies within the batch timeout.
-* If the clusters are not compliant with the managed policies within the `timeout` value specified in `remediationStrategy`.
+* When the current batch is of `canary` type and the cluster in the batch does not comply with all the managed policies within the batch timeout.
+* When the clusters do not comply with the managed policies within the `timeout` value specified in the `remediationStrategy` field.
 
 If the policies are compliant, TALO transitions to the `UpgradeCompleted` state.
 
-[discrete]
+[id="upgrade_completed"]
 == The UpgradeCompleted state
 
 In the `UpgradeCompleted` state, the cluster updates are complete.
 
-.Sample ClusterGroupUpgrade CR in the UpgradeCompleted state
+.Sample `ClusterGroupUpgrade` CR in the `UpgradeCompleted` state
 
 [source,yaml]
 ----
@@ -238,6 +238,6 @@ status: <2>
     remediationPlanForBatch:
       spoke1: -2 <3>
 ----
-<1> The value of `spec.action.afterCompletion.deleteObjects` field is `true` by default. After the update is completed, TALO deletes the underlying {rh-rhacm} objects that were created during the update. This option is to prevent the {rh-rhacm} Hub from continuously checking for compliance after a successful update.
+<1> The value of `spec.action.afterCompletion.deleteObjects` field is `true` by default. After the update is completes, TALO deletes the underlying {rh-rhacm} objects that were created during the update. This option prevents the {rh-rhacm} Hub from continuously checking for compliance after a successful update.
 <2> The `status` fields show that the updates completed successfully.
 <3> Displays that all the policies are applied to the cluster.

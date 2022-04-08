@@ -77,7 +77,7 @@ ZTP support for single node clusters, three-node clusters, and standard clusters
 
 ZTP provides support for deploying single node clusters, three-node clusters, and standard OpenShift clusters. This includes the installation of OpenShift and deployment of the distributed units (DUs) at scale.
 
-The overall flow is identical to the ZTP support for single node clusters, with some differentiation in configuration depending on the type of cluster:
+The overall flow is identical to the ZTP support for single node clusters, with some differences in configuration depending on the type of cluster:
 
 `SiteConfig` file:
 

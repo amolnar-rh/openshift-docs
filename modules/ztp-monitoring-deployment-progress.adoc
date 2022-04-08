@@ -10,9 +10,9 @@ The ArgoCD pipeline uses the `SiteConfig` and `PolicyGenTemplate` CRs in Git to 
 
 .Procedure
 
-When the synchronization is complete, the installation generally proceeds in two phases:
+When the synchronization is complete, the installation generally proceeds as follows:
 
-. The Assisted Service Operator installs OpenShift on the cluster. You can monitor the progress of cluster installation from the {rh-rhacm} dashboard or from the command line:
+. The Assisted Service Operator installs {product-title} on the cluster. You can monitor the progress of cluster installation from the {rh-rhacm} dashboard or from the command line:
 +
 [source,terminal]
 ----

@@ -6,7 +6,8 @@
 [id="ztp-configuring-uefi-secure-boot_{context}"]
 = Configuring UEFI secure boot for clusters using PolicyGenTemplate CRs
 
-You can configure UEFI secure boot for vRAN clusters that are deployed using the GitOps ZTP pipeline.
+You can configure UEFI secure boot for vRAN clusters that are deployed using the
+GitOps zero touch provisioning (ZTP) pipeline.
 
 .Prerequisites
 
