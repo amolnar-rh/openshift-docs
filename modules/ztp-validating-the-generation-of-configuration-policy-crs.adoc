@@ -24,7 +24,7 @@ If the policies failed synchronization, use the following troubleshooting steps.
 
 .Procedure
 
-. To return detailed information about the policies, run the following command:
+. To display detailed information about the policies, run the following command:
 +
 [source,terminal]
 ----

@@ -7,7 +7,7 @@
 
 = Zero touch provisioning building blocks
 
-{rh-rhacm-first} leverages zero touch provisioning (ZTP) to deploy single-node {product-title} clusters, three-node clusters, and standard clusters. The initial site plan is broken down into smaller components and initial configuration data is stored in a Git repository. ZTP uses a declarative GitOps approach to deploy these clusters.
+{rh-rhacm-first} leverages zero touch provisioning (ZTP) to deploy single-node {product-title} clusters, three-node clusters, and standard clusters. The initial site plan is divided into smaller components and initial configuration data is stored in a Git repository. ZTP uses a declarative GitOps approach to deploy these clusters.
 
 The deployment of the clusters includes:
 

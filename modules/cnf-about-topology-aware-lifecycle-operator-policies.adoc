@@ -10,8 +10,9 @@ The TALO uses {rh-rhacm} policies for cluster updates.
 
 The TALO can be used to manage the rollout of any policy CR where the `remediationAction` is set to `inform`. 
 Supported use cases include the following:
+
 * manual user creation of policy CRs 
-* automated generating policies from the `PolicyGenTemplate` custom resource definition (CRD)
+* automatically generated policies from the `PolicyGenTemplate` custom resource definition (CRD)
 
 For policies that update an Operator subscription with manual approval, the TALO provides additional functionality that approves the installation of the updated Operator.
 

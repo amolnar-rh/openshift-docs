@@ -6,7 +6,7 @@
 [id="talo-platform-prepare-end-to-end_{context}"]
 = End-to-end procedures for updating clusters in a disconnected environment
 
-If you have deployed spoke clusters with distributed unit (DU) profiles using the GitOps ZTP with Topology Aware Lifecycle Operator pipeline described in "Deploying distributed units at scale in a disconnected environment", this procedure describes how to upgrade your spoke clusters and Operators.
+If you have deployed spoke clusters with distributed unit (DU) profiles using the GitOps ZTP with the Topology Aware Lifecycle Operator pipeline described in "Deploying distributed units at scale in a disconnected environment", this procedure describes how to upgrade your spoke clusters and Operators.
 
 [id="talo-platform-prepare-for-update_{context}"]
 == Preparing for the updates

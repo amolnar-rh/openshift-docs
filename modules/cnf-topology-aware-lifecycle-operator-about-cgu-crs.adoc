@@ -27,7 +27,7 @@ As the TALO works through remediation of the policies to the specified clusters,
 
 [NOTE]
 ====
-After a cluster update performed by the TALO is complete, the cluster will not be updated again under the control of the same `ClusterGroupUpgrade` CR. You need to create a new `ClusterGroupUpgrade` CR in the following cases:
+After the TALO completes a cluster update, the cluster does not update again under the control of the same `ClusterGroupUpgrade` CR. You must create a new `ClusterGroupUpgrade` CR in the following cases:
 
 * When you need to update the cluster again
 * When the cluster changes to non-compliant with the `inform` policy after being updated

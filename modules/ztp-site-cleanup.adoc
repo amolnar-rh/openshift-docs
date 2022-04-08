@@ -6,11 +6,9 @@
 [id="ztp-site-cleanup_{context}"]
 = Site cleanup
 
-Remove a site and the associated installation and configuration policy CRs by removing the `SiteConfig` and `PolicyGenTemplate` file names from the `kustomization.yaml` file. When you run the ZTP pipeline again, the generated CRs are removed. If you want to permanently remove the site, it is recommended to also remove the `SiteConfig` and site-specific `PolicyGenTemplate` files from the Git repository. If you want to temporarily remove the site, for example when redeploying a site, you can leave the `SiteConfig` and site-specific `PolicyGenTemplate` CRs in place in the Git repository.
-
-If you want to permanently remove a site, you should also remove the `SiteConfig` and site-specific `PolicyGenTemplate` files from the Git repository. If you want to remove a site temporarily, for example when redeploying a site, you can leave the `SiteConfig` and site-specific `PolicyGenTemplate` CRs in the Git repository.
+Remove a site and the associated installation and configuration policy CRs by removing the `SiteConfig` and `PolicyGenTemplate` file names from the `kustomization.yaml` file. When you run the ZTP pipeline again, the generated CRs are removed. If you want to permanently remove a site, you should also remove the `SiteConfig` and site-specific `PolicyGenTemplate` files from the Git repository. If you want to remove a site temporarily, for example when redeploying a site, you can leave the `SiteConfig` and site-specific `PolicyGenTemplate` CRs in the Git repository.
 
 [NOTE]
 ====
-After removing the `SiteConfig` file, if the corresponding clusters are stuck in the detach process, check {rh-rhacm-first} for information about cleaning up the detached managed cluster.
+After removing the `SiteConfig` file, if the corresponding clusters remain in the detach process, check {rh-rhacm-first} for information about cleaning up the detached managed cluster.
 ====

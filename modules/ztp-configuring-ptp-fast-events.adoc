@@ -37,7 +37,7 @@ You can configure PTP fast events for vRAN clusters that are deployed using the 
   policyName: "config-policy"
 ----
 
-. Apply the following `PolicyGenTemplate` changes to your specific site yaml files, for example, `example-sno-site.yaml`:
+. Apply the following `PolicyGenTemplate` changes to your specific site YAML files, for example, `example-sno-site.yaml`:
 
 .. In `.sourceFiles`, add the `Interconnect` CR file that configures the AMQ router to the `config-policy`:
 +

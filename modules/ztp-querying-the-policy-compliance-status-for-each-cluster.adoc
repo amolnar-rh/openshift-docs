@@ -16,7 +16,7 @@ the zero touch provisioning (ZTP) Git repository, you can check the status of ea
 * To query status from the {rh-rhacm} web console, perform the following actions:
 +
 .. Click *Governance* -> *Find policies*.
-.. Search for *du-validator-policy*
+.. Search for *du-validator-policy*.
 .. Click into the policy.
 
 * To query status using the CLI, run the following command:
@@ -26,8 +26,8 @@ the zero touch provisioning (ZTP) Git repository, you can check the status of ea
 $ oc get policies du-validator-policy -n <namespace_for_common> -o jsonpath={'.status.status'} | jq
 ----
 +
-When all of the policies including the validator inform policy applied to the cluster become compliant,
-it means the ZTP installation and configuration for this cluster is complete.
+When all of the policies including the validator inform policy applied to
+the cluster become compliant, ZTP installation and configuration for this cluster is complete.
 
 . To query the cluster violation/compliant status from the ACM web console, click
 *Governance* -> *Cluster violations*.

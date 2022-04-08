@@ -14,7 +14,7 @@ If a change to the `PolicyGenTemplate` file configuration results in obsolete po
 
 . Wait for the changes to synchronize through the application and the affected policies to be removed from the hub cluster.
 
-. Add the updated `PolicyGenTemplate` files back to the Git repository, commit and push to the remote repository.
+. Add the updated `PolicyGenTemplate` files back to the Git repository, and then commit and push to the remote repository.
 
 Note that removing the zero touch provisioning (ZTP) distributed unit (DU) profile policies from the Git repository, and as a result also removing them from the hub cluster, does not affect any configuration of the managed spoke clusters. Removing a policy from the hub cluster does not delete it from the spoke cluster and the CRs managed by that policy.
 
