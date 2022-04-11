@@ -4,14 +4,14 @@
 
 :_content-type: CONCEPT
 [id="cnf-about-topology-aware-lifecycle-operator-about-policies_{context}"]
-= About managed policies used with Topology Aware Lifecycle Operator
+= About managed policies used with Topology Aware Lifecycle Operator (TALO)
 
 TALO uses {rh-rhacm} policies for cluster updates.
 
-TALO can be used to manage the rollout of any policy CR where the `remediationAction` is set to `inform`. For policies that update an Operator subscription with manual approval, TALO provides additional functionality that approves the installation of the updated Operator.
+You can use TALO to manage the rollout of any policy CR where you set the `remediationAction` field to `inform`. For policies that update an Operator subscription with manual approval, TALO provides additional functionality that approves the installation of the updated Operator.
 
 For more information about managed policies, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html-single/governance/index#policy-overview[Policy Overview] in the {rh-rhacm} documentation.
 
-TALO can be used to manage the rollout of any `inform` policy CR regardless of how that CR was created. Supported use cases include manual user creation of policy CRs or those created with automated tool generating policies from the `PolicyGenTemplate` custom resource definition (CRD).
+You can use TALO to manage the rollout of any `inform` policy CR, regardless of how that CR was created. Supported use cases include manual user creation of policy CRs or those created with automated tool generating policies from the `PolicyGenTemplate` custom resource definition (CRD).
 
-For more information about the `PolicyGenTempalte` CRD, see The PolicyGenTemplate section in Deploying distributed units at scale in a disconnected environment.
+For more information about the `PolicyGenTemplate` CRD, see The `PolicyGenTemplate` section in Deploying distributed units at scale in a disconnected environment.
