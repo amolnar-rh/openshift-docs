@@ -109,7 +109,7 @@ $ {DIGEST_ALGO}-${DIGEST_ENCODED}: ${SIGNATURE_BASE64}
 +
 For more information about how to set up the graph on the hub cluster, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#build-the-graph-data-init-container[Build the graph data init container].
 
-* Make a local copy of the upstream graph. Host the update graph on an `http` or `https` server in the disconnected environment that has access to the spoke cluster. To download the update graph, use the following command:
+.. Make a local copy of the upstream graph. Host the update graph on an `http` or `https` server in the disconnected environment that has access to the spoke cluster. To download the update graph, use the following command:
 +
 [source,terminal]
 ----

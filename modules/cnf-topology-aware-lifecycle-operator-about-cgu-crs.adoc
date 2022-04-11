@@ -182,7 +182,7 @@ status: <2>
 <2> The `status` fields change accordingly when the update begins.
 <3> Lists the clusters in the batch and the index of the policy that is being currently applied to each cluster. The index of the policies starts with `0` and the index follows the order of the `status.managedPoliciesForUpgrade` list.
 
-[id=upgrade_timed_out"]
+[id="upgrade_timed_out"]
 == The UpgradeTimedOut state
 
 In the `UpgradeTimedOut` state, the TALO checks every hour if all the policies for the `ClusterGroupUpgrade` CR are compliant. The checks continue until the `ClusterGroupUpgrade` CR is deleted or the updates are completed.
