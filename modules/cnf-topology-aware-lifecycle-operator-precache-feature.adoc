@@ -68,7 +68,7 @@ ztp-group-du-sno   du-upgrade-4918   10s <1>
 +
 [source,terminal]
 ----
-$ oc get cgu -n ztp-group-du-sno du-upgrade-4918 -o jsonpath='{.status}' | jq
+$ oc get cgu -n ztp-group-du-sno du-upgrade-4918 -o jsonpath='{.status}'
 ----
 +
 .Example output
@@ -135,7 +135,7 @@ pod/pre-cache--1-9bmlr   1/1     Running   0          3m10s
 +
 [source,terminal]
 ----
-$ oc get cgu -n ztp-group-du-sno du-upgrade-4918 -o jsonpath='{.status}' | jq
+$ oc get cgu -n ztp-group-du-sno du-upgrade-4918 -o jsonpath='{.status}'
 ----
 +
 .Example output

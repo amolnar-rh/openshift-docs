@@ -213,7 +213,7 @@ $ oc get jobs,pods -n openshift-talo-pre-cache
 +
 [source,terminal]
 ----
-$ oc get cgu cgu-upgrade-complete -ojson | jq '.status.conditions'
+$ oc get cgu -n default cgu-upgrade-complete -ojsonpath='{.status.conditions}'
 ----
 +
 .Example output

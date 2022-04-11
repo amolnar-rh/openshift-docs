@@ -190,7 +190,7 @@ The periodic checks allow the updates to complete if they get prolonged due to n
 
 The TALO transitions to the `UpgradeTimedOut` state in two cases:
 
-* When the current batch is of `canary` type and the cluster in the batch does not comply with all the managed policies within the batch timeout.
+* When the current batch contains canary updates and the cluster in the batch does not comply with all the managed policies within the batch timeout.
 * When the clusters do not comply with the managed policies within the `timeout` value specified in the `remediationStrategy` field.
 
 If the policies are compliant, the TALO transitions to the `UpgradeCompleted` state.

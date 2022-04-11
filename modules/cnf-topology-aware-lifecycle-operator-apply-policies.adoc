@@ -73,7 +73,7 @@ default     cgu-1     8m55s
 +
 [source,terminal]
 ----
-$ oc get cgu -n default cgu-1 -ojson | jq '.status'
+$ oc get cgu -n default cgu-1 -ojsonpath='{.status}'
 ----
 +
 .Example output
@@ -193,7 +193,7 @@ $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-1 \
 +
 [source,terminal]
 ----
-$ oc get cgu -n default cgu-1 -ojson | jq '.status'
+$ oc get cgu -n default cgu-1 -ojsonpath='{.status}'
 ----
 +
 .Example output

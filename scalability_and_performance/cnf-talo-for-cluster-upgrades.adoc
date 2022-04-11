@@ -26,6 +26,10 @@ include::modules/cnf-about-topology-aware-lifecycle-operator-blocking-crs.adoc[l
 
 include::modules/cnf-topology-aware-lifecycle-operator-policies-concept.adoc[leveloffset=+1]
 
+.Additional resources
+
+For more information about `PolicyGenTemplate` CRD, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-the-policygentemplate_ztp-deploying-disconnected
+
 include::modules/cnf-topology-aware-lifecycle-operator-apply-policies.adoc[leveloffset=+2]
 
 include::modules/cnf-topology-aware-lifecycle-operator-precache-concept.adoc[leveloffset=+1]
