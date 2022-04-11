@@ -6,21 +6,23 @@
 [id="talo-operator-and-platform-update_{context}"]
 = Performing a platform and an Operator update together
 
+You can perform a platform and an Operator update at the same time.
+
 .Prerequisites
 
 * Install the Topology Aware Lifecycle Operator.
 * Update ZTP to the latest version.
 * Provision one or more managed clusters with ZTP.
 * Log in as a user with `cluster-admin` privileges.
-* Create {rh-rhacm} policies in the Hub cluster.
+* Create {rh-rhacm} policies in the hub cluster.
 
 .Procedure
 
-. Create the `PolicyGenTemplate` CR for the updates by following the step described in Performing a platform update and Performing an Operator update sections.
+. Create the `PolicyGenTemplate` CR for the updates by following the steps described in the "Performing a platform update" and "Performing an Operator update" sections.
 
-. Apply the `prep-work` for the platform and the Operator update.
+. Apply the prep work for the platform and the Operator update.
 
-.. Save the content of the `ClusterGroupUpgrade` CR with the policies for platform update preparation work, catalog source updates, and target clusters to the `cgu-platform-operator-upgrade-prep.yml` file.
+.. Save the content of the `ClusterGroupUpgrade` CR with the policies for platform update preparation work, catalog source updates, and target clusters to the `cgu-platform-operator-upgrade-prep.yml` file, for example:
 +
 [source,yaml]
 ----
@@ -40,22 +42,22 @@ spec:
   enable: true
 ----
 
-.. Apply the `cgu-platform-operator-upgrade-prep.yml` to the Hub cluster by running the following command:
+.. Apply the `cgu-platform-operator-upgrade-prep.yml` file to the hub cluster by running the following command:
 +
 [source,terminal]
 ----
 $ oc apply -f cgu-platform-operator-upgrade-prep.yml
 ----
 
-.. Monitor the process and wait for completion. Then ensure that the policy becomes compliant by running the following command:
+.. Monitor the process. Upon completion, ensure that the policy is compliant by running the following command:
 +
 [source,terminal]
 ----
 $ oc get policies --all-namespaces
 ----
 
-. Pre-cache the images for the platform and the Operator update.
-.. Save the content of the platform and the Operator update `ClusterGroupUpgrade` CR with the policies and the target clusters to the `cgu-platform-operator-upgrade.yml file`. This `ClusterGroupUpgrade` CR is configured to only perform the pre-caching job without the actual platform and Operator update.
+. Create the `ClusterGroupUpdate` CR for the platform and the Operator update with the `spec.enable` field set to `false`.
+.. Save the contents of the platform and Operator update `ClusterGroupUpdate` CR with the policies and the target clusters to the `cgu-platform-operator-upgrade.yml` file, as shown in the example:
 +
 [source,yaml]
 ----
@@ -80,11 +82,20 @@ spec:
 <2> This is the policy containing the catalog source information for the Operators to be updated. It is needed for the pre-caching feature to determine which Operator images to download to the spoke cluster.
 <3> This is the policy to update the Operators.
 
-.. Apply the `cgu-platform-operator-upgrade.yml` to the Hub cluster by running the following command:
+.. Apply the `cgu-platform-operator-upgrade.yml` file to the hub cluster by running the following command:
 +
 [source,terminal]
 ----
 $ oc apply -f cgu-platform-operator-upgrade.yml
+----
+
+. (Optional) Pre-cache the images for the platform and the Operator update.
+.. Enable pre-caching in the `ClusterGroupUpgrade` CR by running the following command:
++
+[source,terminal]
+----
+$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-operator-upgrade \
+--patch '{"spec":{"preCaching": true}}' --type=merge
 ----
 
 .. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
@@ -92,6 +103,13 @@ $ oc apply -f cgu-platform-operator-upgrade.yml
 [source,terminal]
 ----
 $ oc get jobs,pods -n openshift-talo-pre-cache
+----
+
+.. Check if the pre-caching is completed before starting the update by running the following command:
++
+[source,terminal]
+----
+$ oc get cgu cgu-du-upgrade -ojson | jq '.status.conditions'
 ----
 
 . Start the platform and Operator update.
@@ -103,16 +121,16 @@ $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-du-upgra
 --patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 
-.. Monitor the process and wait for completion. Then, ensure that the policies becomes compliant by running the following command:
+.. Monitor the process. Upon completion, ensure that the policy is compliant by running the following command:
 +
 [source,terminal]
 ----
 $ oc get policies --all-namespaces
 ----
-
++
 [NOTE]
 ====
-The platform and Operator update CRs can be created from the beginning with `spec.enable: true`. In this case, the update starts immediately after pre-caching completes and there is no need to manually enable the CR.
+The CRs for the platform and Operator updates can be created from the beginning by configuring the setting to `spec.enable: true`. In this case, the update starts immediately after pre-caching completes and there is no need to manually enable the CR.
 
-Both pre-caching and the update create extra resources (policies, placement bindings, placement rules, managed cluster actions, managed cluster view) to help complete the procedures. If the `afterCompletion.deleteObjects` is set to  `true`, all these resources are deleted after the updates are complete.
+Both pre-caching and the update create extra resources, such as policies, placement bindings, placement rules, managed cluster actions, and managed cluster view, to help complete the procedures. Setting the `afterCompletion.deleteObjects` field to `true` deletes all these resources after the updates complete.
 ====

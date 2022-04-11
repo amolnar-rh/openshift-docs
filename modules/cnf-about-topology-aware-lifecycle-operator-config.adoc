@@ -6,7 +6,7 @@
 [id="cnf-about-topology-aware-lifecycle-operator-config_{context}"]
 = About the Topology Aware Lifecycle Operator configuration
 
-The Topology Aware Lifecycle Operator (TALO) manages the deployment of {rh-rhacm-first} policies for one or more {product-title} clusters. Using TALO in a large network of clusters allows the phased rollout of policies to the clusters in limited batches. This helps to minimize possible service disruptions when updating. With TALO, you can control the following actions:
+The Topology Aware Lifecycle Operator (TALO) manages the deployment of {rh-rhacm-first} policies for one or more {product-title} clusters. Using the TALO in a large network of clusters allows the phased rollout of policies to the clusters in limited batches. This helps to minimize possible service disruptions when updating. With the TALO, you can control the following actions:
 
 * The timing of the update
 * The number of {rh-rhacm}-managed clusters
@@ -15,4 +15,4 @@ The Topology Aware Lifecycle Operator (TALO) manages the deployment of {rh-rhacm
 * The set of policies remediated to the cluster
 * The order of policies remediated to the cluster
 
-TALO supports the orchestration of the {product-title} y-streams and z-stream updates, and day-two operations on y-stream and z-streams.
+The TALO supports the orchestration of the {product-title} y-stream and z-stream updates, and day-two operations on y-stream and z-streams.

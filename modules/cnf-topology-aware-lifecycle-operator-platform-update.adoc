@@ -6,6 +6,8 @@
 [id="talo-platform-update_{context}"]
 = Performing a platform update
 
+You can perform a platform update with the TALO.
+
 .Prerequisites
 
 * Install the Topology Aware Lifecycle Operator.
@@ -13,7 +15,7 @@
 * Provision one or more managed clusters with ZTP.
 * Mirror the desired image repository.
 * Log in as a user with `cluster-admin` privileges.
-* Create {rh-rhacm} policies in the Hub cluster.
+* Create {rh-rhacm} policies in the hub cluster.
 
 .Procedure
 
@@ -66,27 +68,23 @@ spec:
         upstream: http://upgrade.example.com/images/upgrade-graph_stable-4.10
         desiredUpdate:
           version: 4.10.4
-      status:
-        history:
-          - version: 4.10.4
-            state: "Completed"
 ----
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
-<2> Shows the image signature of the desired {product-title} release. If you followed the steps in "Mirroring the OpenShift Container Platform image repository" section, you can get the image signature at `${REMOVABLE_MEDIA_PATH}/mirror/config/<image_signature_file>`.
-<3> Shows the mirror repository that contains the desired {product-title} image.
+<2> Shows the image signature of the desired {product-title} release. Get the signature from the `checksum-${OCP_RELASE_NUMBER}.yaml` file you saved when following the procedures in the "Setting up the environment" section.
+<3> Shows the mirror repository that contains the desired {product-title} image. Get the mirrors from the `imageContentSources.yaml` you saved when following the procedures in the "Setting up the environment" section.
 <4> Shows the source repository that the desired {product-title} image is pulled from. You can list the required mirror registries by running the `oc adm release mirror` command.
 <5> Shows the `ClusterVersion` CR to update upstream.
 <6> Shows the `ClusterVersion` CR to trigger the update. The `channel`, `upstream`, and `desiredVersion` fields are all required for image pre-caching.
 +
 The `PolicyGenTemplate` CR generates two policies:
 
-`du-upgrade-platform-upgrade-prep`:: This policy does the preparation work for the platform update. It creates the `ConfigMap` CR for the desired release image signature, creates the image content source of the mirrored release image repository, and updates the cluster version with the desired update channel and the update graph reachable by the spoke cluster in the disconnected environment.
+* The `du-upgrade-platform-upgrade-prep` policy does the preparation work for the platform update. It creates the `ConfigMap` CR for the desired release image signature, creates the image content source of the mirrored release image repository, and updates the cluster version with the desired update channel and the update graph reachable by the spoke cluster in the disconnected environment.
 
-`du-upgrade-platform-upgrade`:: This is the policy used to perform platform upgrade.
+* The `du-upgrade-platform-upgrade` policy is used to perform platform upgrade.
 
-.. Add the `du-upgrade.yaml` to the `kustomization.yaml` located in the ZTP git repository for the `PolicyGenTemplate` CRs and push the changes to the git repository.
+.. Add the `du-upgrade.yaml` to the `kustomization.yaml` located in the ZTP Git repository for the `PolicyGenTemplate` CRs and push the changes to the Git repository.
 +
-ArgoCD pulls the changes from the git repository and generates the policies on the Hub cluster.
+ArgoCD pulls the changes from the Git repository and generates the policies on the hub cluster.
 
 .. Check the created policies by running the following command:
 +
@@ -95,9 +93,9 @@ ArgoCD pulls the changes from the git repository and generates the policies on t
 $ oc get policies -A | grep platform-upgrade
 ----
 
-. Apply the required update resources before starting the platform update with TALO.
+. Apply the required update resources before starting the platform update with the TALO.
 
-.. Save the content of the `platform-upgrade-prep` `ClusterUpgradeGroup` CR with the `du-upgrade-platform-upgrade-prep` policy and the target spoke clusters to the `cgu-platform-upgrade-prep.yml` file.
+.. Save the content of the `platform-upgrade-prep` `ClusterUpgradeGroup` CR with the `du-upgrade-platform-upgrade-prep` policy and the target spoke clusters to the `cgu-platform-upgrade-prep.yml` file, as shown in the following example:
 +
 [source,yaml]
 ----
@@ -116,22 +114,23 @@ spec:
   enable: true
 ----
 
-.. Apply the policy to the Hub cluster by running the following command:
+.. Apply the policy to the hub cluster by running the following command:
 +
 [source,terminal]
 ----
 $ oc apply -f cgu-platform-upgrade-prep.yml
 ----
 
-.. Monitor the update process and wait for completion. Then ensure that the policy becomes compliant by running the following command:
+.. Monitor the update process. Upon completion, ensure that the policy is compliant by running the following command:
 +
 [source,terminal]
 ----
 $ oc get policies --all-namespaces
 ----
 
-. Pre-cache the images for the platform update.
-.. Save the content of the platform update `ClusterGroupUpgrade` CR with the `du-upgrade-platform-upgrade` policy and the target clusters to the `cgu-platform-upgrade.yml` file. This `ClusterGroupUpgrade` CR is configured to only perform the pre-caching job without the actual cluster update.
+. Create the `ClusterGroupUpdate` CR for the platform update with the `spec.enable` field set to `false`.
+
+.. Save the content of the platform update `ClusterGroupUpdate` CR with the `du-upgrade-platform-upgrade` policy and the target clusters to the `cgu-platform-upgrade.yml` file, as shown in the example:
 +
 [source,yaml]
 ----
@@ -143,7 +142,7 @@ metadata:
 spec:
   managedPolicies:
   - du-upgrade-platform-upgrade
-  preCaching: true
+    preCaching: false
   clusters:
   - spoke1
   remediationStrategy:
@@ -151,22 +150,31 @@ spec:
   enable: false
 ----
 
-.. Apply the CR to the Hub cluster by running the following command:
+.. Apply the `ClusterGroupUpdate` CR to the hub cluster by running the following command:
 +
 [source,terminal]
 ----
-$ oc apply -f cgu-platform-upgrade-prep.yml
+$ oc apply -f cgu-platform-upgrade.yml
 ----
 
-.. Monitor the date process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
+. (Optional) Pre-cache the images for the platform update.
+.. Enable pre-caching in the `ClusterGroupUpdate` CR by running the following command:
 +
 [source,terminal]
 ----
-$ oc get jobs,pods -n openshift-talo-pre-cache
+$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-platform-upgrade \
+--patch '{"spec":{"preCaching": true}}' --type=merge
 ----
 
-. Start platform update.
-.. To start the update, enable the `cgu-platform-upgrade` and disable pre-caching by running the following command:
+.. Monitor the update process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the hub cluster:
++
+[source,terminal]
+----
+$ oc get cgu cgu-platform-upgrade -o jsonpath='{.status.precaching.status}'
+----
+
+. Start the platform update:
+.. Enable the `cgu-platform-upgrade` policy and disable pre-caching by running the following command:
 +
 [source,terminal]
 ----
@@ -174,7 +182,7 @@ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-platform-u
 --patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 
-.. Monitor the process and wait for completion. Then ensure that the policy becomes compliant by running the following command:
+.. Monitor the process. Upon completion, ensure that the policy is compliant by running the following command:
 +
 [source,terminal]
 ----

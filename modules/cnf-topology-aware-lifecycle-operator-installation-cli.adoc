@@ -6,18 +6,18 @@
 [id="installing-topology-aware-lifecycle-operator-using-cli_{context}"]
 = Installing the Topology Aware Lifecycle Operator by using the CLI
 
-You can use the OpenShift CLI (`oc`) to install the Topology Aware Lifecycle Operator.
+You can use the OpenShift CLI (`oc`) to install the Topology Aware Lifecycle Operator (TALO).
 
 .Prerequisites
 
 * Install the OpenShift CLI (`oc`).
 * Install the latest version of {rh-rhacm} Operator.
-* Set up a Hub cluster with disconnected registry.
+* Set up a hub cluster with disconnected registry.
 * Log in as a user with `cluster-admin` privileges.
 
 .Procedure
 
-. Create a `Namespace` custom resource (CR) for the Topology Aware Lifecycle Operator:
+. Create a `Namespace` custom resource (CR) for the TALO:
 .. Define the `Namespace` CR and save the YAML file, for example, `talo-namespace.yaml`:
 +
 [source,yaml]
@@ -25,7 +25,7 @@ You can use the OpenShift CLI (`oc`) to install the Topology Aware Lifecycle Ope
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: openshift-cluster-group-upgrades
+  name: openshift-operators
 ----
 .. Create the `Namespace` CR by running the following command:
 +
@@ -91,10 +91,11 @@ $ oc get csv -n openshift-operators
 .Example output
 [source,terminal]
 ----
-NEEDED
+NAMESPACE                                          NAME                                     DISPLAY                                      VERSION   REPLACES                             PHASE
+openshift-operators    cluster-group-upgrades-operator.v4.10.0 cluster-group-upgrades-operator              4.10.0                                          Succeeded
 ----
 
-. Verify that the Topology Aware Lifecycle Operator is up and running:
+. Verify that the TALO is up and running:
 +
 [source,terminal]
 ----
@@ -104,7 +105,6 @@ $ oc get deploy -n openshift-operators
 .Example output
 [source,terminal]
 ----
-NEEDED
+NAMESPACE                                          NAME                                             READY   UP-TO-DATE   AVAILABLE   AGE
+openshift-operators                                cluster-group-upgrades-controller-manager        1/1     1            1           14s
 ----
-
-//Any other verification methods?

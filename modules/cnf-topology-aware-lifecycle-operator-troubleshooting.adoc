@@ -6,7 +6,7 @@
 [id="talo-troubleshooting_{context}"]
 = Troubleshooting the Topology Aware Lifecycle Operator
 
-The Topology Aware Lifecycle Operator is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details, logs and take steps in debugging the issues.
+The Topology Aware Lifecycle Operator is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details and logs and to take steps in debugging the issues.
 
 
 For more information about related topics, see the following documentation:
@@ -15,17 +15,17 @@ For more information about related topics, see the following documentation:
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.0/html/troubleshooting/troubleshooting[Red Hat Advanced Cluster Management Troubleshooting]
 
-* OpenShift Container Platform Troubleshooting Operator Issues section
+* The "Troubleshooting Operator issues" section
 
 [id="talo-general-troubleshooting_{context}"]
 == General troubleshooting
 
-You can determine the cause of the problem by going through the following questions:
+You can determine the cause of the problem by reviewing the following questions:
 
 * Is the configuration that you are applying supported? 
 ** Are the {rh-rhacm} and the {product-title} versions compatible? 
 ** Are the TALO and {rh-rhacm} versions compatible?
-* Which component is causing the problem?
+* Which of the following components is causing the problem?
 ** Managed policies
 ** Clusters
 ** Remediation Strategy
@@ -33,15 +33,15 @@ You can determine the cause of the problem by going through the following questi
 
 To ensure that the `ClusterGroupUpgrade` configuration is functional, you can do the following:
 
-. Create the `ClusterGroupUpgrade` CR with `spec.enable` set to `false`. 
+. Create the `ClusterGroupUpgrade` CR with the `spec.enable` field set to `false`. 
 
 . Wait for the status to be updated and go through the troubleshooting questions. 
 
-. If everything looks as expected, set `spec.enable` to `true` in the `ClusterGroupUpgrade` CR.
+. If everything looks as expected, set the `spec.enable` field to `true` in the `ClusterGroupUpgrade` CR.
 
 [WARNING]
 ====
-After you set the `spec.enable` to `true` in the `ClusterUpgradeGroup` CR , the update procedure starts and you cannot edit the CR's `spec` fields anymore.
+After you set the `spec.enable` field to `true` in the `ClusterUpgradeGroup` CR , the update procedure starts and you cannot edit the CR's `spec` fields anymore.
 ====
 
 [id="talo-troubleshooting-modify-cgu_{context}"]
@@ -49,24 +49,24 @@ After you set the `spec.enable` to `true` in the `ClusterUpgradeGroup` CR , the 
 
 Issue:: You cannot edit the `ClusterUpgradeGroup` CR after enabling the update.
 
-Resolution:: Restart the procedure by doing the following:
+Resolution:: Restart the procedure by performing the following steps:
 +
 . Remove the old `ClusterGroupUpgrade` CR by running the following command: 
 +
 [source,terminal]
 ----
-$ oc delete cgu -n <ClusterGroupUpgradeCR-namespace> <ClusterGroupUpgradeCR-name>
+$ oc delete cgu -n <ClusterGroupUpgradeCR_namespace> <ClusterGroupUpgradeCR_name>
 ----
 +
 . Check and fix the existing issues with the managed clusters and policies.
-.. Ensure that all the clusters are managed cluster and available.
-.. Ensure that all the policies exist and have the `spec.remediationAction` set to `inform`.
+.. Ensure that all the clusters are managed clusters and available.
+.. Ensure that all the policies exist and have the `spec.remediationAction` field set to `inform`.
 +
 . Create a new `ClusterGroupUpgrade` CR with the correct configurations.
 +
 [source,terminal]
 ----
-$ oc apply -f <ClusterGroupUpgradeCR-YAML>
+$ oc apply -f <ClusterGroupUpgradeCR_YAML>
 ----
 
 [id="talo-troubleshooting-managed-policies_{context}"]
@@ -199,7 +199,7 @@ sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNext
 [discrete]
 === Checking if managed clusters are available
 
-Issue:: You want to check if the managed clusters specified in the `ClusterGroupUpgrade` CR are available
+Issue:: You want to check if the managed clusters specified in the `ClusterGroupUpgrade` CR are available.
 
 Resolution:: Run the following command:
 +
@@ -217,12 +217,12 @@ local-cluster   true           https://api.hub.testlab.com:6443        True     
 spoke1          true           https://api.spoke1.testlab.com:6443     True     True        13d <1>
 spoke3          true           https://api.spoke3.testlab.com:6443     True     True        27h <1>
 ----
-<1> The value of the "AVAILABLE" field is "TRUE" for the managed clusters.
+<1> The value of the `AVAILABLE` field is `True` for the managed clusters.
 
 [discrete]
 === Checking clusterSelector
 
-Issue:: You want to check if the `clusterSelector` is specified in the `ClusterGroupUpgrade` CR in at least one of the managed clusters.
+Issue:: You want to check if the `clusterSelector` field is specified in the `ClusterGroupUpgrade` CR in at least one of the managed clusters.
 
 Resolution:: Run the following command:
 +
@@ -246,7 +246,7 @@ spoke3          true           https://api.spoke3.testlab.com:6443      True    
 
 Issue:: You want to check if the canary clusters are present in the list of clusters.
 +
-.Example ClusterGroupUpgrade CR
+.Example `ClusterGroupUpgrade` CR
 [source,yaml]
 ----
 spec:
@@ -287,7 +287,7 @@ $ oc get managedcluster --selector=upgrade=true
 +
 [source,terminal]
 ----
-NAME      HUB ACCEPTED   MANAGED CLUSTER URLS   JOINED    AVAILABLE   AGE
+NAME            HUB ACCEPTED   MANAGED CLUSTER URLS   JOINED    AVAILABLE   AGE
 spoke1          true           https://api.spoke1.testlab.com:6443   True     True        13d
 spoke3          true           https://api.spoke3.testlab.com:6443   True     True        27h
 ----
@@ -344,7 +344,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.spec.remediationStrategy.maxConcurrency}'
 [discrete]
 === Checking condition message and status in the ClusterGroupUpgrade CR
 
-Issue:: You want to check the value of `status.conditions` in the `ClusterGroupUpgrade` CR.
+Issue:: You want to check the value of the `status.conditions` field in the `ClusterGroupUpgrade` CR.
 
 Resolution:: Run the following command:
 +
@@ -405,9 +405,9 @@ $ oc get cgu lab-upgrade -ojsonpath='{.status.remediationPlan}'
 ----
 
 [discrete]
-=== Errors in TALO manager container
+=== Errors in the TALO manager container
 
-Issue:: You want to check the logs of the manager container of TALO.
+Issue:: You want to check the logs of the manager container of theTALO.
 
 Resolution:: Run the following command:
 +

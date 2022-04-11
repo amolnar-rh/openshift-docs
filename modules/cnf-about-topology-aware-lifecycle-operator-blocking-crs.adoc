@@ -17,7 +17,7 @@ One `ClusterGroupUpgrade` CR can have multiple blocking CRs. In this case, all t
 * Install the Topology Aware Lifecycle Operator (TALO).
 * Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
-* Create {rh-rhacm} policies in the Hub cluster.
+* Create {rh-rhacm} policies in the hub cluster.
 
 .Procedure
 
@@ -185,7 +185,7 @@ status:
   - - spoke6
   status: {}
 ----
-<1> The `cgu-c` update does not have any blocking CRs. TALO starts the `cgu-c` update when the `enable` field is set to `true`.
+<1> The `cgu-c` update does not have any blocking CRs. The TALO starts the `cgu-c` update when the `enable` field is set to `true`.
 
 . Create the `ClusterGroupUpgrade` CRs by running the following command for each relevant CR:
 +

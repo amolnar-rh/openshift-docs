@@ -6,6 +6,8 @@
 [id="talo-operator-update_{context}"]
 = Performing an Operator update
 
+You can perform an Operator update with the TALO.
+
 .Prerequisites
 
 * Install the Topology Aware Lifecycle Operator.
@@ -13,12 +15,12 @@
 * Provision one or more managed clusters with ZTP.
 * Mirror the desired index image, bundle images, and all Operator images referenced in the bundle images.
 * Log in as a user with `cluster-admin` privileges.
-* Create {rh-rhacm} policies in the Hub cluster.
+* Create {rh-rhacm} policies in the hub cluster.
 
 .Procedure
 
 . Update the `PolicyGenTemplate` CR for the Operator update.
-.. Update the `du-upgrade` `PolicyGenTemplate` CR with the following additional contents in the `du-upgrade.yaml` file.
+.. Update the `du-upgrade` `PolicyGenTemplate` CR with the following additional contents in the `du-upgrade.yaml` file:
 +
 [source,yaml]
 ----
@@ -33,7 +35,6 @@ spec:
   mcp: "master"
   remediationAction: inform
   sourceFiles:
-       …
     - fileName: DefaultCatsrc.yaml
       remediationAction: inform
       policyName: "operator-catsrc-policy"
@@ -47,11 +48,11 @@ spec:
             interval: 10m
 ----
 <1> The index image URL contains the desired Operator images. If the index images are always pushed to the same image name and tag, this change is not needed.
-<2> Set how frequently OLM pulls the index image for new Operator versions with the `registrypoll.interval` field. This change is not needed if a new index image tag is always pushed for y-stream and z-stream Operator updates.
+<2> Set how frequently Operator Lifecycle Manager (OLM) pulls the index image for new Operator versions with the `registrypoll.interval` field. This change is not needed if a new index image tag is always pushed for y-stream and z-stream Operator updates.
+
+.. This update generates one policy, `du-upgrade-operator-catsrc-policy`, to update the `redhat-operators` catalog source with the new index images that contain the desired Operators images.
 +
-This update generates one policy, `du-upgrade-operator-catsrc-policy`, to update the `redhat-operators` catalog source with the new index images that contain the desired Operators images. 
-+
-If the desired Operators are not from one catalog source, all catalog sources need to be properly updated with the new index image or registry poll interval. In order to use the image pre-caching for Operators later on, the updates for the different catalog sources must be applied in different policies. In addition, the separated subscription policies are required for the desired Operators from different catalog sources.
+If the desired Operators are not from one catalog source, all catalog sources must be properly updated with the new index image or registry poll interval. To use the image pre-caching for Operators later on, the updates for the different catalog sources must be applied in different policies. In addition, the separated subscription policies are required for the desired Operators from different catalog sources.
 +
 For example, the desired SRIOV-FEC Operator is available in the `certified-operators` catalog source. Add the following contents to generate two policies, `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy`, that are used to update the catalog source and the Operator subscription:
 +
@@ -91,12 +92,12 @@ spec:
 +
 [NOTE]
 ====
-The default channel for the Operators applied through ZTP 4.10 is `stable`, except for the `performance-addon-operator`. The default channel for PAO is `4.10`. You could also explicitly specify the default channels in the common `PolicyGenTemplate` CR.
+The default channel for the Operators applied through ZTP 4.10 is `stable`, except for the `performance-addon-operator`. The default channel for PAO is `4.10`. You can also specify the default channels in the common `PolicyGenTemplate` CR.
 ====
 
-.. Push the `PolicyGenTemplate` CRs updates to the ZTP git repository.
+.. Push the `PolicyGenTemplate` CRs updates to the ZTP Git repository.
 +
-ArgoCD pulls the changes from the git repository and generates the policies on the Hub cluster.
+ArgoCD pulls the changes from the Git repository and generates the policies on the hub cluster.
 
 .. Check the created policies by running the following command:
 +
@@ -105,9 +106,9 @@ ArgoCD pulls the changes from the git repository and generates the policies on t
 $ oc get policies -A | grep -E "catsrc-policy|subscription"
 ----
 
-. Apply the required catalog sources updates before starting the Operator update.
+. Apply the required catalog source updates before starting the Operator update.
 
-.. Save the content of the `cgu-operator-upgrade-prep` `ClusterGroupUpgrade` CR with the catalog source policies and the target spoke clusters to the `cgu-operator-upgrade-prep.yml` file.
+.. Save the content of the `ClusterGroupUpgrade` CR named `operator-upgrade-prep` with the catalog source policies and the target spoke clusters to the `cgu-operator-upgrade-prep.yml` file:
 +
 [source,yaml]
 ----
@@ -126,24 +127,22 @@ spec:
     maxConcurrency: 1
 ----
 
-.. Apply the policy to the Hub cluster by running the following command:
+.. Apply the policy to the hub cluster by running the following command:
 +
 [source,terminal]
 ----
 $ oc apply -f cgu-operator-upgrade-prep.yml
 ----
 
-.. Monitor the update process and wait for completion. Then ensure that the policy becomes compliant by running the following command:
+.. Monitor the update process. Upon completion, ensure that the policy is compliant by running the following command:
 +
 [source,terminal]
 ----
 $ oc get policies A | grep -E "catsrc-policy"
 ----
 
-. Pre-cache the images for the Operator update.
-
-.. Save the content of the Operator upgrade `ClusterGroupUpgrade` CR with the `du-upgrade-operator-catsrc-policy`, the subscription policies created from the common `PolicyGenTemplate` CR, and the target clusters to the `cgu-operator-upgrade.yml file`. This 
-`ClusterGroupUpgrade` CR is configured to only perform the pre-caching job without the actual Operator update.
+. Create the `ClusterGroupUpdate` CR for the Operator update with the `spec.enable` field set to `false`.
+.. Save the content of the Operator update `ClusterGroupUpdate` CR with the `du-upgrade-operator-catsrc-policy` policy and the subscription policies created from the common `PolicyGenTemplate` and the target clusters to the `cgu-operator-upgrade.yml` file, as shown in the example:
 +
 [source,yaml]
 ----
@@ -156,22 +155,31 @@ spec:
   managedPolicies:
   - du-upgrade-operator-catsrc-policy <1>
   - common-subscriptions-policy <2>
-  preCaching: true
+  preCaching: false
   clusters:
   - spoke1
   remediationStrategy:
     maxConcurrency: 1
   enable: false
 ----
-<1> The policy that updates the catalog source
-<2> The policy contains the Operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following the "Upgrading GitOps ZTP" procedure, all Operator subscriptions should be grouped into the `common-subscriptions-policy` policy.
+<1> The policy updates the catalog source.
+<2> The policy contains operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following "Upgrade ZTP from 4.9 to 4.10", all Operator subscriptions are grouped into the `common-subscriptions-policy policy`.
 +
 [NOTE]
 ====
-One `ClusterGroupUpgrade` CR can only pre-cache the images of the desired Operators defined in the subscription policy from one catalog source included in the `ClusterGroupUpgrade` CR. If the desired Operators are from different catalog sources, like in the example of the SRIOV-FEC Operator, another `ClusterGroupUpgrade` CR should be created with `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy` policies for the SRIOV-FEC Operator images pre-caching and update.
+One `ClusterGroupUpgrade` CR can only pre-cache the images of the desired Operators defined in the subscription policy from one catalog source included in the `ClusterGroupUpgrade` CR. If the desired Operators are from different catalog sources, such as in the example of the SRIOV-FEC Operator, another `ClusterGroupUpgrade` CR must be created with `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy` policies for the SRIOV-FEC Operator images pre-caching and update.
 ====
 
-.. Verify that the subscription policy is `NonCompliant` at this point by running the following command:
+.. Apply the `ClusterGroupUpgrade` CR to the hub cluster by running the following commands:
++
+[source,terminal]
+----
+$ oc apply -f cgu-platform-upgrade.yml
+----
+
+. (Optional) Pre-cache the images for the Operator update.
+
+.. Before starting image pre-caching, verify the subscription policy is `NonCompliant` at this point by running this command:
 +
 [source,terminal]
 ----
@@ -182,15 +190,16 @@ $ oc get policy common-subscriptions-policy -n <policy_namespace>
 +
 [source,terminal]
 ----
-NAME                        REMEDIATION ACTION   COMPLIANCE STATE     AGE
-common-subscriptions-policy   inform               NonCompliant       27d
+NAME                          REMEDIATION ACTION   COMPLIANCE STATE     AGE
+common-subscriptions-policy   inform               NonCompliant         27d
 ----
 
-.. Apply the `cgu-operator-upgrade.yaml` to the Hub cluster by running the following command:
+.. Enable pre-caching in the `ClusterGroupUpgrade` CR by running the following command:
 +
 [source,terminal]
 ----
-$ oc apply -f cgu-operator-upgrade.yml
+$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-operator-upgrade \
+--patch '{"spec":{"preCaching": true}}' --type=merge
 ----
 
 .. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
@@ -232,7 +241,7 @@ $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-operator
 --patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 
-.. Monitor the process and wait for completion. Then ensure that the policy becomes compliant by running the following command:
+.. Monitor the process. Upon completion, ensure that the policy is compliant by running the following command:
 +
 [source,terminal]
 ----

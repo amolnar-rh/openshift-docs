@@ -13,7 +13,7 @@ You can use the {product-title} web console to install the Topology Aware Lifecy
 // Based on polarion test cases
 
 * Install the latest version of {rh-rhacm} Operator.
-* Set up a Hub cluster with disconnected regitry.
+* Set up a hub cluster with disconnected regitry.
 * Log in as a user with `cluster-admin` privileges.
 
 .Procedure

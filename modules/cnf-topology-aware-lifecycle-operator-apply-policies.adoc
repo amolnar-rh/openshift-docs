@@ -6,24 +6,14 @@
 [id="talo-apply-policies_{context}"]
 = Applying update policies to managed clusters
 
-The Topology Aware Lifecycle Operator remediates a set of `inform` policies for the clusters specified in the `ClusterGroupUpgrade` CR. TALO remediates `inform` policies by making `enforce` managed {rh-rhacm} policies. Each copied policy has its own corresponding {rh-rhacm} placement rule and {rh-rhacm} placement binding.
-
-One by one, TALO adds each cluster from the current batch to the placement rule that corresponds with the applicable managed policy. If a cluster is already compliant with a policy, TALO skips applying that policy on the compliant cluster. TALO then moves on to applying the next policy, with which the cluster is non-compliant. After a batch is updated, all clusters are removed from the placement rules associated with the copied policies. Then, the update of the next batch starts.
-
-If a spoke cluster does not report any compliant state to {rh-rhacm}, the managed policies on the hub cluster can be missing status information that TALO needs. TALO handles these cases in the following ways:
-
-* If a policy's `status.compliant` field is missing, TALO ignores the policy and TALO adds a log entry. Then TALO continues looking at the policy's `status.status` field.
-* If a policy's `status.status` is missing, TALO throws an error.
-* If a cluster's compliance status is missing in the policy's `status.status` field, TALO considers that cluster to be non-compliant with that policy.
-
-For more information about {rh-rhacm} policies, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html-single/governance/index#policy-overview[Policy overview].
+You can update your managed clusters by applying your policies.
 
 .Prerequisites
 
 * Install the Topology Aware Lifecycle Operator.
 * Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
-* Create {rh-rhacm} policies in the Hub cluster.
+* Create {rh-rhacm} policies in the hub cluster.
 
 .Procedure
 
@@ -64,7 +54,7 @@ spec:
 $ oc create -f cgu-1.yaml
 ----
 
-.. Check if the `ClusterGroupUpgrade` CR was created in the Hub cluster by running the following command:
+.. Check if the `ClusterGroupUpgrade` CR was created in the hub cluster by running the following command:
 +
 [source,terminal]
 ----
@@ -355,7 +345,7 @@ $ oc get installplan -n <subscription namespace>
 NAMESPACE                              NAME            CSV                                 APPROVAL   APPROVED
 openshift-logging                      install-6khtw   cluster-logging.5.3.3-4             Manual     true <1>
 ----
-<1> The install plans have their `Approval` field set to `Manual` and their `Approved` field changes from `true` to `false` after TALO approves the install plan.
+<1> The install plans have their `Approval` field set to `Manual` and their `Approved` field changes from `true` to `false` after  the TALO approves the install plan.
 
 . Check if the cluster service version for the Operator of the policy that the `ClusterGroupUpgrade` is installing reached the `Succeeded` phase by running the following command:
 +
