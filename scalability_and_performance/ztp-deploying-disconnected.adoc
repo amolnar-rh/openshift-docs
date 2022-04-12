@@ -215,7 +215,7 @@ include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
 
 include::modules/cnf-topology-aware-lifecycle-operator-autocreate-cgu-cr-ztp.adoc[leveloffset=+2]
 
-include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+2]
+include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.adoc[leveloffset=+1]
 
 [role="_additional-resources"]
 .Additional resources
@@ -231,7 +231,7 @@ include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leve
 [role="_additional-resources"]
 .Additional resources
 
-* For more information on mirorring the images in a disconnected environment, xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment]
+* For more information about mirroring the images in a disconnected environment, xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment]
 
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
 
