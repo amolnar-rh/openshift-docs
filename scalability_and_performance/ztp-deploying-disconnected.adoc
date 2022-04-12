@@ -218,6 +218,10 @@ include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.ado
 
 * For more information about how to update ZTP, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-upgrading-gitops-ztp_ztp-deploying-disconnected[Upgrading GitOps ZTP].
 
+* For more information about how to mirror an image repository, see xref:../installing/disconnected_install/installing-mirroring-installation-images.adoc#installation-mirror-repository_installing-mirroring-installation-images[Mirroring the OpenShift Container Platform image repository].
+
+* For more information about how to mirror Operator catalogs for disconnected clusters, see xref:../installing/disconnected_install/installing-mirroring-installation-images.adoc#olm-mirror-catalog_installing-mirroring-installation-images[Mirroring Operator catalogs for use with disconnected clusters].
+
 * For more information about how to prepare the disconnected environment and mirroring the desired image repository, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment].
 
 * For more information about update channels and releases, see xref:../updating/understanding-upgrade-channels-release.adoc[Understanding upgrade channels and releases].

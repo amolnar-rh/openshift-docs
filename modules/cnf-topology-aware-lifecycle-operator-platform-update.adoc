@@ -68,6 +68,10 @@ spec:
         upstream: http://upgrade.example.com/images/upgrade-graph_stable-4.10
         desiredUpdate:
           version: 4.10.4
+      status:
+        history:
+          - version: 4.10.4
+            state: "Completed"
 ----
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
 <2> Shows the image signature of the desired {product-title} release. Get the signature from the `checksum-${OCP_RELASE_NUMBER}.yaml` file you saved when following the procedures in the "Setting up the environment" section.

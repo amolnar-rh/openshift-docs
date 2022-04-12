@@ -162,7 +162,7 @@ spec:
     maxConcurrency: 1
   enable: false
 ----
-<1> The policy updates the catalog source.
+<1> The policy is needed by the image pre-caching feature to retrieve the operator images from the catalog source.
 <2> The policy contains operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following "Upgrade ZTP from 4.9 to 4.10", all Operator subscriptions are grouped into the `common-subscriptions-policy policy`.
 +
 [NOTE]
@@ -174,7 +174,7 @@ One `ClusterGroupUpgrade` CR can only pre-cache the images of the desired Operat
 +
 [source,terminal]
 ----
-$ oc apply -f cgu-platform-upgrade.yml
+$ oc apply -f cgu-operator-upgrade.yml
 ----
 
 . (Optional) Pre-cache the images for the Operator update.
@@ -220,15 +220,24 @@ $ oc get cgu -n default cgu-upgrade-complete -ojsonpath='{.status.conditions}'
 +
 [source,json]
 ----
-[
-  {
-    "lastTransitionTime": "2022-04-08T14:14:40Z",
-    "message": "The ClusterGroupUpgrade CR has all clusters already compliant with the specified managed policies",
-    "reason": "UpgradeCompleted",
-    "status": "False",
-    "type": "Ready"
-  }
-]
+{
+  "conditions": [
+    {
+      "lastTransitionTime": "2022-03-08T20:49:08.000Z",
+      "message": "The ClusterGroupUpgrade CR is not enabled",
+      "reason": "UpgradeNotStarted",
+      "status": "False",
+      "type": "Ready"
+    },
+    {
+      "lastTransitionTime": "2022-03-08T20:55:30.000Z",
+      "message": "Precaching is completed",
+      "reason": "PrecachingCompleted",
+      "status": "True",
+      "type": "PrecachingDone"
+    }
+  ]
+}
 ----
 
 . Start the Operator update.
