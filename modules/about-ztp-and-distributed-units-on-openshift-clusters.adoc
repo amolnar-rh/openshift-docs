@@ -22,4 +22,4 @@ With ZTP and AI, you can provision {product-title} clusters to run your DUs at s
 
 ** Network connectivity - including DNS for your network. Hosts should be reachable through the hub and managed spoke clusters. Ensure there is layer 3 connectivity between the hub and the host where you want to install your hub cluster.
 
-* Baseboard Management Controller (BMC) details for each host - ZTP uses BMC details to connect the URL and credentials for accessing the BMC. ZTP manages the spoke cluster definition CRs, with the exception of the `BMCSecret` CR, which you create manually. These define the relevant elements for the managed clusters.
+** Baseboard Management Controller (BMC) details for each host - ZTP uses BMC details to connect the URL and credentials for accessing the BMC. ZTP manages the spoke cluster definition CRs, with the exception of the `BMCSecret` CR, which you create manually. These define the relevant elements for the managed clusters.
