@@ -168,6 +168,7 @@ include::modules/ztp-labeling-the-existing-clusters.adoc[leveloffset=+2]
 include::modules/ztp-stopping-the-existing-gitops-ztp-applications.adoc[leveloffset=+2]
 
 include::modules/ztp-topology-aware-lifecycle-operator.adoc[leveloffset=+2]
+
 [role="_additional-resources"]
 .Additional resources
 * For information about Topology Aware Lifecycle Operator (TALO), see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator configuration].
@@ -177,6 +178,7 @@ include::modules/ztp-required-changes-to-the-git-repository.adoc[leveloffset=+2]
 include::modules/ztp-installing-the-new-gitops-ztp-applications.adoc[leveloffset=+2]
 
 include::modules/ztp-roll-out-the-configuration-changes.adoc[leveloffset=+2]
+
 [role="_additional-resources"]
 .Additional resources
 * For information about creating `ClusterGroupUpgrade` CRs, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#talo-precache-autocreated-cgu-for-ztp_ztp-deploying-disconnected[About the auto-created ClusterGroupUpgrade CR for ZTP].
