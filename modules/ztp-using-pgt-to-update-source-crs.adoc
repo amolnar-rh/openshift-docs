@@ -8,13 +8,13 @@
 
 `PolicyGenTemplate` CRs allow you to overlay additional configuration details on top of the base source CRs provided in the `ztp-site-generate` container. You can think of `PolicyGenTemplate` CRs as a logical merge or patch to the base CR. Use `PolicyGenTemplate` CRs to update a single field of the base CR, or overlay the entire contents of the base CR. You can update values and insert fields that are not in the base CR.
 
+The following example procedure describes how to update fields in the generated `PerformanceProfile` CR for the reference configuration based on the `PolicyGenTemplate` CR in the `group-du-sno-ranGen.yaml` file. Use the procedure as a basis for modifying other parts of the `PolicyGenTemplate` based on your requirements.
+
 .Prerequisites
 
 * Create a Git repository where you manage your custom site configuration data. The repository must be accessible from the hub cluster and be defined as a source repository for Argo CD.
 
 .Procedure
-
-The following example procedure describes how to update fields in the generated `PerformanceProfile` CR. Other CRs, generated with the `PolicyGenTemplate` CR, can be similarly modified.
 
 . Review the baseline source CR for existing content. You can review the source CRs listed in the reference `PolicyGenTemplate` CRs by extracting them from the zero touch provisioning (ZTP) container.
 
@@ -32,12 +32,7 @@ $ mkdir -p ./out
 $ podman run --log-driver=none --rm registry.redhat.io/openshift4/ztp-site-generate-rhel8:v4.10 extract /home/ztp --tar | tar x -C ./out
 ----
 
-. The baseline `PerformanceProfile` CR is found in `./out/source-crs/PerformanceProfile.yaml`.
-+
-[NOTE]
-====
-Any fields in the source CR which contain `$...` are removed from the generated CR if not provided in the `PolicyGenTemplate` CR.
-====
+. Review the baseline `PerformanceProfile` CR in `./out/source-crs/PerformanceProfile.yaml`:
 +
 [source,yaml]
 ----
@@ -71,8 +66,13 @@ spec:
   realTimeKernel:
     enabled: true
 ----
++
+[NOTE]
+====
+Any fields in the source CR which contain `$...` are removed from the generated CR if they are not provided in the `PolicyGenTemplate` CR.
+====
 
-. The `PolicyGenTemplate` entry for `PerformanceProfile` is found in the `group-du-sno-ranGen.yaml` reference file. The following example entry in that `PolicyGenTemplate` can be specified to supply appropriate CPU specifications, hugepage configuration, and add a new field that sets `globallyDisableIrqLoadBalancing` to false.
+. Update the `PolicyGenTemplate` entry for `PerformanceProfile` in the `group-du-sno-ranGen.yaml` reference file. The following example `PolicyGenTemplate` CR stanza supplies appropriate CPU specifications, sets the `hugepages` configuration, and adds a new field that sets `globallyDisableIrqLoadBalancing` to false.
 +
 [source,yaml]
 ----
@@ -93,8 +93,13 @@ spec:
     globallyDisableIrqLoadBalancing: false
 ----
 
-. Commit the `PolicyGenTemplate` change in Git, and then push to the Git repository being monitored by the GitOps ZTP argo CD application. The ZTP application generates an ACM policy that contains the generated `PerformanceProfile` CR. The contents of that CR are derived by merging the `metadata` and `spec` contents from the `PerformanceProfile` entry in the `PolicyGenTemplate` onto the source CR. The resulting CR has the following content:
-+
+. Commit the `PolicyGenTemplate` change in Git, and then push to the Git repository being monitored by the GitOps ZTP argo CD application.
+
+
+.Example output
+
+The ZTP application generates an ACM policy that contains the generated `PerformanceProfile` CR. The contents of that CR are derived by merging the `metadata` and `spec` contents from the `PerformanceProfile` entry in the `PolicyGenTemplate` onto the source CR. The resulting CR has the following content:
+
 [source,yaml]
 ----
 ---

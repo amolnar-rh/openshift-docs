@@ -80,8 +80,6 @@ Scaling the hub cluster to managing large numbers of spoke clusters is affected 
 
 include::modules/ztp-creating-the-policygentemplate-cr.adoc[leveloffset=+1]
 
-include::modules/ztp-generating-ran-policies.adoc[leveloffset=+1]
-
 include::modules/ztp-creating-ztp-custom-resources-for-multiple-managed-clusters.adoc[leveloffset=+1]
 
 include::modules/ztp-using-pgt-to-update-source-crs.adoc[leveloffset=+2]
@@ -199,11 +197,14 @@ include::modules/ztp-configuring-the-cluster-for-a-disconnected-environment.adoc
 
 include::modules/ztp-configuring-ipv6.adoc[leveloffset=+2]
 
+include::modules/ztp-generating-ran-policies.adoc[leveloffset=+1]
+
 include::modules/ztp-troubleshooting-the-managed-cluster.adoc[leveloffset=+2]
 
 // TALO
 
 include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
+
 [role="_additional-resources"]
 .Additional resources
 
@@ -227,12 +228,14 @@ include::modules/cnf-topology-aware-lifecycle-operator-preparing-for-updates.ado
 * For more information about update channels and releases, see xref:../updating/understanding-upgrade-channels-release.adoc[Understanding upgrade channels and releases].
 
 include::modules/cnf-topology-aware-lifecycle-operator-platform-update.adoc[leveloffset=+2]
+
 [role="_additional-resources"]
 .Additional resources
 
 * For more information about mirroring the images in a disconnected environment, xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#ztp-acm-preparing-to-install-disconnected-acm_ztp-deploying-disconnected[Preparing the disconnected environment]
 
 include::modules/cnf-topology-aware-lifecycle-operator-operator-update.adoc[leveloffset=+2]
+
 [role="_additional-resources"]
 .Additional resources
 

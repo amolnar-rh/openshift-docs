@@ -18,13 +18,6 @@ You can configure your hub cluster with a set of ArgoCD applications that genera
 
 . Install the Topology Aware Lifecycle Operator, which coordinates with any new sites added by ZTP and manages application of the `PolicyGenTemplate`-generated policies.
 
-. Patch the ArgoCD instance in the hub cluster using the patch files previously extracted into the `out/argocd/deployment/` directory:
-+
-[source,terminal]
-----
-$ oc patch argocd openshift-gitops -n openshift-gitops  --type=merge --patch-file out/argocd/deployment/argocd-openshift-gitops-patch.json
-----
-
 . Prepare the ArgoCD pipeline configuration:
 +
 .. Create a Git repository with the directory structure similar to the example directory. For more information, see "Preparing the ZTP Git repository".
