@@ -94,11 +94,11 @@ $ oc apply -f cgu-platform-operator-upgrade.yml
 +
 [source,terminal]
 ----
-$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-operator-upgrade \
+$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-du-upgrade \
 --patch '{"spec":{"preCaching": true}}' --type=merge
 ----
 
-.. Monitor the process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
+.. Monitor the update process and wait for the pre-caching to complete. Check the status of pre-caching by running the following command on the spoke cluster:
 +
 [source,terminal]
 ----
@@ -109,7 +109,7 @@ $ oc get jobs,pods -n openshift-talo-pre-cache
 +
 [source,terminal]
 ----
-$ oc get cgu cgu-du-upgrade -ojson | jq '.status.conditions'
+$ oc get cgu cgu-du-upgrade -ojsonpath='{.status.conditions}'
 ----
 
 . Start the platform and Operator update.

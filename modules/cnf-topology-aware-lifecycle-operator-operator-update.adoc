@@ -206,14 +206,14 @@ $ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-operator
 +
 [source,terminal]
 ----
-$ oc get jobs,pods -n openshift-talo-pre-cache
+$ oc get cgu cgu-operator-upgrade -o jsonpath='{.status.precaching.status}'
 ----
 
 .. Check if the pre-caching is completed before starting the update by running the following command:
 +
 [source,terminal]
 ----
-$ oc get cgu -n default cgu-upgrade-complete -ojsonpath='{.status.conditions}'
+$ oc get cgu -n default cgu-operator-upgrade -ojsonpath='{.status.conditions}'
 ----
 +
 .Example output

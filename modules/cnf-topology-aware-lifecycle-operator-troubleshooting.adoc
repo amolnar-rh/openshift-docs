@@ -297,6 +297,16 @@ spoke3          true           https://api.spoke3.testlab.com:6443   True     Tr
 A cluster can be present in `spec.clusters` and also be matched by the `spec.clusterSelecter` label.
 ====
 
+[discrete]
+=== Checking the pre-caching status on spoke clusters
+
+. Check the status of pre-caching by running the following command on the spoke cluster:
++
+[source,terminal]
+----
+$ oc get jobs,pods -n openshift-talo-pre-cache
+----
+
 [id="talo-troubleshooting-remediation-strategy_{context}"]
 == Remediation Strategy
 
