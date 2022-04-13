@@ -14,7 +14,7 @@ include::snippets/technology-preview.adoc[leveloffset=+1]
 
 {product-title} enables your monitoring services to consume cloud-native events from Redfish hardware event-capable equipment. The Redfish service publishes events on a node and transmits them on an advanced message queue to your subscribing applications.
 
-Redfish hardware events provide the basis for a standard network monitoring services that is cloud friendly and secure. The standard is developed under the guidance of the Distributed Management Task Force. Redfish provides an industry-standard protocol with a RESTful interface. The protocol is used for the management of distributed, converged or software-defined resources and infrastructure.
+Redfish hardware events are based on the open Redfish standard that is developed under the guidance of the Distributed Management Task Force (DMTF). Redfish provides a secure industry-standard protocol with a REST API. The protocol is used for the management of distributed, converged or software-defined resources and infrastructure.
 
 [NOTE]
 ====
