@@ -91,12 +91,12 @@ $ oc create -f hw-events-sub.yaml
 .Verification
 
 To verify that the Operator is installed, run the following command:
-+
+
 [source,terminal]
 ----
 $ oc get csv -n openshift-hw-events -o custom-columns=Name:.metadata.name,Phase:.status.phase
 ----
-+
+
 .Example output
 [source,terminal]
 ----
