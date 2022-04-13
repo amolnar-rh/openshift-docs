@@ -6,7 +6,7 @@
 [id="talo-policies-concept_{context}"]
 = Update policies on managed clusters
 
-The Topology Aware Lifecycle Operator (TALO) remediates a set of `inform` policies for the clusters specified in the `ClusterGroupUpgrade` CR. The TALO remediates `inform` policies by making `enforce` managed {rh-rhacm} policies. Each copied policy has its own corresponding {rh-rhacm} placement rule and {rh-rhacm} placement binding.
+The Topology Aware Lifecycle Operator (TALO) remediates a set of `inform` policies for the clusters specified in the `ClusterGroupUpgrade` CR. The TALO remediates `inform` policies by making `enforce` copies of the managed {rh-rhacm} policies. Each copied policy has its own corresponding {rh-rhacm} placement rule and {rh-rhacm} placement binding.
 
 One by one, the TALO adds each cluster from the current batch to the placement rule that corresponds with the applicable managed policy. If a cluster is already compliant with a policy, the TALO skips applying that policy on the compliant cluster. The TALO then moves on to applying the next policy to the non-compliant cluster. After the TALO completes the updates in a batch, all clusters are removed from the placement rules associated with the copied policies. Then, the update of the next batch starts.
 

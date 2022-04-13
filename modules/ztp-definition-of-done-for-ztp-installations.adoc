@@ -24,8 +24,8 @@ Operators have completed their initialization. The policy validates the followin
 +
 * The target `MachineConfigPool` contains the expected entries and has finished
 updating. All nodes are available and not degraded.
-* The `SRIOV` Operator has completed initialization as indicated by at least one `SriovNetworkNodeState` with `syncStatus: Succeeded`.
-* The `PTP` Operator daemon set exists.
+* The SR-IOV Operator has completed initialization as indicated by at least one `SriovNetworkNodeState` with `syncStatus: Succeeded`.
+* The PTP Operator daemon set exists.
 +
 The policy captures the existing criteria for a completed installation and validates that it moves
 to a compliant state only when ZTP provisioning of the spoke cluster is complete.
