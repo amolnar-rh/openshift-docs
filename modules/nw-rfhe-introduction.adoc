@@ -28,9 +28,9 @@ At startup, the hardware event proxy queries the Redfish API and downloads all t
 
 The proxy enables applications running on bare-metal clusters to respond quickly to Redfish hardware changes and failures such as breaches of temperature thresholds, fan failure, disk loss, power outages, and memory failure. The events are reported using the `HardwareEvent` CR.
 
-=== Cloud Native Event
+=== Cloud native event
 
-Cloud Native Events (CNE) is a REST API specification for defining the format of event data.
+Cloud native events (CNE) is a REST API specification for defining the format of event data.
 
 === CNCF CloudEvents
 
