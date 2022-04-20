@@ -20,7 +20,7 @@ You can use the {product-title} web console to install the Topology Aware Lifecy
 
 . In the {product-title} web console, navigate to *Operators* -> *OperatorHub*.
 . Search for the *Topology Aware Lifecycle Operator* from the list of available Operators, and then click *Install*.
-. Keep the default selection of *Installation mode* and *namespace* to ensure that the Operator is installed in the `openshift-cluster-group-upgrades` namespace.
+. Keep the default selection of *Installation mode* ("All namespaces on the cluster (default)") and *Installed Namespace* ("openshift-operators") to ensure that the Operator is installed properly.
 . Click *Install*.
 
 .Verification
@@ -28,9 +28,9 @@ You can use the {product-title} web console to install the Topology Aware Lifecy
 To confirm that the installation is successful:
 
 . Navigate to the *Operators* -> *Installed Operators* page.
-. Check that the Operator is installed in the `openshift-cluster-group-upgrades` namespace and its status is `Succeeded`.
+. Check that the Operator is installed in the `All Namespaces` namespace and its status is `Succeeded`.
 
 If the Operator is not installed successfully:
 
 . Navigate to the *Operators* -> *Installed Operators* page and inspect the `Status` column for any errors or failures.
-. Navigate to the *Workloads* -> *Pods* page and check the logs in any pods in the `cluster-group-upgrades-controller-manager` project that are reporting issues.
+. Navigate to the *Workloads* -> *Pods* page and check the logs in any containers in the `cluster-group-upgrades-controller-manager` pod that are reporting issues.

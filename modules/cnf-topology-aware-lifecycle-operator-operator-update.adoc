@@ -213,7 +213,7 @@ $ oc get cgu cgu-operator-upgrade -o jsonpath='{.status.precaching.status}'
 +
 [source,terminal]
 ----
-$ oc get cgu -n default cgu-operator-upgrade -ojsonpath='{.status.conditions}'
+$ oc get cgu -n default cgu-operator-upgrade -ojsonpath='{.status.conditions}' | jq
 ----
 +
 .Example output
