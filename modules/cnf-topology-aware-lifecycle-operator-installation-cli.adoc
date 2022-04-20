@@ -17,23 +17,6 @@ You can use the OpenShift CLI (`oc`) to install the Topology Aware Lifecycle Ope
 
 .Procedure
 
-. Create a `Namespace` custom resource (CR) for the TALO:
-.. Define the `Namespace` CR and save the YAML file, for example, `talo-namespace.yaml`:
-+
-[source,yaml]
-----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: openshift-operators
-----
-.. Create the `Namespace` CR by running the following command:
-+
-[source,terminal]
-----
-$ oc create -f talo-namespace.yaml
-----
-
 . Create an `OperatorGroup` CR:
 .. Define the `OperatorGroup` CR and save the YAML file, for example, `talo-group.yaml`:
 +

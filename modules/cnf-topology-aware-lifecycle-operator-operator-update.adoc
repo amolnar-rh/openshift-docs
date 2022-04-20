@@ -138,7 +138,7 @@ $ oc apply -f cgu-operator-upgrade-prep.yml
 +
 [source,terminal]
 ----
-$ oc get policies A | grep -E "catsrc-policy"
+$ oc get policies -A | grep -E "catsrc-policy"
 ----
 
 . Create the `ClusterGroupUpdate` CR for the Operator update with the `spec.enable` field set to `false`.
@@ -220,8 +220,7 @@ $ oc get cgu -n default cgu-operator-upgrade -ojsonpath='{.status.conditions}'
 +
 [source,json]
 ----
-{
-  "conditions": [
+[
     {
       "lastTransitionTime": "2022-03-08T20:49:08.000Z",
       "message": "The ClusterGroupUpgrade CR is not enabled",
@@ -236,8 +235,7 @@ $ oc get cgu -n default cgu-operator-upgrade -ojsonpath='{.status.conditions}'
       "status": "True",
       "type": "PrecachingDone"
     }
-  ]
-}
+]
 ----
 
 . Start the Operator update.

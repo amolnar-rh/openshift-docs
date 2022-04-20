@@ -76,7 +76,7 @@ spec:
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
 <2> Shows the image signature of the desired {product-title} release. Get the signature from the `checksum-${OCP_RELASE_NUMBER}.yaml` file you saved when following the procedures in the "Setting up the environment" section.
 <3> Shows the mirror repository that contains the desired {product-title} image. Get the mirrors from the `imageContentSources.yaml` you saved when following the procedures in the "Setting up the environment" section.
-<4> Shows the source repository that the desired {product-title} image is pulled from. You can list the required mirror registries by running the `oc adm release mirror` command.
+<4> Shows the source repository that the desired {product-title} image is pulled from. You should use the `imageContentSources` listed in the `oc adm release mirror` command output here.
 <5> Shows the `ClusterVersion` CR to update upstream.
 <6> Shows the `ClusterVersion` CR to trigger the update. The `channel`, `upstream`, and `desiredVersion` fields are all required for image pre-caching.
 +
