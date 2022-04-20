@@ -52,9 +52,15 @@ spec:
 
 .. This update generates one policy, `du-upgrade-operator-catsrc-policy`, to update the `redhat-operators` catalog source with the new index images that contain the desired Operators images.
 +
-If the desired Operators are not from one catalog source, all catalog sources must be properly updated with the new index image or registry poll interval. To use the image pre-caching for Operators later on, the updates for the different catalog sources must be applied in different policies. In addition, the separated subscription policies are required for the desired Operators from different catalog sources.
+[NOTE]
+====
+When you want to update Operators from different catalog sources, you must do the following:
+* Update all catalog sources with the new index image or registry poll interval.
+* To use the image pre-caching for Operators later on, apply the updates for the different catalog sources in different policies.
+* Prepare separate subscription policies for the desired Operators from different catalog sources.
+====
 +
-For example, the desired SRIOV-FEC Operator is available in the `certified-operators` catalog source. Add the following contents to generate two policies, `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy`, that are used to update the catalog source and the Operator subscription:
+For example, the desired SRIOV-FEC Operator is available in the `certified-operators` catalog source. To update the catalog source and the Operator subscription, add the following contents to generate two policies, `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy`:
 +
 [source,yaml]
 ----

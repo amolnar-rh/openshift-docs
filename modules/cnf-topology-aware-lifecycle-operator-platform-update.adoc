@@ -1,4 +1,4 @@
-4-10// Module included in the following assemblies:
+// Module included in the following assemblies:
 // Epic CNF-2600 (CNF-2133) (4.10), Story TELCODOCS-285
 // * scalability_and_performance/ztp-deploying-disconnected.adoc
 

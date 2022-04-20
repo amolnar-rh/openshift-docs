@@ -33,6 +33,7 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
 ----
+
 .. Create the `Subscription` CR by running the following command:
 +
 [source,terminal]
