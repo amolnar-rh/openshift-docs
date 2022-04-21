@@ -75,7 +75,7 @@ spec:
 ----
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
 <2> Shows the image signature of the desired {product-title} release. Get the signature from the `checksum-${OCP_RELASE_NUMBER}.yaml` file you saved when following the procedures in the "Setting up the environment" section.
-<3> Shows the mirror repository that contains the desired {product-title} image. Get the mirrors from the `imageContentSources.yaml` you saved when following the procedures in the "Setting up the environment" section.
+<3> Shows the mirror repository that contains the desired {product-title} image. Get the mirrors from the `imageContentSources.yaml` file that you saved when following the procedures in the "Setting up the environment" section.
 <4> Shows the source repository that the desired {product-title} image is pulled from. You should use the `imageContentSources` listed in the `oc adm release mirror` command output here.
 <5> Shows the `ClusterVersion` CR to update upstream.
 <6> Shows the `ClusterVersion` CR to trigger the update. The `channel`, `upstream`, and `desiredVersion` fields are all required for image pre-caching.
@@ -86,7 +86,7 @@ The `PolicyGenTemplate` CR generates two policies:
 
 * The `du-upgrade-platform-upgrade` policy is used to perform platform upgrade.
 
-.. Add the `du-upgrade.yaml` to the `kustomization.yaml` located in the ZTP Git repository for the `PolicyGenTemplate` CRs and push the changes to the Git repository.
+.. Add the `du-upgrade.yaml` file contents to the `kustomization.yaml` file located in the ZTP Git repository for the `PolicyGenTemplate` CRs and push the changes to the Git repository.
 +
 ArgoCD pulls the changes from the Git repository and generates the policies on the hub cluster.
 
@@ -134,7 +134,7 @@ $ oc get policies --all-namespaces
 
 . Create the `ClusterGroupUpdate` CR for the platform update with the `spec.enable` field set to `false`.
 
-.. Save the content of the platform update `ClusterGroupUpdate` CR with the `du-upgrade-platform-upgrade` policy and the target clusters to the `cgu-platform-upgrade.yml` file, as shown in the example:
+.. Save the content of the platform update `ClusterGroupUpdate` CR with the `du-upgrade-platform-upgrade` policy and the target clusters to the `cgu-platform-upgrade.yml` file, as shown in the following example:
 +
 [source,yaml]
 ----
@@ -161,7 +161,7 @@ spec:
 $ oc apply -f cgu-platform-upgrade.yml
 ----
 
-. (Optional) Pre-cache the images for the platform update.
+. Optional: Pre-cache the images for the platform update.
 .. Enable pre-caching in the `ClusterGroupUpdate` CR by running the following command:
 +
 [source,terminal]
@@ -182,7 +182,7 @@ $ oc get cgu cgu-platform-upgrade -o jsonpath='{.status.precaching.status}'
 +
 [source,terminal]
 ----
-oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-platform-upgrade \
+$ oc --namespace=default patch clustergroupupgrade.ran.openshift.io/cgu-platform-upgrade \
 --patch '{"spec":{"enable":true, "preCaching": false}}' --type=merge
 ----
 

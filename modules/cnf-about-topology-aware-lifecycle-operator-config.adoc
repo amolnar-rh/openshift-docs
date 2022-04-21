@@ -15,4 +15,4 @@ The Topology Aware Lifecycle Operator (TALO) manages the deployment of {rh-rhacm
 * The set of policies remediated to the cluster
 * The order of policies remediated to the cluster
 
-The TALO supports the orchestration of the {product-title} y-stream and z-stream updates, and day-two operations on y-stream and z-streams.
+The TALO supports the orchestration of the {product-title} y-stream and z-stream updates, and day-two operations on y-streams and z-streams.

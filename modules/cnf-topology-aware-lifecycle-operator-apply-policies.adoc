@@ -285,20 +285,20 @@ $ oc get cgu -n default cgu-1 -ojsonpath='{.status}' | jq
 ----
 <1> Reflects the update progress of the current batch. Run this command again to receive updated information about the progress.
 
-. If the policies include Operator subscriptions, you can checnk the installation progress directly on the single node cluster.
+. If the policies include Operator subscriptions, you can check the installation progress directly on the single-node cluster.
 
-.. Export the `KUBECONFIG` of the single node cluster you want to check the installation progress for by running the following command:
+.. Export the `KUBECONFIG` file of the single-node cluster you want to check the installation progress for by running the following command:
 +
 [source,terminal]
 ----
-$ export KUBECONFIG=<absolute path to the cluster kubeconfig>
+$ export KUBECONFIG=<cluster_kubeconfig_absolute_path>
 ----
 
-.. Check all the subscriptions present on the single node cluster and look for the one in the policy you are trying to install through the `ClusterGroupUpgrade` CR by running the following command:
+.. Check all the subscriptions present on the single-node cluster and look for the one in the policy you are trying to install through the `ClusterGroupUpgrade` CR by running the following command:
 +
 [source,terminal]
 ----
-oc get subs -A | grep -i <name of the subscription you are looking for>
+$ oc get subs -A | grep -i <subscription_name>
 ----
 +
 .Example output for `cluster-logging` policy
@@ -331,11 +331,11 @@ version   4.9.5     True        True          43s     Working towards 4.9.7: 71 
 $ oc get subs -n <operator-namespace> <operator-subscription> -ojsonpath="{.status}"
 ----
 
-. Check the install plans present on the single node cluster that is associated with the desired subscription by running the following command:
+. Check the install plans present on the single-node cluster that is associated with the desired subscription by running the following command:
 +
 [source,terminal]
 ----
-$ oc get installplan -n <subscription namespace>
+$ oc get installplan -n <subscription_namespace>
 ----
 +
 .Example output for `cluster-logging` Operator
@@ -351,10 +351,10 @@ openshift-logging                      install-6khtw   cluster-logging.5.3.3-4  
 +
 [source,terminal]
 ----
-$ oc get csv -n <operator namespace>
+$ oc get csv -n <operator_namespace>
 ----
 +
-.Example output for `cluster-logging` Operator
+.Example output for OpenShift Logging Operator
 +
 [source,terminal]
 ----

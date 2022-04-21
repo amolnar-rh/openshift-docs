@@ -57,7 +57,7 @@ $ oc get policies --all-namespaces
 ----
 
 . Create the `ClusterGroupUpdate` CR for the platform and the Operator update with the `spec.enable` field set to `false`.
-.. Save the contents of the platform and Operator update `ClusterGroupUpdate` CR with the policies and the target clusters to the `cgu-platform-operator-upgrade.yml` file, as shown in the example:
+.. Save the contents of the platform and Operator update `ClusterGroupUpdate` CR with the policies and the target clusters to the `cgu-platform-operator-upgrade.yml` file, as shown in the following example:
 +
 [source,yaml]
 ----
@@ -89,7 +89,7 @@ spec:
 $ oc apply -f cgu-platform-operator-upgrade.yml
 ----
 
-. (Optional) Pre-cache the images for the platform and the Operator update.
+. Optional: Pre-cache the images for the platform and the Operator update.
 .. Enable pre-caching in the `ClusterGroupUpgrade` CR by running the following command:
 +
 [source,terminal]

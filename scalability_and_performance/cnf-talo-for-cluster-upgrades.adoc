@@ -6,7 +6,7 @@ include::_attributes/common-attributes.adoc[]
 
 toc::[]
 
-You can use the Topology Aware Lifecycle Operator (TALO) to manage the software lifecycle of multiple single node OpenShift (SNO) clusters. TALO uses {rh-rhacm-first} policies to perform changes on the target clusters.
+You can use the Topology Aware Lifecycle Operator (TALO) to manage the software lifecycle of multiple single-node OpenShift clusters. TALO uses {rh-rhacm-first} policies to perform changes on the target clusters.
 
 :FeatureName: The Topology Aware Lifecycle Operator
 

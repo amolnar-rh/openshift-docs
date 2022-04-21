@@ -6,7 +6,7 @@
 [id="talo-troubleshooting_{context}"]
 = Troubleshooting the Topology Aware Lifecycle Operator
 
-The Topology Aware Lifecycle Operator is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details and logs and to take steps in debugging the issues.
+The Topology Aware Lifecycle Operator (TALO) is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details and logs and to take steps in debugging the issues.
 
 
 For more information about related topics, see the following documentation:
@@ -26,10 +26,10 @@ You can determine the cause of the problem by reviewing the following questions:
 ** Are the {rh-rhacm} and the {product-title} versions compatible? 
 ** Are the TALO and {rh-rhacm} versions compatible?
 * Which of the following components is causing the problem?
-** Managed policies
-** Clusters
-** Remediation Strategy
-** TALO
+** <<talo-troubleshooting-managed-policies_{context}>>
+** <<talo-troubleshooting-clusters_{context}>>
+** <<talo-troubleshooting-remediation-strategy_{context}>>
+** <<talo-troubleshooting-remediation-talo_{context}>>
 
 To ensure that the `ClusterGroupUpgrade` configuration is functional, you can do the following:
 

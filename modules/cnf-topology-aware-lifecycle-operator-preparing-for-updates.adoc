@@ -103,6 +103,6 @@ For more information about how to set up the graph on the hub cluster, see link:
 $ curl -s https://api.openshift.com/api/upgrades_info/v1/graph?channel=stable-4.10 -o ~/upgrade-graph_stable-4.10
 ----
 
-* For Operator updates, you must perform the following tasks:
+* For Operator updates, you must perform the following task:
 +
-. Mirror the Operator catalogs. Ensure that the desired operator images are mirrored by following the procedure in the "Mirroring Operator catalogs for use with disconnected clusters" section.
+** Mirror the Operator catalogs. Ensure that the desired operator images are mirrored by following the procedure in the "Mirroring Operator catalogs for use with disconnected clusters" section.

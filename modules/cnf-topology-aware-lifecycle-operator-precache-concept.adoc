@@ -21,7 +21,7 @@ The pre-caching process can be in the following statuses:
 +
 In this state, the TALO deletes any pre-caching namespace and hub view resources of spoke clusters that remain from previous incomplete updates. The TALO then creates a new `ManagedClusterView` resource for the spoke pre-caching namespace to verify its deletion in the `PrecachePreparing` state.
 `PrecachePreparing`:: Cleaning up any remaining resources from previous incomplete updates is in progress.
-`PrecacheStarting`:: Pre-caching job pre-requisites and the job are created.
+`PrecacheStarting`:: Pre-caching job prerequisites and the job are created.
 `PrecacheActive`:: The job is in "Active" state.
 `PrecacheSucceeded`:: The pre-cache job has succeeded.
 `PrecacheTimeout`:: The artifact pre-caching has been partially done.

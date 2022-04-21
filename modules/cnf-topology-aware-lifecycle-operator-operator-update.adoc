@@ -54,7 +54,8 @@ spec:
 +
 [NOTE]
 ====
-When you want to update Operators from different catalog sources, you must do the following:
+When you want to update Operators from different catalog sources, you must perform the following tasks:
+
 * Update all catalog sources with the new index image or registry poll interval.
 * To use the image pre-caching for Operators later on, apply the updates for the different catalog sources in different policies.
 * Prepare separate subscription policies for the desired Operators from different catalog sources.
@@ -148,7 +149,7 @@ $ oc get policies -A | grep -E "catsrc-policy"
 ----
 
 . Create the `ClusterGroupUpdate` CR for the Operator update with the `spec.enable` field set to `false`.
-.. Save the content of the Operator update `ClusterGroupUpdate` CR with the `du-upgrade-operator-catsrc-policy` policy and the subscription policies created from the common `PolicyGenTemplate` and the target clusters to the `cgu-operator-upgrade.yml` file, as shown in the example:
+.. Save the content of the Operator update `ClusterGroupUpdate` CR with the `du-upgrade-operator-catsrc-policy` policy and the subscription policies created from the common `PolicyGenTemplate` and the target clusters to the `cgu-operator-upgrade.yml` file, as shown in the following example:
 +
 [source,yaml]
 ----
@@ -169,23 +170,23 @@ spec:
   enable: false
 ----
 <1> The policy is needed by the image pre-caching feature to retrieve the operator images from the catalog source.
-<2> The policy contains operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following "Upgrade ZTP from 4.9 to 4.10", all Operator subscriptions are grouped into the `common-subscriptions-policy policy`.
+<2> The policy contains Operator subscriptions. If you have upgraded ZTP from 4.9 to 4.10 by following "Upgrade ZTP from 4.9 to 4.10", all Operator subscriptions are grouped into the `common-subscriptions-policy` policy.
 +
 [NOTE]
 ====
 One `ClusterGroupUpgrade` CR can only pre-cache the images of the desired Operators defined in the subscription policy from one catalog source included in the `ClusterGroupUpgrade` CR. If the desired Operators are from different catalog sources, such as in the example of the SRIOV-FEC Operator, another `ClusterGroupUpgrade` CR must be created with `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy` policies for the SRIOV-FEC Operator images pre-caching and update.
 ====
 
-.. Apply the `ClusterGroupUpgrade` CR to the hub cluster by running the following commands:
+.. Apply the `ClusterGroupUpgrade` CR to the hub cluster by running the following command:
 +
 [source,terminal]
 ----
 $ oc apply -f cgu-operator-upgrade.yml
 ----
 
-. (Optional) Pre-cache the images for the Operator update.
+. Optional: Pre-cache the images for the Operator update.
 
-.. Before starting image pre-caching, verify the subscription policy is `NonCompliant` at this point by running this command:
+.. Before starting image pre-caching, verify the subscription policy is `NonCompliant` at this point by running the following command:
 +
 [source,terminal]
 ----

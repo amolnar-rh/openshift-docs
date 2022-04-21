@@ -129,7 +129,7 @@ Enforcing the policies for subsequent batches starts immediately after all the c
 
 [NOTE]
 ====
-The managed policies apply in the order they are listed in the `managedPolicies` field in the `ClusterGroupUpgrade` CR. One managed policy is applied to the specified clusters at a time. After the specified clusters comply with the current policy, the next managed policy is applied to the next non-compliant cluster.
+The managed policies apply in the order that they are listed in the `managedPolicies` field in the `ClusterGroupUpgrade` CR. One managed policy is applied to the specified clusters at a time. After the specified clusters comply with the current policy, the next managed policy is applied to the next non-compliant cluster.
 ====
 
 .Sample `ClusterGroupUpgrade` CR in the `UpgradeNotCompleted` state
