@@ -37,16 +37,6 @@ You can configure PTP fast events for vRAN clusters that are deployed using the 
   policyName: "config-policy"
 ----
 
-. Apply the following `PolicyGenTemplate` changes to your specific site YAML files, for example, `example-sno-site.yaml`:
-
-.. In `.sourceFiles`, add the `Interconnect` CR file that configures the AMQ router to the `config-policy`:
-+
-[source,yaml]
-----
-- fileName: AmqInstance.yaml
-  policyName: "config-policy"
-----
-
 .. Configure the `linuxptp` and `phc2sys` for the PTP clock type and interface. For example, add the following stanza into `.sourceFiles`:
 +
 [source,yaml]
@@ -70,6 +60,16 @@ You can configure PTP fast events for vRAN clusters that are deployed using the 
 <2> Device specific interface name.
 <3> You must append the `--summary_interval -4` value to `ptp4lOpts` in `.spec.sourceFiles.spec.profile` to enable PTP fast events.
 <4> `ptpClockThreshold` configues how long the clock stays in clock holdover state. Holdover state is the period between local and master clock synchronizations. Offset is the time difference between the local and master clock.
+
+. Apply the following `PolicyGenTemplate` changes to your specific site YAML files, for example, `example-sno-site.yaml`:
+
+.. In `.sourceFiles`, add the `Interconnect` CR file that configures the AMQ router to the `config-policy`:
++
+[source,yaml]
+----
+- fileName: AmqInstance.yaml
+  policyName: "config-policy"
+----
 
 . Merge any other required changes and files with your custom site repository.
 
