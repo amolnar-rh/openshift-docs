@@ -12,26 +12,25 @@ include::snippets/technology-preview.adoc[leveloffset=+1]
 [id="about-using-redfish-hardware-events"]
 == About Redfish hardware events
 
-{product-title} enables your monitoring services to consume cloud-native events from Redfish hardware event-capable equipment. The Redfish service publishes events on a node and transmits them on an advanced message queue to your subscribing applications.
+Use Redfish hardware events to subscribe applications running in your {product-title} cluster to events generated on the underlying bare-metal host. The Redfish service publishes events on a node and transmits them on an advanced message queue to subscribed applications.
 
 Redfish hardware events are based on the open Redfish standard that is developed under the guidance of the Distributed Management Task Force (DMTF). Redfish provides a secure industry-standard protocol with a REST API. The protocol is used for the management of distributed, converged or software-defined resources and infrastructure.
 
-[NOTE]
-====
-Redfish hardware events work only with Redfish-capable devices on OpenShift single-node clusters provisioned on baremetal infrastructure.
-====
-
-The hardware-related events published through Redfish to monitoring applications may include:
+Hardware-related events published through Redfish includes:
 
 * Breaches of temperature limits
 * Server status
 * Fan status
 
-Application developers can use the Redfish hardware events API to get log updates on errors that have or could occur in a distributed system.
+Begin using Redfish hardware events by deploying the Operator and subscribing your application to the service. The Operator installs and manages the the lifecycle of the Redfish hardware event service.
 
-You can use the {product-title} console to install the Redfish hardware event service by deploying the Operator and subscribing to the service. The Operator manages the lifecycle of the event service.
+[NOTE]
+====
+Redfish hardware events work only with Redfish-capable devices on OpenShift single-node clusters provisioned on bare-metal infrastructure.
+====
 
 include::modules/nw-rfhe-introduction.adoc[leveloffset=+1]
+
 [id="installing-hw-events"]
 == Installing the Baremetal Hardware Event Proxy Operator
 
