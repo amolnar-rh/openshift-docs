@@ -54,7 +54,7 @@ spec:
 +
 [NOTE]
 ====
-When you want to update Operators from different catalog sources, you must perform the following tasks:
+If you want to use the image pre-caching for Operators and there are Operators from a different catalog source other than `redhat-operators`,  you must perform the following tasks:
 
 * Update all catalog sources with the new index image or registry poll interval.
 * To use the image pre-caching for Operators later on, apply the updates for the different catalog sources in different policies.

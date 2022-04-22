@@ -52,14 +52,14 @@ spec:
             source: quay.io/openshift-release-dev/ocp-release
           - mirrors:
             - quay-intern.example.com/ocp4/openshift-release-dev
-            source: quay.io/openshift-release-dev/ocp-v4.0-art-dev <4>
-    - fileName: ClusterVersion.yaml <5>
+            source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+    - fileName: ClusterVersion.yaml <4>
       policyName: "platform-upgrade-prep"
       metadata:
         name: version
       spec:
         upstream: http://upgrade.example.com/images/upgrade-graph_stable-4.10
-    - fileName: ClusterVersion.yaml <6>
+    - fileName: ClusterVersion.yaml <5>
       policyName: "platform-upgrade"
       metadata:
         name: version
@@ -76,9 +76,8 @@ spec:
 <1> The `ConfigMap` CR contains the signature of the desired release image to update to.
 <2> Shows the image signature of the desired {product-title} release. Get the signature from the `checksum-${OCP_RELASE_NUMBER}.yaml` file you saved when following the procedures in the "Setting up the environment" section.
 <3> Shows the mirror repository that contains the desired {product-title} image. Get the mirrors from the `imageContentSources.yaml` file that you saved when following the procedures in the "Setting up the environment" section.
-<4> Shows the source repository that the desired {product-title} image is pulled from. You should use the `imageContentSources` listed in the `oc adm release mirror` command output here.
-<5> Shows the `ClusterVersion` CR to update upstream.
-<6> Shows the `ClusterVersion` CR to trigger the update. The `channel`, `upstream`, and `desiredVersion` fields are all required for image pre-caching.
+<4> Shows the `ClusterVersion` CR to update upstream.
+<5> Shows the `ClusterVersion` CR to trigger the update. The `channel`, `upstream`, and `desiredVersion` fields are all required for image pre-caching.
 +
 The `PolicyGenTemplate` CR generates two policies:
 
