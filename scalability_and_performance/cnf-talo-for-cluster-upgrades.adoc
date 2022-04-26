@@ -16,9 +16,9 @@ include::modules/cnf-about-topology-aware-lifecycle-operator-config.adoc[levelof
 
 include::modules/cnf-about-topology-aware-lifecycle-operator-policies.adoc[leveloffset=+1]
 
-include::modules/cnf-topology-aware-lifecycle-operator-installation-web-console.adoc[leveloffset=+1]
+//include::modules/cnf-topology-aware-lifecycle-operator-installation-web-console.adoc[leveloffset=+1]
 
-include::modules/cnf-topology-aware-lifecycle-operator-installation-cli.adoc[leveloffset=+1]
+//include::modules/cnf-topology-aware-lifecycle-operator-installation-cli.adoc[leveloffset=+1]
 
 include::modules/cnf-topology-aware-lifecycle-operator-about-cgu-crs.adoc[leveloffset=+1]
 
