@@ -60,6 +60,7 @@ spec:
         annotations:
           ran.openshift.io/ztp-deploy-wave: "1"
       spec:
+        channel: "stable-4.10"
         upstream: http://upgrade.example.com/images/upgrade-graph_stable-4.10
     - fileName: ClusterVersion.yaml <5>
       policyName: "platform-upgrade"

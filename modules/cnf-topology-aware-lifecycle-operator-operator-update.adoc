@@ -56,9 +56,8 @@ spec:
 ====
 If you want to use the image pre-caching for Operators and there are Operators from a different catalog source other than `redhat-operators`,  you must perform the following tasks:
 
-* Update all catalog sources with the new index image or registry poll interval.
-* To use the image pre-caching for Operators later on, apply the updates for the different catalog sources in different policies.
-* Prepare separate subscription policies for the desired Operators from different catalog sources.
+* Prepare a separate catalog source policy with the new index image or registry poll interval update for the different catalog source.
+* Prepare a separate subscription policy for the desired Operators that are from the different catalog source.
 ====
 +
 For example, the desired SRIOV-FEC Operator is available in the `certified-operators` catalog source. To update the catalog source and the Operator subscription, add the following contents to generate two policies, `du-upgrade-fec-catsrc-policy` and `du-upgrade-subscriptions-fec-policy`:
@@ -148,8 +147,8 @@ $ oc apply -f cgu-operator-upgrade-prep.yml
 $ oc get policies -A | grep -E "catsrc-policy"
 ----
 
-. Create the `ClusterGroupUpdate` CR for the Operator update with the `spec.enable` field set to `false`.
-.. Save the content of the Operator update `ClusterGroupUpdate` CR with the `du-upgrade-operator-catsrc-policy` policy and the subscription policies created from the common `PolicyGenTemplate` and the target clusters to the `cgu-operator-upgrade.yml` file, as shown in the following example:
+. Create the `ClusterGroupUpgrade` CR for the Operator update with the `spec.enable` field set to `false`.
+.. Save the content of the Operator update `ClusterGroupUpgrade` CR with the `du-upgrade-operator-catsrc-policy` policy and the subscription policies created from the common `PolicyGenTemplate` and the target clusters to the `cgu-operator-upgrade.yml` file, as shown in the following example:
 +
 [source,yaml]
 ----
