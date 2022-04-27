@@ -32,7 +32,7 @@ Redfish hardware events work only with Redfish-capable devices on OpenShift sing
 include::modules/nw-rfhe-introduction.adoc[leveloffset=+1]
 
 [id="installing-hw-events"]
-== Installing the Baremetal Hardware Event Proxy Operator
+== Installing the upstream Baremetal Hardware Event Proxy Operator
 
 The Baremetal Hardware Event Proxy Operator is not available in the `redhat-operators` Operators source for {product-title} version {product-version}. To use the Operator, you must install the upstream version.
 

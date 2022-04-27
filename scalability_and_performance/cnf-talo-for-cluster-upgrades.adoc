@@ -17,7 +17,7 @@ include::modules/cnf-about-topology-aware-lifecycle-operator-config.adoc[levelof
 include::modules/cnf-about-topology-aware-lifecycle-operator-policies.adoc[leveloffset=+1]
 
 [id="installing-topology-aware-lifecycle-operator_{context}"]
-== Installing the Upstream Topology Aware Lifecycle Operator
+== Installing the upstream Topology Aware Lifecycle Operator
 
 The Topology Aware Lifecycle Operator is not available in the `redhat-operators` Operators source for {product-title} version {product-version}. To use the Operator, you must install the upstream version.
 
