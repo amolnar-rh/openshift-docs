@@ -42,7 +42,7 @@ curl https://<bmc_ip_address>/redfish/v1/EventService --insecure -H 'Content-Typ
 where:
 +
 --
-bmc_ip_address:: is the IP address of the BMC controller.
+bmc_ip_address:: is the IP address of the BMC where the Redfish events are generated.
 --
 +
 .Example output
@@ -123,4 +123,43 @@ $ oc create -f bmc_sub.yaml
 [source,terminal]
 ----
 $ oc delete -f bmc_sub.yaml
+----
+
+. Optional: To manually create a Redfish event subscription without creating a `BMCEventSubscription` CR, use the following `curl` command, specifying the BMC username and password.
++
+[source,terminal]
+----
+$ curl -i -k -X POST -H "Content-Type: application/json"  -d '{"Destination": "https://<proxy_service_url>", "Protocol" : "Redfish", "EventTypes": ["Alert"], "Context": "Public"}' -u <user_name>:<password> 'https://<bmc_ip_address>/redfish/v1/EventService/Subscriptions' –v
+----
++
+where:
++
+--
+proxy_service_url:: is the bare-metal hardware event proxy service, for example, `https://hw-event-proxy-cloud-native-events.apps.compute-1.example.com/webhook`.
+--
++
+--
+bmc_ip_address:: is the IP address of the BMC where the Redfish events are generated.
+--
++
+.Example output
+[source,terminal]
+----
+HTTP/1.1 201 Created
+Server: AMI MegaRAC Redfish Service
+Location: /redfish/v1/EventService/Subscriptions/1
+Allow: GET, POST
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: X-Auth-Token
+Access-Control-Allow-Headers: X-Auth-Token
+Access-Control-Allow-Credentials: true
+Cache-Control: no-cache, must-revalidate
+Link: <http://redfish.dmtf.org/schemas/v1/EventDestination.v1_6_0.json>; rel=describedby
+Link: <http://redfish.dmtf.org/schemas/v1/EventDestination.v1_6_0.json>
+Link: </redfish/v1/EventService/Subscriptions>; path=
+ETag: "1651135676"
+Content-Type: application/json; charset=UTF-8
+OData-Version: 4.0
+Content-Length: 614
+Date: Thu, 28 Apr 2022 08:47:57 GMT
 ----
