@@ -36,7 +36,7 @@ Enabling Redfish events on specific hardware is outside the scope of this inform
 +
 [source,terminal]
 ----
-curl https://<bmc_ip_address>/redfish/v1/EventService --insecure -H 'Content-Type: application/json' -u "<user_name>:<password>"
+curl https://<bmc_ip_address>/redfish/v1/EventService --insecure -H 'Content-Type: application/json' -u "<bmc_username>:<password>"
 ----
 +
 where:
@@ -129,7 +129,7 @@ $ oc delete -f bmc_sub.yaml
 +
 [source,terminal]
 ----
-$ curl -i -k -X POST -H "Content-Type: application/json"  -d '{"Destination": "https://<proxy_service_url>", "Protocol" : "Redfish", "EventTypes": ["Alert"], "Context": "Public"}' -u <user_name>:<password> 'https://<bmc_ip_address>/redfish/v1/EventService/Subscriptions' –v
+$ curl -i -k -X POST -H "Content-Type: application/json"  -d '{"Destination": "https://<proxy_service_url>", "Protocol" : "Redfish", "EventTypes": ["Alert"], "Context": "root"}' -u <bmc_username>:<password> 'https://<bmc_ip_address>/redfish/v1/EventService/Subscriptions' –v
 ----
 +
 where:

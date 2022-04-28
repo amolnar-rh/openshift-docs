@@ -56,6 +56,8 @@ As a cluster administrator, you can subscribe to Redfish BMC events generated on
 
 include::modules/nw-rfhe-creating_bmc_event_sub.adoc[leveloffset=+2]
 
+include::modules/nw-rfhe-quering-redfish-hardware-event-subs.adoc[leveloffset=+2]
+
 include::modules/nw-rfhe-creating-hardware-event.adoc[leveloffset=+2]
 
 include::modules/cnf-rfhe-notifications-api-refererence.adoc[leveloffset=+1]
