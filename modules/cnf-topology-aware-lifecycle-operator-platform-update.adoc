@@ -6,11 +6,11 @@
 [id="talo-platform-update_{context}"]
 = Performing a platform update
 
-You can perform a platform update with the TALO.
+You can perform a platform update with the {cgu-operator}.
 
 .Prerequisites
 
-* Install the Topology Aware Lifecycle Operator.
+* Install the {cgu-operator-first}.
 * Update ZTP to the latest version. 
 * Provision one or more managed clusters with ZTP.
 * Mirror the desired image repository.
@@ -99,7 +99,7 @@ ArgoCD pulls the changes from the Git repository and generates the policies on t
 $ oc get policies -A | grep platform-upgrade
 ----
 
-. Apply the required update resources before starting the platform update with the TALO.
+. Apply the required update resources before starting the platform update with the {cgu-operator}.
 
 .. Save the content of the `platform-upgrade-prep` `ClusterUpgradeGroup` CR with the `du-upgrade-platform-upgrade-prep` policy and the target spoke clusters to the `cgu-platform-upgrade-prep.yml` file, as shown in the following example:
 +

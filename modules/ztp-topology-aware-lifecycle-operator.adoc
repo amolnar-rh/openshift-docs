@@ -4,6 +4,6 @@
 
 :_content-type: CONCEPT
 [id="ztp-topology-aware-lifecycle-operator_{context}"]
-= Topology Aware Lifecycle Operator
+= {cgu-operator-first}
 
-Install the Topology Aware Lifecycle Operator on the hub cluster.
+Install the {cgu-operator-first} on the hub cluster.

@@ -16,7 +16,7 @@ You can configure your hub cluster with a set of ArgoCD applications that genera
 
 .Procedure
 
-. Install the Topology Aware Lifecycle Operator, which coordinates with any new sites added by ZTP and manages application of the `PolicyGenTemplate`-generated policies.
+. Install the {cgu-operatpor-first}, which coordinates with any new sites added by ZTP and manages application of the `PolicyGenTemplate`-generated policies.
 
 . Prepare the ArgoCD pipeline configuration:
 +

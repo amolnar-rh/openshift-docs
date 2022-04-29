@@ -101,3 +101,6 @@ endif::[]
 :SMProductVersion1x: 1.1.17
 //Windows containers
 :productwinc: Red Hat OpenShift support for Windows Containers
+:cgu-operator-first: Cluster Group Upgrades Operator (CGUO)
+:cgu-operator: CGUO
+:redfish-operator: Hardware Event Proxy Operator

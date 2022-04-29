@@ -12,7 +12,7 @@ To start using bare-metal hardware events, create the a `HardwareEvent` custom r
 
 * Install the OpenShift CLI (`oc`).
 * Log in as a user with `cluster-admin` privileges.
-* Install the Baremetal Hardware Event Proxy Operator.
+* Install the {redfish-operator}.
 * Create a `BMCEventSubscription` CR for the BMC Redfish hardware.
 
 [NOTE]

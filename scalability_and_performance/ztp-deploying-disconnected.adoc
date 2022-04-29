@@ -142,7 +142,7 @@ include::modules/ztp-restarting-policies-reconciliation.adoc[leveloffset=+2]
 [role="_additional-resources"]
 .Additional resources
 
-* For information about using TALO to construct your own `ClusterGroupUpgrade` CR, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#talo-about-cgu-crs_cnf-topology-aware-lifecycle-operator[About the ClusterGroupUpgrade CR].
+* For information about using {cgu-operator} to construct your own `ClusterGroupUpgrade` CR, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#talo-about-cgu-crs_cnf-topology-aware-lifecycle-operator[About the ClusterGroupUpgrade CR].
 
 include::modules/ztp-site-cleanup.adoc[leveloffset=+1]
 
@@ -170,7 +170,7 @@ include::modules/ztp-topology-aware-lifecycle-operator.adoc[leveloffset=+2]
 
 [role="_additional-resources"]
 .Additional resources
-* For information about Topology Aware Lifecycle Operator (TALO), see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator configuration].
+* For information about the {cgu-operator-first}, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the {cgu-operator} configuration].
 
 include::modules/ztp-required-changes-to-the-git-repository.adoc[leveloffset=+2]
 
@@ -209,7 +209,7 @@ include::modules/cnf-topology-aware-lifecycle-operator.adoc[leveloffset=+1]
 [role="_additional-resources"]
 .Additional resources
 
-* For more information about the Topology Aware Lifecycle Operator, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator].
+* For more information about the {cgu-operator-first}, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the {cgu-operator-first}].
 
 include::modules/cnf-topology-aware-lifecycle-operator-autocreate-cgu-cr-ztp.adoc[leveloffset=+2]
 

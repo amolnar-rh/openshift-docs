@@ -4,15 +4,15 @@
 
 :_module-type: CONCEPT
 [id="ztp-talo-integration_{context}"]
-= GitOps ZTP and Topology Aware Lifecycle Operator
+= GitOps ZTP and {cgu-operator-first}
 
-GitOps zero touch provisioning (ZTP) generates installation and configuration CRs from manifests stored in Git. These artifacts are applied to a centralized hub cluster where {rh-rhacm-first}, assisted installer service, and the Topology Aware Lifecycle Operator (TALO) use the CRs to install and configure the spoke cluster. The configuration phase of the ZTP pipeline uses TALO to orchestrate the application of the configuration CRs to the cluster. There are several key integration points between GitOps ZTP and TALO.
+GitOps zero touch provisioning (ZTP) generates installation and configuration CRs from manifests stored in Git. These artifacts are applied to a centralized hub cluster where {rh-rhacm-first}, assisted installer service, and the {cgu-operator-first} use the CRs to install and configure the spoke cluster. The configuration phase of the ZTP pipeline uses the {cgu-operator} to orchestrate the application of the configuration CRs to the cluster. There are several key integration points between GitOps ZTP and the {cgu-operator}.
 
 Inform policies::
-By default, GitOps ZTP creates all policies with a remediation action of `inform`. These policies cause {rh-rhacm} to report on compliance status of clusters relevant to the policies but does not apply the desired configuration. During the ZTP installation, TALO steps through the created `inform` policies, creates a copy for the target spoke cluster(s) and changes the remediation action of the copy to `enforce`. This pushes the configuration to the spoke cluster. Outside of the ZTP phase of the cluster lifecycle, this setup allows changes to be made to policies without the risk of immediately rolling those changes out to all affected spoke clusters in the network. You can control the timing and the set of clusters that are remediated using TALO.
+By default, GitOps ZTP creates all policies with a remediation action of `inform`. These policies cause {rh-rhacm} to report on compliance status of clusters relevant to the policies but does not apply the desired configuration. During the ZTP installation, the {cgu-operator} steps through the created `inform` policies, creates a copy for the target spoke cluster(s) and changes the remediation action of the copy to `enforce`. This pushes the configuration to the spoke cluster. Outside of the ZTP phase of the cluster lifecycle, this setup allows changes to be made to policies without the risk of immediately rolling those changes out to all affected spoke clusters in the network. You can control the timing and the set of clusters that are remediated using the {cgu-operator}.
 
 Automatic creation of ClusterGroupUpgrade CRs::
-TALO monitors the state of all `ManagedCluster` CRs on the hub cluster. Any `ManagedCluster` CR which does not have a `ztp-done` label applied, including newly created `ManagedCluster` CRs, causes TALO to automatically create a `ClusterGroupUpgrade` CR with the following characteristics:
+The {cgu-operator} monitors the state of all `ManagedCluster` CRs on the hub cluster. Any `ManagedCluster` CR which does not have a `ztp-done` label applied, including newly created `ManagedCluster` CRs, causes the {cgu-operator} to automatically create a `ClusterGroupUpgrade` CR with the following characteristics:
 
 * The `ClusterGroupUpgrade` CR is created and enabled in the `ztp-install` namespace.
 * `ClusterGroupUpgrade` CR has the same name as the `ManagedCluster` CR.
@@ -31,14 +31,14 @@ Each policy generated from a `PolicyGenTemplate` CR includes a `ztp-deploy-wave`
 All CRs in the same policy must have the same setting for the `ztp-deploy-wave` annotation. The default value of this annotation for each CR can be overridden in the `PolicyGenTemplate`.
 ====
 +
-TALO applies the configuration policies in the order specified by the wave annotations. TALO waits for each policy to be compliant before moving to the next policy. It is important to ensure that the wave annotation for each CR takes into account any prerequisites for those CRs to be applied to the cluster. For example, an Operator must be installed before, or concurrently with, the configuration for the Operator. The default wave value for each CR takes these prerequisites into account.
+The {cgu-operator} applies the configuration policies in the order specified by the wave annotations. The {cgu-operator} waits for each policy to be compliant before moving to the next policy. It is important to ensure that the wave annotation for each CR takes into account any prerequisites for those CRs to be applied to the cluster. For example, an Operator must be installed before, or concurrently with, the configuration for the Operator. The default wave value for each CR takes these prerequisites into account.
 +
 Multiple CRs and policies can share the same wave number. Having fewer policies can result in faster deployments and lower CPU usage. It is a best practice to group many CRs into relatively few waves.
 
 Phase labels::
 The `ClusterGroupUpgrade` CR is automatically created and includes directives to annotate the `ManagedCluster` CR with labels at the start and end of the ZTP process.
 +
-When ZTP configuration post-installation commences, the `ManagedCluster` has the `ztp-running` label applied. When all policies are remediated to the cluster and are fully compliant, these directives cause TALO to remove the `ztp-running` label and apply the `ztp-done` label.
+When ZTP configuration post-installation commences, the `ManagedCluster` has the `ztp-running` label applied. When all policies are remediated to the cluster and are fully compliant, these directives cause the {cgu-operator} to remove the `ztp-running` label and apply the `ztp-done` label.
 +
 For deployments which make use of the `informDuValidator` policy, the `ztp-done` label is applied when the cluster is fully ready for deployment of applications. This includes all reconciliation and resulting effects of the ZTP applied configuration CRs.
 

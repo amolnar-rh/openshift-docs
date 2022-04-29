@@ -4,17 +4,17 @@
 
 :_content-type: CONCEPT
 [id="cnf-about-topology-aware-lifecycle-operator-about-policies_{context}"]
-= About managed policies used with Topology Aware Lifecycle Operator (TALO)
+= About managed policies used with {cgu-operator-first}
 
-The TALO uses {rh-rhacm} policies for cluster updates.
+The {cgu-operator} uses {rh-rhacm} policies for cluster updates.
 
-The TALO can be used to manage the rollout of any policy CR where the `remediationAction` field is set to `inform`. 
+The {cgu-operator} can be used to manage the rollout of any policy CR where the `remediationAction` field is set to `inform`. 
 Supported use cases include the following:
 
 * Manual user creation of policy CRs 
 * Automatically generated policies from the `PolicyGenTemplate` custom resource definition (CRD)
 
-For policies that update an Operator subscription with manual approval, the TALO provides additional functionality that approves the installation of the updated Operator.
+For policies that update an Operator subscription with manual approval, the {cgu-operator} provides additional functionality that approves the installation of the updated Operator.
 
 For more information about managed policies, see link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html-single/governance/index#policy-overview[Policy Overview] in the {rh-rhacm} documentation.
 

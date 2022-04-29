@@ -10,7 +10,7 @@ You can update your managed clusters by applying your policies.
 
 .Prerequisites
 
-* Install the Topology Aware Lifecycle Operator.
+* Install the {cgu-operator-first}.
 * Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
 * Create {rh-rhacm} policies in the hub cluster.
@@ -345,7 +345,7 @@ $ oc get installplan -n <subscription_namespace>
 NAMESPACE                              NAME            CSV                                 APPROVAL   APPROVED
 openshift-logging                      install-6khtw   cluster-logging.5.3.3-4             Manual     true <1>
 ----
-<1> The install plans have their `Approval` field set to `Manual` and their `Approved` field changes from `true` to `false` after  the TALO approves the install plan.
+<1> The install plans have their `Approval` field set to `Manual` and their `Approved` field changes from `true` to `false` after  the {cgu-operator} approves the install plan.
 
 . Check if the cluster service version for the Operator of the policy that the `ClusterGroupUpgrade` is installing reached the `Succeeded` phase by running the following command:
 +

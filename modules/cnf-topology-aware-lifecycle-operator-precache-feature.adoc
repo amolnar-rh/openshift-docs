@@ -10,7 +10,7 @@ The pre-cache feature allows the required container images to be present on the 
 
 .Prerequisites
 
-* Install the Topology Aware Lifecycle Operator.
+* Install the {cgu-operator-first}.
 * Provision one or more managed clusters.
 * Log in as a user with `cluster-admin` privileges.
 
@@ -37,7 +37,7 @@ spec:
     maxConcurrency: 2
     timeout: 240
 ----
-<1> The `preCaching` field is set to `true`, which enables the TALO to pull the container images before starting the update.
+<1> The `preCaching` field is set to `true`, which enables the {cgu-operator} to pull the container images before starting the update.
 
 . When you want to start the update, apply the `ClusterGroupUpgrade` CR by running the following command:
 +

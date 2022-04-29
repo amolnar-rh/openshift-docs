@@ -29,9 +29,9 @@ $ oc get agentclusterinstall -n $CLUSTER $CLUSTER -o jsonpath='{.status.conditio
 $ curl -sk $(oc get agentclusterinstall -n $CLUSTER $CLUSTER -o jsonpath='{.status.debugInfo.eventsURL}')  | jq '.[-2,-1]'
 ----
 
-. The Topology Aware Lifecycle Operator (TALO) applies the configuration policies that are bound to the cluster.
+. The {cgu-operator-first} applies the configuration policies that are bound to the cluster.
 +
-After the cluster installation is complete and the cluster becomes `Ready`, a `ClusterGroupUpgrade` CR corresponding to this cluster, with a list of ordered policies defined by the `ran.openshift.io/ztp-deploy-wave annotations`, is automatically created by the TALO. The cluster's policies are applied in the order listed in `ClusterGroupUpgrade` CR. You can monitor the high-level progress of configuration policy reconciliation using the following commmands:
+After the cluster installation is complete and the cluster becomes `Ready`, a `ClusterGroupUpgrade` CR corresponding to this cluster, with a list of ordered policies defined by the `ran.openshift.io/ztp-deploy-wave annotations`, is automatically created by the {cgu-operator}. The cluster's policies are applied in the order listed in `ClusterGroupUpgrade` CR. You can monitor the high-level progress of configuration policy reconciliation using the following commands:
 +
 [source,terminal]
 ----

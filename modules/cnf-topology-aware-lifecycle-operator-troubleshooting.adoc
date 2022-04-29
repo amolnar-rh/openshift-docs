@@ -4,9 +4,9 @@
 
 :_content-type: PROCEDURE
 [id="talo-troubleshooting_{context}"]
-= Troubleshooting the Topology Aware Lifecycle Operator
+= Troubleshooting the {cgu-operator-first}
 
-The Topology Aware Lifecycle Operator (TALO) is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details and logs and to take steps in debugging the issues.
+The {cgu-operator-first} is an {product-title} Operator that remediates {rh-rhacm} policies. When issues occur, use the `oc adm must-gather` command to gather details and logs and to take steps in debugging the issues.
 
 
 For more information about related topics, see the following documentation:
@@ -24,7 +24,7 @@ You can determine the cause of the problem by reviewing the following questions:
 
 * Is the configuration that you are applying supported? 
 ** Are the {rh-rhacm} and the {product-title} versions compatible? 
-** Are the TALO and {rh-rhacm} versions compatible?
+** Are the {cgu-operator} and {rh-rhacm} versions compatible?
 * Which of the following components is causing the problem?
 ** <<talo-troubleshooting-managed-policies_{context}>>
 ** <<talo-troubleshooting-clusters_{context}>>
@@ -162,9 +162,9 @@ spoke1          true           https://api.spoke1.example.com:6443     True     
 spoke3          true           https://api.spoke3.example.com:6443     True     True        27h
 ----
 
-. Alternatively, check the TALO manager logs:
+. Alternatively, check the {cgu-operator} manager logs:
 
-.. Get the name of the TALO manager by running the following command:
+.. Get the name of the {cgu-operator} manager by running the following command:
 +
 [source,terminal]
 ----
@@ -179,7 +179,7 @@ NAME                                                         READY   STATUS    R
 cluster-group-upgrades-controller-manager-75bcc7484d-8k8xp   2/2     Running   0          45m
 ----
 
-.. Check the TALO manager logs by running the following command:
+.. Check the {cgu-operator} manager logs by running the following command:
 +
 [source,terminal]
 ----
@@ -349,7 +349,7 @@ $ oc get cgu lab-upgrade -ojsonpath='{.spec.remediationStrategy.maxConcurrency}'
 ----
 
 [id="talo-troubleshooting-remediation-talo_{context}"]
-== Topology Aware Lifecycle Operator
+== {cgu-operator-first}
 
 [discrete]
 === Checking condition message and status in the ClusterGroupUpgrade CR
@@ -415,9 +415,9 @@ $ oc get cgu lab-upgrade -ojsonpath='{.status.remediationPlan}'
 ----
 
 [discrete]
-=== Errors in the TALO manager container
+=== Errors in the {cgu-operator} manager container
 
-Issue:: You want to check the logs of the manager container of theTALO.
+Issue:: You want to check the logs of the manager container of the {cgu-operator}.
 
 Resolution:: Run the following command:
 +

@@ -85,7 +85,7 @@ spec:
 for the `placementBinding`, `placementRule`, and `policy` that are created in the requested `namespace`.
 <2> This value should match the `namespace` used in the group `PolicyGenTemplates`.
 <3> The `group-du-*` label defined in `bindingRules` must exist in the `SiteConfig` files.
-<4> The label defined in `bindingExcludedRules` must be`ztp-done:`. The `ztp-done` label is used in coordination with the Topology Aware Lifecycle Operator (TALO).
+<4> The label defined in `bindingExcludedRules` must be`ztp-done:`. The `ztp-done` label is used in coordination with the {cgu-operator-first}.
 <5> `mcp` defines the `MachineConfigPool` object that is used in the source file `validatorCRs/informDuValidator.yaml`. It should be `master` for single node and three-node cluster deployments and `worker` for standard cluster deployments.
 <6> Optional. The default value is `inform`.
 <7> This value is used as part of the name for the generated {rh-rhacm} policy.

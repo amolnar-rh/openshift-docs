@@ -1,12 +1,12 @@
 // Module included in the following assemblies:
 // Epic CNF-2600 (CNF-2133) (4.10), Story TELCODOCS-285
-// * scalability_and_performance/ztp-deploying-disconnected.adoc
+// * scalability_and_performance/cnf-{cgu-operator}-for-cluster-upgrades.adoc
 
 :_content-type: CONCEPT
 [id="talo-about-cgu-crs_{context}"]
 = About the ClusterGroupUpgrade CR
 
-The Topology Aware Lifecycle Operator (TALO) builds the remediation plan from the `ClusterGroupUpgrade` CR for a group of clusters. You can define the following specifications in a `ClusterGroupUpgrade` CR:
+The {cgu-operator-first} builds the remediation plan from the `ClusterGroupUpgrade` CR for a group of clusters. You can define the following specifications in a `ClusterGroupUpgrade` CR:
 
 * Clusters in the group
 * Blocking `ClusterGroupUpgrade` CRs
@@ -16,7 +16,7 @@ The Topology Aware Lifecycle Operator (TALO) builds the remediation plan from th
 * Actions to perform before and after the update
 * Update timing
 
-As the TALO works through remediation of the policies to the specified clusters, the `ClusterGroupUpgrade` CR can have the following states:
+As the {cgu-operator} works through remediation of the policies to the specified clusters, the `ClusterGroupUpgrade` CR can have the following states:
 
 * `UpgradeNotStarted`
 * `UpgradeCannotStart`
@@ -27,7 +27,7 @@ As the TALO works through remediation of the policies to the specified clusters,
 
 [NOTE]
 ====
-After the TALO completes a cluster update, the cluster does not update again under the control of the same `ClusterGroupUpgrade` CR. You must create a new `ClusterGroupUpgrade` CR in the following cases:
+After the {cgu-operator} completes a cluster update, the cluster does not update again under the control of the same `ClusterGroupUpgrade` CR. You must create a new `ClusterGroupUpgrade` CR in the following cases:
 
 * When you need to update the cluster again
 * When the cluster changes to non-compliant with the `inform` policy after being updated
@@ -38,7 +38,7 @@ After the TALO completes a cluster update, the cluster does not update again und
 
 The initial state of the `ClusterGroupUpgrade` CR is `UpgradeNotStarted`.
 
-The TALO builds a remediation plan based on the following fields:
+The {cgu-operator} builds a remediation plan based on the following fields:
 
 * The `clusterSelector` field specifies the labels of the clusters that you want to update.
 * The `clusters` field specifies a list of clusters to update.
@@ -54,7 +54,7 @@ The remediation plan starts with the clusters listed in the `canaries` field. Ea
 Any failures during the update of a canary cluster stops the update process.
 ====
 
-The `ClusterGroupUpgrade` CR transitions to the `UpgradeNotCompleted` state after the remediation plan is successfully created and after the `enable` field is set to `true`. At this point, the TALO starts to update the non-compliant clusters with the specified managed policies.
+The `ClusterGroupUpgrade` CR transitions to the `UpgradeNotCompleted` state after the remediation plan is successfully created and after the `enable` field is set to `true`. At this point, the {cgu-operator} starts to update the non-compliant clusters with the specified managed policies.
 
 [NOTE]
 ====
@@ -123,9 +123,9 @@ In the `UpgradeCannotStart` state, the update cannot start because of the follow
 [id="upgrade_not_completed"]
 == The UpgradeNotCompleted state
 
-In the `UpgradeNotCompleted` state, the TALO enforces the policies following the remediation plan defined in the `UpgradeNotStarted` state.
+In the `UpgradeNotCompleted` state, the {cgu-operator} enforces the policies following the remediation plan defined in the `UpgradeNotStarted` state.
 
-Enforcing the policies for subsequent batches starts immediately after all the clusters of the current batch are compliant with all the managed policies. If the batch times out, the TALO moves on to the next batch. The timeout value of a batch  is the `spec.timeout` field divided by the number of batches in the remediation plan.
+Enforcing the policies for subsequent batches starts immediately after all the clusters of the current batch are compliant with all the managed policies. If the batch times out, the {cgu-operator} moves on to the next batch. The timeout value of a batch  is the `spec.timeout` field divided by the number of batches in the remediation plan.
 
 [NOTE]
 ====
@@ -185,15 +185,15 @@ status: <2>
 [id="upgrade_timed_out"]
 == The UpgradeTimedOut state
 
-In the `UpgradeTimedOut` state, the TALO checks every hour if all the policies for the `ClusterGroupUpgrade` CR are compliant. The checks continue until the `ClusterGroupUpgrade` CR is deleted or the updates are completed.
+In the `UpgradeTimedOut` state, the {cgu-operator} checks every hour if all the policies for the `ClusterGroupUpgrade` CR are compliant. The checks continue until the `ClusterGroupUpgrade` CR is deleted or the updates are completed.
 The periodic checks allow the updates to complete if they get prolonged due to network, CPU, or other issues. 
 
-The TALO transitions to the `UpgradeTimedOut` state in two cases:
+The {cgu-operator} transitions to the `UpgradeTimedOut` state in two cases:
 
 * When the current batch contains canary updates and the cluster in the batch does not comply with all the managed policies within the batch timeout.
 * When the clusters do not comply with the managed policies within the `timeout` value specified in the `remediationStrategy` field.
 
-If the policies are compliant, the TALO transitions to the `UpgradeCompleted` state.
+If the policies are compliant, the {cgu-operator} transitions to the `UpgradeCompleted` state.
 
 [id="upgrade_completed"]
 == The UpgradeCompleted state
@@ -239,7 +239,7 @@ status: <2>
     remediationPlanForBatch:
       spoke1: -2 <3>
 ----
-<1> The value of `spec.action.afterCompletion.deleteObjects` field is `true` by default. After the update is completed, the TALO deletes the underlying {rh-rhacm} objects that were created during the update. This option is to prevent the {rh-rhacm} hub from continuously checking for compliance after a successful update.
+<1> The value of `spec.action.afterCompletion.deleteObjects` field is `true` by default. After the update is completed, the {cgu-operator} deletes the underlying {rh-rhacm} objects that were created during the update. This option is to prevent the {rh-rhacm} hub from continuously checking for compliance after a successful update.
 <2> The `status` fields show that the updates completed successfully.
 <3> Displays that all the policies are applied to the cluster.
 

@@ -6,9 +6,9 @@
 [id="talo-precache-autocreated-cgu-for-ztp_{context}"]
 = About the auto-created ClusterGroupUpgrade CR for ZTP
 
-The TALO has a controller called `ManagedClusterForCGU` that monitors the `Ready` state of the `ManagedCluster` CRs on the hub cluster and creates the `ClusterGroupUpgrade` CRs for ZTP (zero touch provisioning).
+The {cgu-operator} has a controller called `ManagedClusterForCGU` that monitors the `Ready` state of the `ManagedCluster` CRs on the hub cluster and creates the `ClusterGroupUpgrade` CRs for ZTP (zero touch provisioning).
 
-For any managed cluster in the `Ready` state without a "ztp-done" label applied, the `ManagedClusterForCGU` controller automatically creates a `ClusterGroupUpgrade` CR in the `ztp-install` namespace with its associated {rh-rhacm} policies that are created during the ZTP process. The TALO then remediates the set of configuration policies that are listed in the auto-created `ClusterGroupUpgrade` CR to push the configuration CRs to the managed cluster.
+For any managed cluster in the `Ready` state without a "ztp-done" label applied, the `ManagedClusterForCGU` controller automatically creates a `ClusterGroupUpgrade` CR in the `ztp-install` namespace with its associated {rh-rhacm} policies that are created during the ZTP process. The {cgu-operator} then remediates the set of configuration policies that are listed in the auto-created `ClusterGroupUpgrade` CR to push the configuration CRs to the managed cluster.
 
 [NOTE]
 ====
@@ -59,5 +59,5 @@ spec:
     maxConcurrency: 1
     timeout: 240
 ----
-<1> Applied to the managed cluster when the TALO completes the cluster configuration.
-<2> Applied to the managed cluster when the TALO starts deploying the configuration policies.
+<1> Applied to the managed cluster when the {cgu-operator} completes the cluster configuration.
+<2> Applied to the managed cluster when the {cgu-operator} starts deploying the configuration policies.

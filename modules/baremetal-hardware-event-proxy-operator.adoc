@@ -2,11 +2,11 @@
 //
 // * operators/operator-reference.adoc
 [id="baremetal-hardware-event-proxy_{context}"]
-= Baremetal Hardware Event Proxy Operator
+= {redfish-operator}
 
 [discrete]
 == Purpose
-The OpenShift Baremetal Hardware Event Proxy Operator manages the life-cycle of the Baremetal Hardware Event proxy. The Baremetal Hardware Event Proxy enables the user to configure the types of event that are monitored using Redfish Hardware Events on the cluster.
+The OpenShift {redfish-operator} manages the life-cycle of the Baremetal Hardware Event proxy. The Baremetal Hardware Event Proxy enables the user to configure the types of event that are monitored using Redfish Hardware Events on the cluster.
 
 == Configuration Objects
 You can use this command to edit the configuration after installation: for example, the webhook port.

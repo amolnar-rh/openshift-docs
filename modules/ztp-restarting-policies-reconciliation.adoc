@@ -10,7 +10,7 @@ Use the following procedure to restart policies reconciliation in the event of u
 
 .Procedure
 
-. A `ClusterGroupUpgrade` CR is generated in the namespace `ztp-install` by the Topology Aware Lifecycle Operator (TALO) after the managed spoke cluster becomes `Ready`:
+. A `ClusterGroupUpgrade` CR is generated in the namespace `ztp-install` by the {cgu-operator-first} after the managed spoke cluster becomes `Ready`:
 +
 [source,terminal]
 ----
@@ -36,6 +36,6 @@ $ oc get clustergroupupgrades -n ztp-install $CLUSTER -o jsonpath='{.status.cond
 $ oc delete clustergroupupgrades -n ztp-install $CLUSTER
 ----
 
-Note that when the `ClusterGroupUpgrade` CR completes with status `UpgradeCompleted` and the managed spoke cluster has the label `ztp-done` applied, you can make additional configuration changes using `PolicyGenTemplate`. Deleting the existing `ClusterGroupUpgrade` CR will not make the TALO generate a new CR.
+Note that when the `ClusterGroupUpgrade` CR completes with status `UpgradeCompleted` and the managed spoke cluster has the label `ztp-done` applied, you can make additional configuration changes using `PolicyGenTemplate`. Deleting the existing `ClusterGroupUpgrade` CR will not make the {cgu-operator} generate a new CR.
 
 At this point, ZTP has completed its interaction with the cluster and any further interactions should be treated as an upgrade.

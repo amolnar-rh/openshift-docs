@@ -1,14 +1,14 @@
 :_content-type: ASSEMBLY
 [id="cnf-talo-for-cluster-updates"]
-= Topology Aware Lifecycle Operator for cluster updates
+= {cgu-operator-first} for cluster updates
 include::_attributes/common-attributes.adoc[]
 :context: cnf-topology-aware-lifecycle-operator
 
 toc::[]
 
-You can use the Topology Aware Lifecycle Operator (TALO) to manage the software lifecycle of multiple single-node OpenShift clusters. TALO uses {rh-rhacm-first} policies to perform changes on the target clusters.
+You can use the {cgu-operator-first} to manage the software lifecycle of multiple single-node OpenShift clusters. The {cgu-operator} uses {rh-rhacm-first} policies to perform changes on the target clusters.
 
-:FeatureName: The Topology Aware Lifecycle Operator
+:FeatureName: The Cluster Group Upgrades Operator
 
 include::snippets/technology-preview.adoc[]
 
@@ -17,13 +17,13 @@ include::modules/cnf-about-topology-aware-lifecycle-operator-config.adoc[levelof
 include::modules/cnf-about-topology-aware-lifecycle-operator-policies.adoc[leveloffset=+1]
 
 [id="installing-topology-aware-lifecycle-operator_{context}"]
-== Installing the upstream Topology Aware Lifecycle Operator
+== Installing the upstream {cgu-operator-first}
 
-The Topology Aware Lifecycle Operator is not available in the `redhat-operators` Operators source for {product-title} version {product-version}. To use the Operator, you must install the upstream version.
+The {cgu-operator-first} is not available in the `redhat-operators` Operators source for {product-title} version {product-version}. To use the Operator, you must install the upstream version.
 
 [IMPORTANT]
 ====
-Topology Aware Lifecycle Operator is not supported with Red Hat production service level agreements (SLAs) and is not functionally complete or production-ready. The Operator is provided for preview purposes only. Do not use Topology Aware Lifecycle Operator for production or business-critical workloads.
+The {cgu-operator-first} is not supported with Red Hat production service level agreements (SLAs) and is not functionally complete or production-ready. The Operator is provided for preview purposes only. Do not use {cgu-operator-first} for production or business-critical workloads.
 ====
 
 //include::modules/cnf-topology-aware-lifecycle-operator-installation-web-console.adoc[leveloffset=+1]
@@ -54,4 +54,4 @@ include::modules/cnf-topology-aware-lifecycle-operator-troubleshooting.adoc[leve
 
 * For more information about troubleshooting, see xref:../support/troubleshooting/troubleshooting-operator-issues.adoc[OpenShift Container Platform Troubleshooting Operator Issues].
 
-* For more information about using Topology Aware Lifecycle Operator in the ZTP workflow, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#cnf-topology-aware-lifecycle-operator[Updating managed policies with the Topology Aware Lifecycle Operator].
+* For more information about using {cgu-operator-first} in the ZTP workflow, see xref:../scalability_and_performance/ztp-deploying-disconnected.adoc#cnf-topology-aware-lifecycle-operator[Updating managed policies with the {cgu-operator}].
