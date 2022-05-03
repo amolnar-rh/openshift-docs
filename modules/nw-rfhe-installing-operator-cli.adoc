@@ -10,7 +10,7 @@ As a cluster administrator, you can install the Operator by using the CLI.
 
 .Prerequisites
 
-* A cluster installed on bare-metal hardware with nodes that have Redfish hardware.
+* A cluster that is installed on bare-metal hardware with nodes that have a RedFish-enabled Baseboard Management Controller (BMC).
 * Install the OpenShift CLI (`oc`).
 * Log in as a user with `cluster-admin` privileges.
 

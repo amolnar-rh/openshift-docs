@@ -1,19 +1,20 @@
 // Module included in the following assemblies:
 //
-// *
+// * monitoring/using-rfhe.adoc
+
 :_module-type: PROCEDURE
 [id="nw-rfhe-querying-redfish-hardware-event-subs_{context}"]
 = Querying Redfish hardware event subscriptions with curl
 
-Some hardware vendors limit the amount of Redfish hardware event subscriptions. You can query the number of Redfish event subscriptions using `curl`.
+Some hardware vendors limit the amount of Redfish hardware event subscriptions. You can query the number of Redfish event subscriptions by using `curl`.
 
 .Prerequisites
 * Get the user name and password for the BMC.
-* Deploy a bare-metal node with Redfish hardware in your cluster, and enable Redfish events on the BMC.
+* Deploy a bare-metal node with a RedFish-enabled Baseboard Management Controller (BMC) in your cluster, and enable Redfish events on the BMC.
 
 .Procedure
 
-. To check the current subscriptions for the BMC, run the following command, specifying the BMC username and password:
+. Check the current subscriptions for the BMC by running the following `curl` command:
 +
 [source,terminal]
 ----

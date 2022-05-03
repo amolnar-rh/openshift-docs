@@ -13,7 +13,7 @@ include::snippets/developer-preview.adoc[]
 [id="about-using-redfish-hardware-events"]
 == About Redfish hardware events
 
-Use Redfish hardware events to subscribe applications running in your {product-title} cluster to events generated on the underlying bare-metal host. The Redfish service publishes events on a node and transmits them on an advanced message queue to subscribed applications.
+Use Redfish hardware events to subscribe applications that run in your {product-title} cluster to events that are generated on the underlying bare-metal host. The Redfish service publishes events on a node and transmits them on an advanced message queue to subscribed applications.
 
 Redfish hardware events are based on the open Redfish standard that is developed under the guidance of the Distributed Management Task Force (DMTF). Redfish provides a secure industry-standard protocol with a REST API. The protocol is used for the management of distributed, converged or software-defined resources and infrastructure.
 
@@ -23,11 +23,11 @@ Hardware-related events published through Redfish includes:
 * Server status
 * Fan status
 
-Begin using Redfish hardware events by deploying the Operator and subscribing your application to the service. The Operator installs and manages the the lifecycle of the Redfish hardware event service.
+Begin using Redfish hardware events by deploying the Operator and subscribing your application to the service. The Operator installs and manages the lifecycle of the Redfish hardware event service.
 
 [NOTE]
 ====
-Redfish hardware events work only with Redfish-capable devices on OpenShift single-node clusters provisioned on bare-metal infrastructure.
+Redfish hardware events work only with Redfish-capable devices on single-node clusters provisioned on bare-metal infrastructure.
 ====
 
 include::modules/nw-rfhe-introduction.adoc[leveloffset=+1]

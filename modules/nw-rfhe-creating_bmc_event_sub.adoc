@@ -24,7 +24,7 @@ Perform the following procedure to subscribe to Redfish hardware events for the 
 * Install the OpenShift CLI (`oc`).
 * Log in as a user with `cluster-admin` privileges.
 * Get the user name and password for the BMC.
-* Deploy a bare-metal node with Redfish hardware in your cluster, and enable Redfish events on the BMC.
+* Deploy a bare-metal node with a RedFish-enabled Baseboard Management Controller (BMC) in your cluster, and enable Redfish events on the BMC.
 +
 [NOTE]
 ====
@@ -32,7 +32,7 @@ Enabling Redfish events on specific hardware is outside the scope of this inform
 ====
 
 .Procedure
-. Confirm the node hardware has the Redfish `EventService` enabled using the following `curl` command:
+. Confirm that the node hardware has the Redfish `EventService` enabled by running the following `curl` command:
 +
 [source,terminal]
 ----
@@ -77,7 +77,7 @@ bmc_ip_address:: is the IP address of the BMC where the Redfish events are gener
 }
 ----
 
-. Get the hardware event proxy service route for the cluster:
+. Get the hardware event proxy service route for the cluster by running the following command:
 +
 [source,terminal]
 ----
@@ -125,7 +125,7 @@ $ oc create -f bmc_sub.yaml
 $ oc delete -f bmc_sub.yaml
 ----
 
-. Optional: To manually create a Redfish event subscription without creating a `BMCEventSubscription` CR, use the following `curl` command, specifying the BMC username and password.
+. Optional: To manually create a Redfish event subscription without creating a `BMCEventSubscription` CR, run the following `curl` command, specifying the BMC username and password.
 +
 [source,terminal]
 ----
