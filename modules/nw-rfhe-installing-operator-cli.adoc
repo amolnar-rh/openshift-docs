@@ -1,0 +1,105 @@
+// Module included in the following assemblies:
+//
+// * monitoring/using-rfhe.adoc
+
+:_content-type: PROCEDURE
+[id="nw-rfhe-installing-operator-cli_{context}"]
+= Installing the {redfish-operator} using the CLI
+
+As a cluster administrator, you can install the Operator by using the CLI.
+
+.Prerequisites
+
+* A cluster that is installed on bare-metal hardware with nodes that have a RedFish-enabled Baseboard Management Controller (BMC).
+* Install the OpenShift CLI (`oc`).
+* Log in as a user with `cluster-admin` privileges.
+
+.Procedure
+
+. Create a namespace for the {redfish-operator}.
+
+.. Save the following YAML in the `baremetal-events-namespace.yaml` file:
++
+[source,yaml]
+----
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-baremetal-events
+  annotations:
+    workload.openshift.io/allowed: management
+  labels:
+    name: openshift-baremetal-events
+    openshift.io/cluster-monitoring: "true"
+----
+
+.. Create the `Namespace` CR:
++
+[source,terminal]
+----
+$ oc create -f baremetal-events-namespace.yaml
+----
+
+. Create an Operator group for the {redfish-operator}.
+
+.. Save the following YAML in the `baremetal-events-operatorgroup.yaml` file:
++
+[source,yaml]
+----
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: baremetal-event-relay-group
+  namespace: openshift-baremetal-events
+spec:
+  targetNamespaces:
+  - openshift-baremetal-events
+----
+
+.. Create the `OperatorGroup` CR:
++
+[source,terminal]
+----
+$ oc create -f baremetal-events-operatorgroup.yaml
+----
+
+. Subscribe to the {redfish-operator}.
+
+.. Save the following YAML in the `baremetal-events-sub.yaml` file:
++
+[source,yaml]
+----
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: baremetal-event-relay-subscription
+  namespace: openshift-baremetal-events
+spec:
+  channel: "stable"
+  name: baremetal-event-relay
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+----
+
+.. Create the `Subscription` CR:
++
+[source,terminal]
+----
+$ oc create -f baremetal-events-sub.yaml
+----
+
+.Verification
+
+To verify that the Operator is installed, run the following command:
+
+[source,terminal]
+----
+$ oc get csv -n openshift-baremetal-events -o custom-columns=Name:.metadata.name,Phase:.status.phase
+----
+
+.Example output
+[source,terminal]
+----
+Name                                              Phase
+baremetal-event-relay.v4.10.0   Succeeded
+----
