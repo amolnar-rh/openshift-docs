@@ -4,9 +4,9 @@
 
 :_content-type: PROCEDURE
 [id="nw-rfhe-installing-operator-web-console_{context}"]
-= Installing the Baremetal Hardware Event Proxy Operator using the web console
+= Installing the {redfish-operator} using the web console
 
-As a cluster administrator, you can install the Baremetal Hardware Event Proxy Operator using the web console.
+As a cluster administrator, you can install the {redfish-operator} using the web console.
 
 .Prerequisites
 
@@ -15,11 +15,11 @@ As a cluster administrator, you can install the Baremetal Hardware Event Proxy O
 
 .Procedure
 
-. Install the Baremetal Hardware Event Proxy Operator using the {product-title} web console:
+. Install the {redfish-operator} using the {product-title} web console:
 
 .. In the {product-title} web console, click *Operators* -> *OperatorHub*.
 
-.. Choose  *Baremetal Hardware Event Proxy Operator* from the list of available Operators, and then click *Install*.
+.. Choose  *{redfish-operator}* from the list of available Operators, and then click *Install*.
 
 .. On the *Install Operator* page, select or create a *Namespace*, select *baremetal-hardware-event-proxy-operator*, and then click *Install*.
 
@@ -29,7 +29,7 @@ Optional: You can verify that the Operator installed successfully by performing 
 
 . Switch to the *Operators* -> *Installed Operators* page.
 
-. Ensure that *Baremetal Hardware Event Proxy Operator* is listed in the project with a *Status* of *InstallSucceeded*.
+. Ensure that *{redfish-operator}* is listed in the project with a *Status* of *InstallSucceeded*.
 +
 [NOTE]
 ====

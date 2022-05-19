@@ -4,7 +4,7 @@
 
 :_content-type: PROCEDURE
 [id="nw-rfhe-installing-operator-cli_{context}"]
-= Installing the Baremetal Hardware Event Proxy Operator using the CLI
+= Installing the {redfish-operator} using the CLI
 
 As a cluster administrator, you can install the Operator by using the CLI.
 
@@ -16,7 +16,7 @@ As a cluster administrator, you can install the Operator by using the CLI.
 
 .Procedure
 
-. Create a namespace for the Baremetal Hardware Event Proxy Operator.
+. Create a namespace for the {redfish-operator}.
 
 .. Save the following YAML in the `hw-events-namespace.yaml` file:
 +
@@ -40,7 +40,7 @@ metadata:
 $ oc create -f hw-events-namespace.yaml
 ----
 
-. Create an Operator group for the Baremetal Hardware Event Proxy Operator.
+. Create an Operator group for the {redfish-operator}.
 
 .. Save the following YAML in the `hw-events-operatorgroup.yaml` file:
 +
@@ -63,7 +63,7 @@ spec:
 $ oc create -f hw-events-operatorgroup.yaml
 ----
 
-. Subscribe to the Baremetal Hardware Event Proxy Operator.
+. Subscribe to the {redfish-operator}.
 
 .. Save the following YAML in the `hw-events-sub.yaml` file:
 +

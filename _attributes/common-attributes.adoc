@@ -131,7 +131,8 @@ endif::[]
 :ibmzProductName: IBM Z
 // Red Hat Quay Container Security Operator
 :rhq-cso: Red Hat Quay Container Security Operator
-:cgu-operator-first: Cluster Group Upgrades Operator (CGUO)
-:cgu-operator-full: Cluster Group Upgrades Operator
-:cgu-operator: CGUO
-:redfish-operator: Hardware Event Proxy Operator
+//TALO and Redfish events Operators
+:cgu-operator-first: Topology-aware Lifecycle Manager (TALO)
+:cgu-operator-full: Topology-aware Lifecycle Manager
+:cgu-operator: TALO
+:redfish-operator: Baremetal Hardware Event Proxy Operator
