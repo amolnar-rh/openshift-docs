@@ -31,11 +31,6 @@ Redfish hardware events work only with Redfish-capable devices on single-node cl
 
 include::modules/nw-rfhe-introduction.adoc[leveloffset=+1]
 
-[id="installing-hw-events"]
-== Installing the upstream {redfish-operator}
-
-Install the {redfish-operator} using the {product-title} CLI or the web console.
-
 include::modules/nw-rfhe-installing-operator-cli.adoc[leveloffset=+2]
 
 include::modules/nw-rfhe-installing-operator-web-console.adoc[leveloffset=+2]
