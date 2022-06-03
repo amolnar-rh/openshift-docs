@@ -1,6 +1,6 @@
 // Module included in the following assemblies:
 // Epic CNF-2600 (CNF-2133) (4.10), Story TELCODOCS-285
-// * scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc
+// * scalability_and_performance/cnf-talm-for-cluster-upgrades.adoc
 
 :_content-type: CONCEPT
 [id="talo-policies-concept_{context}"]
@@ -12,7 +12,7 @@ One by one, the {cgu-operator} adds each cluster from the current batch to the p
 
 If a spoke cluster does not report any compliant state to {rh-rhacm}, the managed policies on the hub cluster can be missing status information that the {cgu-operator} needs. The {cgu-operator} handles these cases in the following ways:
 
-* If a policy's `status.compliant` field is missing, the {cgu-operator} ignores the policy and the {cgu-operator} adds a log entry. Then the {cgu-operator} continues looking at the policy's `status.status` field.
+* If a policy's `status.compliant` field is missing, the {cgu-operator} ignores the policy and adds a log entry. Then, the {cgu-operator} continues looking at the policy's `status.status` field.
 * If a policy's `status.status` is missing, the {cgu-operator} produces an error.
 * If a cluster's compliance status is missing in the policy's `status.status` field, the {cgu-operator} considers that cluster to be non-compliant with that policy.
 

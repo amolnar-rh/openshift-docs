@@ -2195,8 +2195,8 @@ Topics:
 - Name: Performance Addon Operator for low latency nodes
   File: cnf-performance-addon-operator-for-low-latency-nodes
   Distros: openshift-origin,openshift-enterprise
-- Name: Cluster Group Upgrades Operator for cluster updates
-  File: cnf-talo-for-cluster-upgrades
+- Name: Topology Aware Lifecycle Manager for cluster updates
+  File: cnf-talm-for-cluster-upgrades
   Distros: openshift-origin,openshift-enterprise
 - Name: Creating a performance profile
   File: cnf-create-performance-profiles

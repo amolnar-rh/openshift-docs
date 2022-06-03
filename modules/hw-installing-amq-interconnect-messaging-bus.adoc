@@ -45,7 +45,7 @@ $ oc get pods -n openshift-hw-events
 [source,terminal]
 ----
 NAME                                                         				 READY   STATUS    RESTARTS   AGE
-baremetal-hardware-event-proxy-operator-controller-manager-b889bb8d5-qwhvs   2/2     Running   0          25s
+baremetal-event-relay-controller-manager-b889bb8d5-qwhvs   2/2     Running   0          25s
 ----
 
 

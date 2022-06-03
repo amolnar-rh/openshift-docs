@@ -136,4 +136,4 @@ endif::[]
 :cgu-operator-first: Topology Aware Lifecycle Manager (TALM)
 :cgu-operator-full: Topology Aware Lifecycle Manager
 :cgu-operator: TALM
-:redfish-operator: Baremetal Hardware Event Relay
+:redfish-operator: Baremetal Event Relay

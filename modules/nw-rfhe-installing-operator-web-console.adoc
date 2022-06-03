@@ -21,7 +21,7 @@ As a cluster administrator, you can install the {redfish-operator} using the web
 
 .. Choose  *{redfish-operator}* from the list of available Operators, and then click *Install*.
 
-.. On the *Install Operator* page, select or create a *Namespace*, select *baremetal-hardware-event-proxy-operator*, and then click *Install*.
+.. On the *Install Operator* page, select or create a *Namespace*, select *baremetal-event-relay*, and then click *Install*.
 
 .Verification
 

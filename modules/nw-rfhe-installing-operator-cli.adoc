@@ -49,7 +49,7 @@ $ oc create -f hw-events-namespace.yaml
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: baremetal-hardware-event-proxy-operator-group
+  name: baremetal-event-relay-group
   namespace: openshift-hw-events
 spec:
   targetNamespaces:
@@ -72,11 +72,11 @@ $ oc create -f hw-events-operatorgroup.yaml
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: baremetal-hardware-event-proxy-operator-subscription
+  name: baremetal-event-relay-subscription
   namespace: openshift-hw-events
 spec:
   channel: "stable"
-  name: baremetal-hardware-event-proxy-operator
+  name: baremetal-event-relay
   source: redhat-operators
   sourceNamespace: openshift-marketplace
 ----
@@ -101,5 +101,5 @@ $ oc get csv -n openshift-hw-events -o custom-columns=Name:.metadata.name,Phase:
 [source,terminal]
 ----
 Name                                              Phase
-baremetal-hardware-event-proxy-operator.v4.10.0   Succeeded
+baremetal-event-relay.v4.10.0   Succeeded
 ----
