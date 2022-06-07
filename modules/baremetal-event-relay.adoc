@@ -6,8 +6,9 @@
 
 [discrete]
 == Purpose
-The OpenShift {redfish-operator} manages the life-cycle of the Baremetal Event Relay. The Baremetal Event Relay enables you to configure the types of cluster event that are monitored using Redfish hardware events.
+The OpenShift {redfish-operator} manages the life-cycle of the Bare Metal Event Relay. The Bare metal Event Relay enables you to configure the types of cluster event that are monitored using Redfish hardware events.
 
+[discrete]
 == Configuration Objects
 You can use this command to edit the configuration after installation: for example, the webhook port.
 You can edit configuration objects with:
@@ -34,8 +35,9 @@ leaderElection:
 
 [discrete]
 == Project
-link:https://github.com/redhat-cne/hw-event-proxy-operator[baremetal-event-relay]
+link:https://github.com/redhat-cne/hw-event-proxy-operator[hw-event-proxy-operator]
 
+[discrete]
 == CRD
 The proxy enables applications running on bare-metal clusters to respond quickly to Redfish hardware changes and failures such as breaches of temperature thresholds, fan failure, disk loss, power outages, and memory failure, reported using the HardwareEvent CR.
 
@@ -45,6 +47,6 @@ The proxy enables applications running on bare-metal clusters to respond quickly
 * CR: HardwareEvent
 * Validation: Yes
 
-
+[discrete]
 == Additional Resources
-You can learn more in the topic xref:../monitoring/using-rfhe.html[Monitoring Redfish hardware events].
+You can learn more in the topic xref:../monitoring/using-rfhe.adoc[Monitoring Redfish hardware events].

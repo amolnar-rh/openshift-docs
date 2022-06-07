@@ -4,9 +4,9 @@
 
 :_content-type: REFERENCE
 [id="cnf-rfhe-notifications-api-refererence_{context}"]
-= Subscribing applications to Redfish hardware event notifications REST API reference
+= Subscribing applications to bare metal events REST API reference
 
-Use the Redfish event notifications REST API to subscribe an application to the Redfish hardware events that are generated on the parent node.
+Use the bare metal events REST API to subscribe an application to the bare metal events that are generated on the parent node.
 
 Subscribe applications to Redfish events by using the resource address `/cluster/node/<node_name>/redfish/event`, where `<node_name>` is the cluster node running the application.
 

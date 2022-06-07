@@ -34,18 +34,18 @@ amq-interconnect-645db76c76-k8ghs       1/1     Running   0          23h
 interconnect-operator-5cb5fc7cc-4v7qm   1/1     Running   0          23h
 ----
 
-. Verify that the required `baremetal-event-relay` hardware event producer pod is running in the `openshift-baremetal-events` namespace:
+. Verify that the required `bare-metal-event-relay` hardware event producer pod is running in the `openshift-bare-metal-events` namespace:
 +
 [source,terminal]
 ----
-$ oc get pods -n openshift-baremetal-events
+$ oc get pods -n openshift-bare-metal-events
 ----
 +
 .Example output
 [source,terminal]
 ----
-NAME                                                         				 READY   STATUS    RESTARTS   AGE
-baremetal-event-relay-controller-manager-b889bb8d5-qwhvs   2/2     Running   0          25s
+NAME                                                        READY   STATUS    RESTARTS   AGE
+hw-event-proxy-controller-manager-b889bb8d5-qwhvs           2/2     Running   0          25s
 ----
 
 
