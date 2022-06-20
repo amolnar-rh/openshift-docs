@@ -6,7 +6,7 @@ include::_attributes/common-attributes.adoc[]
 
 toc::[]
 
-:FeatureName: Bare-metal events
+:FeatureName: Bare Metal Event Relay
 include::snippets/technology-preview.adoc[]
 
 [id="about-using-redfish-hardware-events"]
