@@ -1,6 +1,6 @@
 :_content-type: ASSEMBLY
 [id="using-rfhe"]
-= Monitoring bare-metal events
+= Monitoring bare-metal events with the {redfish-operator}
 include::_attributes/common-attributes.adoc[]
 :context: using-rfhe
 
@@ -12,7 +12,7 @@ include::snippets/technology-preview.adoc[]
 [id="about-using-redfish-hardware-events"]
 == About bare-metal events
 
-Use bare-metal events to subscribe applications that run in your {product-title} cluster to events that are generated on the underlying bare-metal host. The Redfish service publishes events on a node and transmits them on an advanced message queue to subscribed applications.
+Use the {redfish-operator} to subscribe applications that run in your {product-title} cluster to events that are generated on the underlying bare-metal host. The Redfish service publishes events on a node and transmits them on an advanced message queue to subscribed applications.
 
 Bare-metal events are based on the open Redfish standard that is developed under the guidance of the Distributed Management Task Force (DMTF). Redfish provides a secure industry-standard protocol with a REST API. The protocol is used for the management of distributed, converged or software-defined resources and infrastructure.
 
@@ -22,11 +22,11 @@ Hardware-related events published through Redfish includes:
 * Server status
 * Fan status
 
-Begin using bare-metal events by deploying the Operator and subscribing your application to the service. The Operator installs and manages the lifecycle of the Redfish hardware event service.
+Begin using bare-metal events by deploying the {redfish-operator} Operator and subscribing your application to the service. The {redfish-operator} Operator installs and manages the lifecycle of the Redfish bare-metal event service.
 
 [NOTE]
 ====
-Bare-metal events work only with Redfish-capable devices on single-node clusters provisioned on bare-metal infrastructure.
+The {redfish-operator} works only with Redfish-capable devices on single-node clusters provisioned on bare-metal infrastructure.
 ====
 
 include::modules/nw-rfhe-introduction.adoc[leveloffset=+1]

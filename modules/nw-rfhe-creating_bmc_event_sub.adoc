@@ -6,7 +6,7 @@
 [id="nw-rfhe-creating_bmc_event_sub_{context}"]
 = Subscribing to bare-metal events
 
-You can configure the baseboard management controller (BMC) to send bare-metal events to subscribed applications running in an {product-title} cluster. Example Redfish events include an increase in device temperature, or removal of a device. Applications subscribe to bare-metal events using a REST API.
+You can configure the baseboard management controller (BMC) to send bare-metal events to subscribed applications running in an {product-title} cluster. Example Redfish bare-metal events include an increase in device temperature, or removal of a device. You subscribe applications to bare-metal events using a REST API.
 
 [IMPORTANT]
 ====

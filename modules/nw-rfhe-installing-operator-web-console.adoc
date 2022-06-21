@@ -6,7 +6,7 @@
 [id="nw-rfhe-installing-operator-web-console_{context}"]
 = Installing the {redfish-operator} using the web console
 
-As a cluster administrator, you can install the {redfish-operator} using the web console.
+As a cluster administrator, you can install the {redfish-operator} Operator using the web console.
 
 .Prerequisites
 

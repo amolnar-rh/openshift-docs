@@ -6,7 +6,7 @@
 [id="nw-rfhe-installing-operator-cli_{context}"]
 = Installing the {redfish-operator} using the CLI
 
-As a cluster administrator, you can install the Operator by using the CLI.
+As a cluster administrator, you can install the {redfish-operator} Operator by using the CLI.
 
 .Prerequisites
 
@@ -40,7 +40,7 @@ metadata:
 $ oc create -f bare-metal-events-namespace.yaml
 ----
 
-. Create an Operator group for the {redfish-operator}.
+. Create an Operator group for the {redfish-operator} Operator.
 
 .. Save the following YAML in the `bare-metal-events-operatorgroup.yaml` file:
 +
@@ -90,7 +90,7 @@ $ oc create -f bare-metal-events-sub.yaml
 
 .Verification
 
-To verify that the Operator is installed, run the following command:
+To verify that the {redfish-operator} Operator is installed, run the following command:
 
 [source,terminal]
 ----
