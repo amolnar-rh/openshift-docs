@@ -810,7 +810,7 @@ For more information, see xref:../storage/container_storage_interface/persistent
 [id="ocp-4-10-storage-fsGroup-pod-timeouts"]
 ==== Using fsGroup to reduce pod timeouts
 
-If a storage volume contains many files (~1,000,000 or greater), you may experience pod timeouts.
+If a storage volume contains many files (approximately 1,000,000 or greater), you may experience pod timeouts.
 
 {product-title} 4.10 introduces the ability to use `fsGroup` and `fsGroupChangePolicy` to skip recursive permission change for the storage volume, therefore helping to avoid pod timeout problems.
 
@@ -1171,9 +1171,9 @@ The Node Feature Discovery (NFD) Topology Updater is a daemon responsible for ex
 Hyperthreading-aware CPU manager policy in {product-title} is now available without the need for extra tuning. The cluster administrator can enable this feature if required. Hyperthreads are abstracted by the hardware as logical processors. Hyperthreading allows a single physical processor to execute two heavyweight threads (processes) at the same time, dynamically sharing processor resources.
 
 [id="ocp-4-10-topology-aware-lifecycle-operator"]
-==== Updating managed clusters with {cgu-operator-full} (Developer Preview)
+==== Updating managed clusters with {cgu-operator-full} (Technology Preview)
 
-You can now use the upstream {cgu-operator-full} to perform updates on multiple single-node Openshift clusters by using {rh-rhacm-first} policies. For more information, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the {cgu-operator-full} configuration].
+You can now use the {cgu-operator-full} to perform updates on multiple single-node Openshift clusters by using {rh-rhacm-first} policies. For more information, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.adoc#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the {cgu-operator-full} configuration].
 
 [id="ocp-4-10-6-ztp-ga"]
 ==== Zero touch provisioning is generally available
