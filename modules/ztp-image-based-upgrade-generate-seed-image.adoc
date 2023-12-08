@@ -1,0 +1,220 @@
+// Module included in the following assemblies:
+// Epic TELCOSTRAT-160 (4.15/4.16), story TELCODOCS-1576
+// * scalability_and_performance/ztp-talm-updating-managed-policies.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="ztp-image-based-upgrade-seed-generation_{context}"]
+= Generating a seed image with the {lcao}
+
+Use the {lcao} to generate the seed image with the `SeedGenerator` CR. The {lcao} will do the following:
+
+// seed cluster, some things are cluster specific that are not included
+// all operator, LCAO, OADP, LVMS, included in the seed image, telco day2 stuff is incl
+// system ocnfig checks ()
+
+* Checks for required system configurations
+* Performs any necessary system cleanup before generating the seed image
+* Launches the image generation task, which involves the following:
+//seedgen Secret and seedgenerator get deleted before imager to not be added to the image
+** Stops the cluster operators
+** Prepares the seed image configuration
+** Generates and pushes the seed image to the image repository specified in the `imageBasedUpgrade` CR
+** Restores the cluster operators
+** Expires seed cluster certifications
+* Generates new certificates for the seed cluster
+* Restores and updates the `SeedGenerator` CR on the seed cluster, and the `ManagedCluster` CR on the hub cluster
+
+Once the image generation is complete, the cluster is attached to the hub cluster again and can be accessed through the API. 
+
+//TODO Expand on what the seed image contains and explicitly say what it doesn't
+
+.Prerequisites
+
+* You deployed an {sno} with DU profile.
+* You installed the {lcao} on the seed cluster.
+* You installed the OADP Operator on the seed cluster.
+* You are logged in as a user with `cluster-admin` privileges.
+* The seed cluster has the same CPU topology as the target cluster.
+* The seed cluster and the target cluster have the same {rh-rhacm} or multicluster engine version.
+* The seed cluster is registered as a managed cluster.
+// Are there more prereqs?
+
+.Procedure
+
+. Detach the seed cluster.
+// TODO expand on this. Needs to be detached as LCA cleans up the ACM resources. If it remains detached to the hub,
+// the resources are recreated and will be included in the seed image.
+
+. Create the `Secret` CR in the `openshift-lifecycle-agent` namespace.
++
+--
+[source,yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: seedgen <1>
+  namespace: openshift-lifecycle-agent
+type: Opaque
+data:
+  seedAuth: <encoded_AUTHFILE> <2>
+  hubKubeconfig: <encoded_KUBECONFIG> <3>
+----
+<1> The `Secret` CR must have the `name: seedgen` and `namespace: openshift-lifecycle-agent` fields.
+<2> Specifies a base64-encoded authfile for write-access to the registry for pushing the generated seed images.
+<3> Optional. Specifies a base64-encoded `KUBECONFIG` file for administrator access to the hub cluster to unregister the seed cluster from {rh-rhacm}. If this is not present in the secret, the {rh-rhacm} cleanup is skipped and the seed cluster must be detached from the hub cluster manually.
+--
+
+.. Create the authentication and the `Kubeconfig` files by running the following commands:
++
+--
+.Authentication file
+[source,terminal]
+----
+$ MY_USER=myuserid
+$ AUTHFILE=/tmp/my-auth.json
+$ podman login --authfile ${AUTHFILE} -u ${MY_USER} quay.io/${MY_USER}
+----
+
+[source,terminal]
+----
+$ base64 -w 0 ${AUTHFILE} ; echo
+----
+
+.hubKubeconfig file
+[source,terminal]
+----
+$ HUBKUBECONFIGFILE=/home/<user_ID>/hubkubeconfig
+----
+
+[source,terminal]
+----
+$ base64 -w 0 ${HUBKUBECONFIGFILE} ; echo
+----
+--
+
+.. Copy the outputs into the respective `seedAuth` and `hubKubeconfig` fields in the `Secret` CR.
+
+. Apply the `Secret` CR.
++
+[source,terminal]
+----
+$ oc apply -f secretseedgenerator.yaml
+----
+
+. (Optional) If you did not populate the `hubKubeconfig` field in the `Secret` CR, detach the seed cluster from the hub cluster and remove all {rh-rhacm} and multicluster engine certificates that cannot be recertificated in the target cluster.
+
+.. Detach the seed cluster from the hub cluster:
++
+[source,terminal]
+----
+$ oc delete managedcluster sno-worker-example
+----
+
+.. Wait until the `ManagedCluster` CR is removed. Once the CR is removed, create the proper `SeedGenerator` CR. The {lcao} cleans up the {rh-rhacm} artifacts.
+
+. Create the `SeedGenerator` CR:
++
+--
+[source,yaml]
+----
+apiVersion: lca.openshift.io/v1alpha1
+kind: SeedGenerator
+metadata:
+  name: seedimage <1>
+spec:
+  seedImage: <seed_container_image> <2>
+----
+<1> The `SeedGenerator` CR must be named `seedimage`.
+<2> Specify the container image URL, for example, `quay.io/example/seed-container-image:<tag>`. It is recommended to use the `<seed_cluster_name>:<ocp_version>` format.
+--
+
+. Generate the seed image by running the following command:
++
+[source,terminal]
+----
+$ oc apply -f seedgenerator.yaml
+----
+
++
+[IMPORTANT]
+====
+The cluster reboots and loses API capabilities while the {lcao} generates the seed image.
+====
+
++
+Applying the `SeedGenerator` CR stops the `kubelet` and the CRI-O operations, then it starts the image generation.
+
+.Verification
+
+. You can monitor the image generation process.
+
+.. SSH into the seed cluster:
++
+[source,terminal]
+----
+$ ssh <node_ID>
+----
+// must have an ssh key configured via MC. When do we do this and how?
+
+.. Check the image generation logs by running the following command:
++
+[source,terminal]
+----
+$ podman logs -f ibu_imager
+----
+
+. Once the cluster recovers and available, you can check the status of the `SeedGenerator` CR:
++
+--
+[source,terminal]
+----
+$ oc get seedgenerator -A -oyaml
+----
+
+.Example output
+[source,yaml]
+----
+status:
+    conditions:
+    - lastTransitionTime: "2024-01-01T09:00:00Z"
+      message: Seed Generation completed
+      observedGeneration: 1
+      reason: Completed
+      status: "True"
+      type: SeedGenCompleted <1>
+    - lastTransitionTime: "2024-01-01T09:02:00Z"
+      message: Seed Generation completed
+      observedGeneration: 1
+      reason: Completed
+      status: "False"
+      type: SeedGenInProgress
+    observedGeneration: 1
+----
+<1> The seed image generation is complete.
+--
+
+. Verify that the {sno} is running and is attached to the {rh-rhacm} hub cluster:
++
+--
+[source,terminal]
+----
+$ oc get managedclusters sno-worker-example
+----
+
+.Example output
+[source,terminal]
+----
+$ oc get managedclusters sno-worker-example
+NAME                 HUB ACCEPTED   MANAGED CLUSTER URLS                                  JOINED   AVAILABLE   AGE
+sno-worker-example   true           https://api.sno-worker-example.example.redhat.com     True     True        21h <1>
+----
+<1> The cluster is attached if you see that the value is `True` for both `JOINED` and `AVAILABLE`.
+
+[NOTE]
+====
+The {sno} requires time to recover after restarting the `kubelet` operation.
+====
+--
+
+If you want to generate additional seed images, you must provision a new seed cluster with the version you want to generate a seed image from.

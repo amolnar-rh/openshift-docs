@@ -1,0 +1,237 @@
+// Module included in the following assemblies:
+// Epic TELCOSTRAT-160 (4.15/4.16), story TELCODOCS-1576
+// * scalability_and_performance/ztp-talm-updating-managed-policies.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="ztp-image-based-upgrade-prep_{context}"]
+= Preparing the {sno} clusters for the image-based upgrade
+
+When you deploy the {lcao} on a cluster, a blank `imageBasedUpgrade` CR is automatically created.
+You use this CR to specify the image repository of the seed image and to move through the different stages.
+
+In the `Prep` stage, the {lcao} ensures that the target clusters are ready for the upgrade by checking if they meet certain conditions. The {lcao} also precaches any additional listed images on the target clusters from the seed image.
+You can complete this stage well before starting the upgrade.
+
+After you start the `Prep` stage by applying the `imageBasedUpgrade` CR with {cgu-operator}, {cgu-operator} applies a policy that starts the following procedures:
+
+//* Installing and configuring the OADP Operator
+* Adding a `DataProtectionApplication` CR that points to the S3 backend
+* Adding a secret for the S3 credentials that are referenced in the `DataProtectionApplication` CR
+
+These resources are deleted after the upgrade is complete or if a rollback is initiated.
+
+.Prerequisites
+
+* You have installed {lcao}.
+* You have generated a seed image from a compatible seed cluster.
+* You have installed the OADP Operator.
+* You can access an Object storage with your configured credentials.
+// Install OADP and storage configgged: Is it okay to have it in the prereqs? Or is this something that the user would expect to be guided through? With the different storage solutions, we probably can't cover everything.
+
+// are there other prereqs?
+
+.Procedure
+
+. Apply the shared container folder `MachineConfig` CR to make `/var/lib/containers` shared between `ostree` updates.
++
+[source,terminal]
+----
+$ oc apply -f <shared_MC_folder>
+----
+// TODO shared location will change
+
+This example demonstrates how to back up and upgrade a cluster with applications on a persistent volume.
+
+[NOTE]
+====
+The target cluster does not need to be detached from the hub cluster.
+====
+
+. Create the secret with your credentials to your Object storage.
+. Create the configuration for the OADP Operator to access your Object storage instance.
+//TODO Check existing OADP docs for steps, link to them if applicable
+
+. Specify what you want to back up:
+//TODO decide how to present this info. Might be best to create a reference section with all the example CRs.
+
+`backup_acm_klusterlet.yaml`:: This allows you to reattach the cluster to the hub cluster once the upgrade and restore are completed.
+`backup_localvolume.yaml`:: This allows to restore the persistent volume that contains the `index.html` of your application.
+`backup_app.yaml`:: The information that must be backed up is different for each application. This CR specifies what needs to be backed up to recover the applications.
+
+. Define the restore order for the OADP Operator in the `Restore` CR by using the `lca.openshift.io/apply-wave` field:
++
+[source,yaml]
+----
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: acm-klusterlet
+  namespace: openshift-adp
+  labels:
+    velero.io/storage-location: default
+  annotations:
+    lca.openshift.io/apply-wave: "1"
+spec:
+  backupName:
+    acm-klusterlet
+---
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: apache-app
+  namespace: openshift-adp
+  labels:
+    velero.io/storage-location: default
+  annotations:
+    lca.openshift.io/apply-wave: "3"
+spec:
+  backupName:
+    apache-app
+---
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: localvolume
+  namespace: openshift-adp
+  labels:
+    velero.io/storage-location: default
+  annotations:
+    lca.openshift.io/apply-wave: "2"
+spec:
+  backupName:
+    localvolume
+----
+
+. Create a `ConfigMap` CR for the backup and restore information that the {lcao} uses during the upgrade.
+
+.. Create a `kustomization.yaml` that appends the information to a `ConfigMap` CR:
++
+[source,yaml]
+----
+configMapGenerator:
+- name: oadp-cm
+  namespace: openshift-adp
+  files:
+  - backup_acm_klusterlet.yaml
+  - backup_localvolume.yaml
+  - backup_app.yaml
+  - restore_acm_klusterlet.yaml
+  - restore_localvolumes.yaml
+  - restore_app.yaml
+----
+
+.. Create the `ConfigMap` CR:
++
+[source,terminal]
+----
+$ kustomize build ./ -o OadpCm.yaml
+----
++
+.Example output
++
+[source,terminal]
+----
+kind: ConfigMap
+metadata:
+  name: oadp-cm-7gtgdhmdc5
+  namespace: openshift-adp
+[...]
+----
+
+.. Apply the `ConfigMap` CR:
++
+[source,terminal]
+----
+$ oc apply -f OadpCm.yaml
+----
+
+. Append the `imageBasedUpgrade` CR with the backup and restore information:
++
+[source,yaml]
+----
+apiVersion: lca.openshift.io/v1alpha1
+kind: ImageBasedUpgrade
+metadata:
+  name: upgrade
+spec:
+  stage: Idle #TODO might need to change or move these steps
+  seedImageRef:
+    version: 4.14.6
+    image: <seed_container_image>
+----
+
+The OADP Operator creates a backup of the data specified in the OADP `Backup` and `Restore` CRs.
+//TODO provide examples with the OADP CRs
+
+. Update the the `ImageBasedUpgrade` CR:
++
+[source,yaml]
+----
+apiVersion: lca.openshift.io/v1alpha1
+kind: ImageBasedUpgrade
+metadata:
+  name: example-upgrade
+spec:
+  stage: Idle
+  seedImageRef:
+    version: 4.14.0 <1>
+    image: <seed_container_image> <2>
+  oadpContent: <3>
+  - name: oadp-cm-7gtgdhmdc5
+    namespace: openshift-adp
+----
+<1> Specify the platform version on the seed image.
+<2> Specify the repository where the target cluster can pull the seed image from.
+<3> Add the `oadpContent` section with the OADP `ConfigMap` information.
+// For telco, we need a sample with extraManifests and oadpContent
+
+. Move the CR to the `Prep` stage:
++
+[source,terminal]
+----
+$ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Prep"}}' --type=merge -n openshift-lifecycle-agent
+----
+
++
+The {lcao} checks for the health of the cluster and pulls the seed image to the target cluster.
+Then, the Operator pre-caches all the required images on the target cluster.
+
+// What else, if anything?
+
+.Verification
+
+. Check the status of the `imageBasedUpgrade` CR.
++
+[source,terminal]
+----
+$ oc get imagebasedupgrades.lca.openshift.io upgrade -oyaml
+----
+
++
+.Example output
+[source,yaml]
+----
+status:
+  conditions:
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: In progress
+    observedGeneration: 2
+    reason: InProgress
+    status: "False"
+    type: Idle
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: 'Prep completed: total: 121 (pulled: 1, skipped: 120, failed: 0)'
+    observedGeneration: 2
+    reason: Completed
+    status: "True"
+    type: PrepCompleted
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: Prep completed
+    observedGeneration: 2
+    reason: Completed
+    status: "False"
+    type: PrepInProgress
+  observedGeneration: 2
+----
+
+// Troubleshooting?

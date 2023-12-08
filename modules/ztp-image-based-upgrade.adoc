@@ -1,0 +1,72 @@
+// Module included in the following assemblies:
+// Epic TELCOSTRAT-160 (4.15/4.16), story TELCODOCS-1576
+// * scalability_and_performance/ztp-talm-updating-managed-policies.adoc
+
+:_mod-docs-content-type: CONCEPT
+[id="ztp-image-based-upgrade-concept_{context}"]
+= Image-based upgrade for {sno} clusters with the {lcao}
+
+You can upgrade the platform version of the managed {sno} clusters with the {lcao}.
+By using generated a seed image, this upgrade process allows you to skip multiple minor releases and it is faster than the standard upgrade method.
+
+You generate the seed image from a cluster that is deployed and configured with the desired {product-title} and applications. This is the seed cluster. You can upgrade the platform version on any {sno} that matches the cluster profile of the seed image.
+
+[IMPORTANT]
+====
+The image-based upgrade uses custom images that are specific to the hardware platform that the clusters are running on.
+Each different hardware platform requires a separate custom image.
+====
+// TODO agree on how much we should specify this. Is this enough or detail about CPU topology, deployment method, etc.
+
+The {lcao} uses two custom resources (CRs):
+
+* The `SeedGenerator` CR specifies the repository to pull the seed image from.
+* The `imageBasedUpgrade` CR specifies the seed container image for the upgrade of the target cluster and the OADP `Backup` and `Restore` CR configurations for the backup of your workloads.
+
+After generating the seed image, you can move throught the stages in the `imageBasedUpgrade` CR, in the following order:
+
+* `Idle`
+* `Prep`
+* `Upgrade`
+* `Rollback` (Optional)
+* `Idle`
+
+[discrete]
+== Idle stage
+
+This is the default stage when the {lcao} is installed or after you commit to a change. There is no ongoing upgrade and the cluster is ready to move to the `Prep` stage.
+
+[discrete]
+== Prep stage
+
+You can complete this stage before a shceduled maintenance window.
+//Rephrase to specify that it can be done regardless of when scheduled maintenance is.
+
+The {lcao} ensures that the node is ready to proceed to the `Upgrade` stage.
+
+The {lcao} uses the `ostree` versioning system and the OADP Operator to create a backup, which allow complete cluster reconfiguration after upgrade or rollback.
+
+At this stage, the {lcao} pulls the seed image and additional container images specified in the seed image.
+
+You can stop the upgrade process at this stage. In that case, the Operator performs cleanup operations and sets the upgrade stage back to `Idle`.
+
+[discrete]
+== Upgrade stage
+
+Just before the {lcao} starts the upgrade process, the OADP Operator creates a backup of the user-specified resources on a compatible Object storage solution, such as an Amazon S3 bucket. These OADP `Backup` and `Restore` CRs are also copied to the new stateroot to be applied after the upgrade.
+Once the upgrade is successful, the Operator sets the default stateroot to the new stateroot and applies the cluster and application configurations.
+
+The Operator also regenerates the cluster's cryptographic objects.
+This ensures that each {sno} upgraded with the same seed image has unique and valid cryptographic objects.
+
+[discrete]
+== Rollback stage (Optional)
+
+You can use the backup from the `Upgrade` stage to start a rollback if the upgrade fails.
+
+If you roll back the upgrade, the {lcao} sets the default stateroot to the previous version and the cluster boots up with the previous release of {product-title} and applications configurations.
+
+After a successful upgrade or a rollback, you can commit to the change by manually moving the stage to `Idle`.
+Changing to `Idle` stage ensures that the {lcao} cleans up resources, so the cluster is ready for further upgrades.
+
+//TODO How ACM and TALM fit in the pic

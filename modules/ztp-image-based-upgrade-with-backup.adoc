@@ -1,0 +1,99 @@
+// Module included in the following assemblies:
+// Epic TELCOSTRAT-160 (4.15/4.16), story TELCODOCS-1576
+// * scalability_and_performance/ztp-talm-updating-managed-policies.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="ztp-image-based-upgrading-with-backup_{context}"]
+= Upgrading the {sno} clusters with {lcao}
+
+When you have generated the seed image and have completed the `Prep` stage, you can begin upgrading the target clusters.
+During the upgrade process, the OADP Operator creates a backup of the artifacts specified in the OADP CRs, then {lcao} reimages the cluster.
+
+[IMPORTANT]
+====
+If the upgrade fails or stops, you must roll back the upgrade.
+For more information, see "(Optional) Initiating rollback of the {sno} clusters after an image-based upgrade".
+
+In case of a rollback, all the resources created by the {lcao} are automatically deleted.
+====
+
+.Prerequisites
+
+* You have completed the `Prep` stage.
+
+.Procedure
+
+. Move to the upgrade stage by changing the `Prep` value to `Upgrade` in the `ImageBasedUpgrade` CR.
++
+[source,terminal]
+----
+$ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Upgrade"}}' --type=merge
+----
+
+. Check the status of the `imageBasedUpgrade` CR:
++
+[source,terminal]
+----
+$ oc get imagebasedupgrades.lca.openshift.io upgrade -oyaml
+----
+
++
+.Example output
+[source,yaml]
+----
+status:
+  conditions:
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: In progress
+    observedGeneration: 2
+    reason: InProgress
+    status: "False"
+    type: Idle
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: 'Prep completed: total: 121 (pulled: 1, skipped: 120, failed: 0)'
+    observedGeneration: 2
+    reason: Completed
+    status: "True"
+    type: PrepCompleted
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: Prep completed
+    observedGeneration: 2
+    reason: Completed
+    status: "False"
+    type: PrepInProgress
+  - lastTransitionTime: "2024-01-01T09:00:00Z"
+    message: Upgrade completed
+    observedGeneration: 3
+    reason: Completed
+    status: "True"
+    type: UpgradeCompleted
+----
+
+. The target cluster reboots.
+
+. Monitor the logs:
++
+[source,terminal]
+----
+$ journalctl --boot | grep -v 'get resource list for' | grep installation-configuration ; \
+journalctl -f | grep -v 'get resource list for' | grep installation-configuration
+----
+
+. After the cluster reboots, the {lcao} reimages the target cluster, applies the cluster and application configurations, and regenerates the cluster's certificates.
+
+.Verification
+
+. Check the status of the cluster:
++
+[source,terminal]
+----
+$ oc get clusterversion
+----
+
++
+.Example output
+[source,terminal]
+----
+NAME      VERSION            AVAILABLE   PROGRESSING   SINCE   STATUS
+version   <target_version>   True        False         17h     Cluster version is <target_version>
+----

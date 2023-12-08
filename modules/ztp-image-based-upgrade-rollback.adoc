@@ -1,0 +1,81 @@
+// Module included in the following assemblies:
+// Epic TELCOSTRAT-160 (4.15/4.16), story TELCODOCS-1576
+// * scalability_and_performance/ztp-talm-updating-managed-policies.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="ztp-image-based-upgrade-rollback_{context}"]
+= (Optional) Initiating rollback of the {sno} clusters after an image-based upgrade
+
+If you encounter unresolvable issues after an upgrade, you can start a rollback by using {cgu-operator}.
+
+//TODO details on controlled/uncontrolled rollbacks, what can be done, investigation if LCA checks fail, etc
+
+.Prerequisites
+
+* You have installed the OpenShift CLI (`oc`).
+
+* You have logged in to the hub cluster as a user with `cluster-admin` privileges.
+
+* You have installed {cgu-operator}.
+
+* You have issues after an upgrade on your target cluster.
+
+// are there other prereqs?
+
+.Procedure
+
+. Move to the rollback stage by changing the `Upgrade` value to `Rollback` in the `ImageBasedUpgrade` CR.
++
+[source,yaml]
+----
+apiVersion: lca.openshift.io/v1alpha1
+kind: ImageBasedUpgrade
+metadata:
+  name: example-upgrade
+spec:
+  stage: Rollback
+  seedImageRef:
+    version: 4.14.0
+    image: <seed_container_image>
+----
+// For telco, we need a sample with extraManifests and oadpContent
+// Switch out with oc patch command
+
+. Apply the `ImageBasedUpgrade` policy with {cgu-operator}.
++
+[source,terminal]
+----
+$ oc apply -f example-upgrade.yml
+----
+// Please check command
+
++
+The {lcao} reboots the cluster with the previously installed version of {product-title}.
+
+. Commit to the rollback by changing the `Rollback` value to `Idle` in the `ImageBasedUpgrade` CR.
++
+[source,yaml]
+----
+apiVersion: lca.openshift.io/v1alpha1
+kind: ImageBasedUpgrade
+metadata:
+  name: example-upgrade
+spec:
+  stage: Idle
+  seedImageRef:
+    version: 4.14.0
+    image: <seed_container_image>
+----
+// For telco, we need a sample with extraManifests and oadpContent
+
+. Apply the `ImageBasedUpgrade` policy with {cgu-operator}.
++
+[source,terminal]
+----
+$ oc apply -f example-upgrade.yml
+----
+// Switch to oc patch
+
+// What else, if anything?
+
+// Verification/Troubleshooting?
