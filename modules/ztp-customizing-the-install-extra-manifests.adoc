@@ -66,3 +66,5 @@ If you define both `extraManifestPath` and `extraManifests.searchPaths` in the `
 
 It is strongly recommended that you extract the contents of `/extra-manifest` from the `ztp-site-generate` container and push it to the GIT repository.
 ====
+
+Test line module 2
