@@ -68,3 +68,4 @@ It is strongly recommended that you extract the contents of `/extra-manifest` fr
 ====
 
 Test line module 2
+Review comment
