@@ -10,6 +10,7 @@ Use the following procedure to create a `SiteConfig` custom resource (CR) and re
 
 Test1
 Test2
+Test3
 
 .Prerequisites
 
