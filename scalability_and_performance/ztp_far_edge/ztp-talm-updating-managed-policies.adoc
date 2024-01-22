@@ -78,6 +78,12 @@ include::modules/ztp-image-based-upgrade-generate-seed-image.adoc[leveloffset=+2
 
 * link:https://www.redhat.com/en/blog/a-guide-to-creating-a-separate-disk-partition-at-installation-time[A Guide for Creating a Separate-disk Partition at Installation Time]
 
+* xref:../../backup_and_restore/application_backup_and_restore/installing/oadp-installing-operator.adoc[Installing the OADP Operator]
+
+* xref:../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.adoc[Creating a Backup CR]
+
+* xref:../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.adoc#oadp-creating-restore-cr_restoring-applications[Creating a Restore CR]
+
 include::modules/ztp-image-based-upgrade-prep.adoc[leveloffset=+2]
 
 [role="_additional-resources"]

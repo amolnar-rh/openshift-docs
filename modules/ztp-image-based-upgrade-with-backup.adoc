@@ -34,7 +34,7 @@ $ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "U
 +
 [source,terminal]
 ----
-$ oc get imagebasedupgrades.lca.openshift.io upgrade -oyaml
+$ oc get seedgenerator -A -oyaml
 ----
 
 +
@@ -100,7 +100,7 @@ When you commit to the rollback by setting the stage to `Idle`, all the resource
 +
 [source,terminal]
 ----
-$ oc get imagebasedupgrades.lca.openshift.io upgrade -oyaml
+$ oc get seedgenerator -A -oyaml
 ----
 
 +

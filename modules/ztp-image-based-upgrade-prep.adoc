@@ -47,10 +47,6 @@ This example demonstrates how to back up and upgrade a cluster with applications
 The target cluster does not need to be detached from the hub cluster.
 ====
 
-. Create the secret with your credentials to your Object storage.
-. Create the configuration for the OADP Operator to access your Object storage instance.
-//TODO Check existing OADP docs for steps, link to them if applicable
-
 . Specify what you want to back up:
 //TODO decide how to present this info. Might be best to create a reference section with all the example CRs.
 
@@ -154,7 +150,7 @@ kind: ImageBasedUpgrade
 metadata:
   name: upgrade
 spec:
-  stage: Idle #TODO might need to change or move these steps
+  stage: Idle
   seedImageRef:
     version: 4.14.6
     image: <seed_container_image>
@@ -201,7 +197,7 @@ Then, the Operator pre-caches all the required images on the target cluster.
 +
 [source,terminal]
 ----
-$ oc get imagebasedupgrades.lca.openshift.io upgrade -oyaml
+$ oc get seedgenerator -A -oyaml
 ----
 
 +
