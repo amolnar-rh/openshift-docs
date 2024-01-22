@@ -4,11 +4,10 @@
 
 :_mod-docs-content-type: PROCEDURE
 [id="ztp-image-based-upgrade-rollback_{context}"]
-= (Optional) Initiating rollback of the {sno} clusters after an image-based upgrade
+= (Optional) Initiating rollback of the {sno} cluster after an image-based upgrade
 
-If you encounter unresolvable issues after an upgrade, you can start a rollback by using {cgu-operator}.
-
-//TODO details on controlled/uncontrolled rollbacks, what can be done, investigation if LCA checks fail, etc
+In case the upgrade fails, an automatic rollback is initiated.
+You can also manually roll back by using the {cgu-operator} if you encounter unresolvable issues after an upgrade.
 
 .Prerequisites
 

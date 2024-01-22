@@ -63,7 +63,7 @@ include::modules/cnf-topology-aware-lifecycle-manager-creating-custom-resources.
 
 include::modules/cnf-topology-aware-lifecycle-manager-autocreate-cgu-cr-ztp.adoc[leveloffset=+1]
 
-// IBU with LCAO
+// Lifecycle Agent Operator (LCAO)
 
 include::modules/ztp-image-based-upgrade.adoc[leveloffset=+1]
 

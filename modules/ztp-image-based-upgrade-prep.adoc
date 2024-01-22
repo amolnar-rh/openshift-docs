@@ -4,29 +4,29 @@
 
 :_mod-docs-content-type: PROCEDURE
 [id="ztp-image-based-upgrade-prep_{context}"]
-= Preparing the {sno} clusters for the image-based upgrade
+= Preparing the {sno} cluster for the image-based upgrade
 
 When you deploy the {lcao} on a cluster, a blank `imageBasedUpgrade` CR is automatically created.
 You use this CR to specify the image repository of the seed image and to move through the different stages.
 
-In the `Prep` stage, the {lcao} ensures that the target clusters are ready for the upgrade by checking if they meet certain conditions. The {lcao} also precaches any additional listed images on the target clusters from the seed image.
+In the `Prep` stage, the {lcao} ensures that the target clusters are ready for the upgrade by checking if they meet certain conditions, including if the seed image is compatible with the deployed {lcao} version.
+The {lcao} also precaches any additional listed images on the target clusters from the seed image.
 You can complete this stage well before starting the upgrade.
 
-After you start the `Prep` stage by applying the `imageBasedUpgrade` CR with {cgu-operator}, {cgu-operator} applies a policy that starts the following procedures:
+After you start the `Prep` stage by applying the `imageBasedUpgrade` CR, you need to do the following:
 
 //* Installing and configuring the OADP Operator
-* Adding a `DataProtectionApplication` CR that points to the S3 backend
-* Adding a secret for the S3 credentials that are referenced in the `DataProtectionApplication` CR
+* Set the `DataProtectionApplication` CR to point to the S3 backend
+* Add a secret for the S3 credentials that are referenced in the `DataProtectionApplication` CR
 
-These resources are deleted after the upgrade is complete or if a rollback is initiated.
+These resources are deleted after the upgrade is complete or if a rollback is initiated and committed to.
 
 .Prerequisites
 
 * You have installed {lcao}.
 * You have generated a seed image from a compatible seed cluster.
 * You have installed the OADP Operator.
-* You can access an Object storage with your configured credentials.
-// Install OADP and storage configgged: Is it okay to have it in the prereqs? Or is this something that the user would expect to be guided through? With the different storage solutions, we probably can't cover everything.
+* You have an S3-compatible storage solution and a ready-to-use bucket created with proper credentials configured.
 
 // are there other prereqs?
 
@@ -102,7 +102,7 @@ spec:
     localvolume
 ----
 
-. Create a `ConfigMap` CR for the backup and restore information that the {lcao} uses during the upgrade.
+. Create a `ConfigMap` CR for the backup and restore information that the {lcao} passes to OADP Operator during the upgrade.
 
 .. Create a `kustomization.yaml` that appends the information to a `ConfigMap` CR:
 +
@@ -133,7 +133,7 @@ $ kustomize build ./ -o OadpCm.yaml
 ----
 kind: ConfigMap
 metadata:
-  name: oadp-cm-7gtgdhmdc5
+  name: oadp-cm-example
   namespace: openshift-adp
 [...]
 ----
@@ -160,9 +160,6 @@ spec:
     image: <seed_container_image>
 ----
 
-The OADP Operator creates a backup of the data specified in the OADP `Backup` and `Restore` CRs.
-//TODO provide examples with the OADP CRs
-
 . Update the the `ImageBasedUpgrade` CR:
 +
 [source,yaml]
@@ -177,7 +174,7 @@ spec:
     version: 4.14.0 <1>
     image: <seed_container_image> <2>
   oadpContent: <3>
-  - name: oadp-cm-7gtgdhmdc5
+  - name: oadp-cm-example
     namespace: openshift-adp
 ----
 <1> Specify the platform version on the seed image.

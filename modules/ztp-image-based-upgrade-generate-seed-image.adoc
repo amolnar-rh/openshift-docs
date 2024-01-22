@@ -24,7 +24,7 @@ Use the {lcao} to generate the seed image with the `SeedGenerator` CR. The {lcao
 * Generates new certificates for the seed cluster
 * Restores and updates the `SeedGenerator` CR on the seed cluster, and the `ManagedCluster` CR on the hub cluster
 
-Once the image generation is complete, the cluster is attached to the hub cluster again and can be accessed through the API. 
+Once the image generation is complete, the cluster is attached to the hub cluster again and can be accessed through the API.
 
 //TODO Expand on what the seed image contains and explicitly say what it doesn't
 
@@ -41,9 +41,7 @@ Once the image generation is complete, the cluster is attached to the hub cluste
 
 .Procedure
 
-. Detach the seed cluster.
-// TODO expand on this. Needs to be detached as LCA cleans up the ACM resources. If it remains detached to the hub,
-// the resources are recreated and will be included in the seed image.
+. Detach the seed cluster manually or provide the `hubKubeConfig` information in the `Secret` CR.
 
 . Create the `Secret` CR in the `openshift-lifecycle-agent` namespace.
 +
@@ -62,7 +60,7 @@ data:
 ----
 <1> The `Secret` CR must have the `name: seedgen` and `namespace: openshift-lifecycle-agent` fields.
 <2> Specifies a base64-encoded authfile for write-access to the registry for pushing the generated seed images.
-<3> Optional. Specifies a base64-encoded `KUBECONFIG` file for administrator access to the hub cluster to unregister the seed cluster from {rh-rhacm}. If this is not present in the secret, the {rh-rhacm} cleanup is skipped and the seed cluster must be detached from the hub cluster manually.
+<3> Optional. Specifies a base64-encoded `KUBECONFIG` file for administrator access to the hub cluster to detach the seed cluster from {rh-rhacm}. If this is not present in the secret, the {rh-rhacm} cleanup is skipped and the seed cluster must be detached from the hub cluster manually.
 --
 
 .. Create the authentication and the `Kubeconfig` files by running the following commands:
@@ -147,13 +145,16 @@ Applying the `SeedGenerator` CR stops the `kubelet` and the CRI-O operations, th
 
 .Verification
 
+////
+TODO add this to future Troubleshooting section
+
 . You can monitor the image generation process.
 
 .. SSH into the seed cluster:
 +
 [source,terminal]
 ----
-$ ssh <node_ID>
+$ ssh core@<node_ID>
 ----
 // must have an ssh key configured via MC. When do we do this and how?
 
@@ -163,6 +164,7 @@ $ ssh <node_ID>
 ----
 $ podman logs -f ibu_imager
 ----
+////
 
 . Once the cluster recovers and available, you can check the status of the `SeedGenerator` CR:
 +

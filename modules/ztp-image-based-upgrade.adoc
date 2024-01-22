@@ -4,7 +4,7 @@
 
 :_mod-docs-content-type: CONCEPT
 [id="ztp-image-based-upgrade-concept_{context}"]
-= Image-based upgrade for {sno} clusters with the {lcao}
+= Image-based upgrade for {sno} cluster with the {lcao}
 
 You can upgrade the platform version of the managed {sno} clusters with the {lcao}.
 By using generated a seed image, this upgrade process allows you to skip multiple minor releases and it is faster than the standard upgrade method.
