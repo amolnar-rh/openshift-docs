@@ -6,37 +6,36 @@
 [id="ztp-image-based-upgrade-seed-generation_{context}"]
 = Generating a seed image with the {lcao}
 
-Use the {lcao} to generate the seed image with the `SeedGenerator` CR. The {lcao} will do the following:
+Use the {lcao} to generate the seed image with the `SeedGenerator` CR. The Operator does the following:
 
 // seed cluster, some things are cluster specific that are not included
 // all operator, LCAO, OADP, LVMS, included in the seed image, telco day2 stuff is incl
-// system ocnfig checks ()
+// system config checks ()
 
 * Checks for required system configurations
 * Performs any necessary system cleanup before generating the seed image
 * Launches the image generation task, which involves the following:
 //seedgen Secret and seedgenerator get deleted before imager to not be added to the image
-** Stops the cluster operators
+** Stops cluster operators
 ** Prepares the seed image configuration
-** Generates and pushes the seed image to the image repository specified in the `imageBasedUpgrade` CR
-** Restores the cluster operators
-** Expires seed cluster certifications
+** Generates and pushes the seed image to the image repository specified in the `ImageBasedUpgrade` CR
+** Restores cluster operators
+** Expires seed cluster certificates
 * Generates new certificates for the seed cluster
 * Restores and updates the `SeedGenerator` CR on the seed cluster, and the `ManagedCluster` CR on the hub cluster
-
-Once the image generation is complete, the cluster is attached to the hub cluster again and can be accessed through the API.
 
 //TODO Expand on what the seed image contains and explicitly say what it doesn't
 
 .Prerequisites
 
-* You deployed an {sno} with DU profile.
+* You deployed a {sno} with DU profile.
 * You installed the {lcao} on the seed cluster.
 * You installed the OADP Operator on the seed cluster.
 * You are logged in as a user with `cluster-admin` privileges.
 * The seed cluster has the same CPU topology as the target cluster.
 * The seed cluster and the target cluster have the same {rh-rhacm} or multicluster engine version.
 * The seed cluster is registered as a managed cluster.
+* The {lcao} deployed on the target cluster is compatible with the version in the seed image.
 // Are there more prereqs?
 
 .Procedure
@@ -63,7 +62,7 @@ data:
 <3> Optional. Specifies a base64-encoded `KUBECONFIG` file for administrator access to the hub cluster to detach the seed cluster from {rh-rhacm}. If this is not present in the secret, the {rh-rhacm} cleanup is skipped and the seed cluster must be detached from the hub cluster manually.
 --
 
-.. Create the authentication and the `Kubeconfig` files by running the following commands:
+.. Create the authentication file by running the following command:
 +
 --
 .Authentication file
@@ -79,6 +78,8 @@ $ podman login --authfile ${AUTHFILE} -u ${MY_USER} quay.io/${MY_USER}
 $ base64 -w 0 ${AUTHFILE} ; echo
 ----
 
+.. (Optional) Create the `Kubeconfig` file by running the following command:
++
 .hubKubeconfig file
 [source,terminal]
 ----
@@ -100,7 +101,7 @@ $ base64 -w 0 ${HUBKUBECONFIGFILE} ; echo
 $ oc apply -f secretseedgenerator.yaml
 ----
 
-. (Optional) If you did not populate the `hubKubeconfig` field in the `Secret` CR, detach the seed cluster from the hub cluster and remove all {rh-rhacm} and multicluster engine certificates that cannot be recertificated in the target cluster.
+. (Optional) If you did not populate the `hubKubeconfig` field in the `Secret` CR, detach the seed cluster from the hub cluster and remove all {rh-rhacm} and multicluster engine certificates that cannot be regenerated in the target cluster.
 
 .. Detach the seed cluster from the hub cluster:
 +
@@ -138,10 +139,12 @@ $ oc apply -f seedgenerator.yaml
 [IMPORTANT]
 ====
 The cluster reboots and loses API capabilities while the {lcao} generates the seed image.
+Applying the `SeedGenerator` CR stops the `kubelet` and the CRI-O operations, then it starts the image generation.
 ====
 
-+
-Applying the `SeedGenerator` CR stops the `kubelet` and the CRI-O operations, then it starts the image generation.
+Once the image generation is complete, the cluster is reattached to the hub cluster and can be accessed through the API.
+
+If you want to generate further seed images, you must provision a new seed cluster with the version you want to generate a seed image from.
 
 .Verification
 
@@ -215,8 +218,6 @@ sno-worker-example   true           https://api.sno-worker-example.example.redha
 
 [NOTE]
 ====
-The {sno} requires time to recover after restarting the `kubelet` operation.
+The cluster requires time to recover after restarting the `kubelet` operation.
 ====
 --
-
-If you want to generate additional seed images, you must provision a new seed cluster with the version you want to generate a seed image from.

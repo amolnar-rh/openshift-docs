@@ -6,41 +6,21 @@
 [id="ztp-image-based-upgrade-prep_{context}"]
 = Preparing the {sno} cluster for the image-based upgrade
 
-When you deploy the {lcao} on a cluster, a blank `imageBasedUpgrade` CR is automatically created.
+When you deploy the {lcao} on a cluster, a blank `ImageBasedUpgrade` CR is automatically created.
 You use this CR to specify the image repository of the seed image and to move through the different stages.
-
-In the `Prep` stage, the {lcao} ensures that the target clusters are ready for the upgrade by checking if they meet certain conditions, including if the seed image is compatible with the deployed {lcao} version.
-The {lcao} also precaches any additional listed images on the target clusters from the seed image.
-You can complete this stage well before starting the upgrade.
-
-After you start the `Prep` stage by applying the `imageBasedUpgrade` CR, you need to do the following:
-
-//* Installing and configuring the OADP Operator
-* Set the `DataProtectionApplication` CR to point to the S3 backend
-* Add a secret for the S3 credentials that are referenced in the `DataProtectionApplication` CR
-
-These resources are deleted after the upgrade is complete or if a rollback is initiated and committed to.
 
 .Prerequisites
 
-* You have installed {lcao}.
-* You have generated a seed image from a compatible seed cluster.
-* You have installed the OADP Operator.
+* You installed {lcao}.
+* You generated a seed image from a compatible seed cluster.
+* You installed the OADP Operator.
 * You have an S3-compatible storage solution and a ready-to-use bucket created with proper credentials configured.
 
 // are there other prereqs?
 
 .Procedure
 
-. Apply the shared container folder `MachineConfig` CR to make `/var/lib/containers` shared between `ostree` updates.
-+
-[source,terminal]
-----
-$ oc apply -f <shared_MC_folder>
-----
-// TODO shared location will change
-
-This example demonstrates how to back up and upgrade a cluster with applications on a persistent volume.
+This example procedure demonstrates how to back up and upgrade a cluster with applications on a persistent volume.
 
 [NOTE]
 ====
@@ -52,7 +32,7 @@ The target cluster does not need to be detached from the hub cluster.
 
 `backup_acm_klusterlet.yaml`:: This allows you to reattach the cluster to the hub cluster once the upgrade and restore are completed.
 `backup_localvolume.yaml`:: This allows to restore the persistent volume that contains the `index.html` of your application.
-`backup_app.yaml`:: The information that must be backed up is different for each application. This CR specifies what needs to be backed up to recover the applications.
+`backup_app.yaml`:: This CR specifies what needs to be backed up to recover the applications. The information that must be backed up is different for each application.
 
 . Define the restore order for the OADP Operator in the `Restore` CR by using the `lca.openshift.io/apply-wave` field:
 +
@@ -141,22 +121,7 @@ metadata:
 $ oc apply -f OadpCm.yaml
 ----
 
-. Append the `imageBasedUpgrade` CR with the backup and restore information:
-+
-[source,yaml]
-----
-apiVersion: lca.openshift.io/v1alpha1
-kind: ImageBasedUpgrade
-metadata:
-  name: upgrade
-spec:
-  stage: Idle
-  seedImageRef:
-    version: 4.14.6
-    image: <seed_container_image>
-----
-
-. Update the the `ImageBasedUpgrade` CR:
+. Update the the `ImageBasedUpgrade` CR with the backup and restore information:
 +
 [source,yaml]
 ----
@@ -167,7 +132,7 @@ metadata:
 spec:
   stage: Idle
   seedImageRef:
-    version: 4.14.0 <1>
+    version: 4.14.6 <1>
     image: <seed_container_image> <2>
   oadpContent: <3>
   - name: oadp-cm-example
@@ -178,7 +143,7 @@ spec:
 <3> Add the `oadpContent` section with the OADP `ConfigMap` information.
 // For telco, we need a sample with extraManifests and oadpContent
 
-. Move the CR to the `Prep` stage:
+. Move the stage to `Prep` in the `ImageBasedUpgrade` CR:
 +
 [source,terminal]
 ----
@@ -187,17 +152,17 @@ $ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "P
 
 +
 The {lcao} checks for the health of the cluster and pulls the seed image to the target cluster.
-Then, the Operator pre-caches all the required images on the target cluster.
+Then, the Operator precaches all the required images on the target cluster.
 
 // What else, if anything?
 
 .Verification
 
-. Check the status of the `imageBasedUpgrade` CR.
+. Check the status of the `ImageBasedUpgrade` CR.
 +
 [source,terminal]
 ----
-$ oc get seedgenerator -A -oyaml
+$ oc get ibu -A -oyaml
 ----
 
 +

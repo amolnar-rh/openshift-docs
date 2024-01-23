@@ -6,20 +6,20 @@
 [id="ztp-image-based-upgrading-with-backup_{context}"]
 = Upgrading the {sno} cluster with {lcao}
 
-When you generated the seed image and completed the `Prep` stage, you can begin upgrading the target clusters.
-During the upgrade process, the OADP Operator creates a backup of the artifacts specified in the OADP CRs, then {lcao} reimages the cluster.
+Once you generated the seed image and completed the `Prep` stage, you can move to upgrading the target cluster.
+During the upgrade process, the OADP Operator creates a backup of the artifacts specified in the OADP CRs, then the {lcao} reimages the cluster.
 
 [IMPORTANT]
 ====
 If the upgrade fails or stops, an automatic rollback is initiated.
-You can initiate a manual rollback, in case you encounter an issue after the upgrade.
+If you encounter an issue after the upgrade, you can initiate a manual rollback.
 For more information on manual rollback, see "(Optional) Initiating rollback of the {sno} clusters after an image-based upgrade".
 ====
 
 .Prerequisites
 
 * You generated a seed image for the target cluster.
-* You have completed the `Prep` stage.
+* You completed the `Prep` stage.
 
 .Procedure
 
@@ -30,11 +30,11 @@ For more information on manual rollback, see "(Optional) Initiating rollback of 
 $ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Upgrade"}}' --type=merge
 ----
 
-. Check the status of the `imageBasedUpgrade` CR:
+. Check the status of the `ImageBasedUpgrade` CR:
 +
 [source,terminal]
 ----
-$ oc get seedgenerator -A -oyaml
+$ oc get ibu -A -oyaml
 ----
 
 +
@@ -79,28 +79,36 @@ status:
 ----
 $ oc get ibu -A -oyaml
 ----
-//check the proper short command for IBU CR monitoring
 
 . The cluster reboots.
-
++
+--
 After the cluster reboots, the {lcao} does the following:
+
 * Regenerates the certificates
 * Restores platform cluster configuration to their original values
-* Applies site configuration that cannot be done during seed generation because it is unique to each cluster
+* Applies site configuration that cannot be done during seed generation
 * Restores the application
+--
+. Once you are satisfied with the upgrade, commit to the change by moving the stage to `Idle` in the `ImageBasedUpgrade` CR:
++
+[source,terminal]
+----
+$ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Idle"}}' --type=merge
+----
 
 [NOTE]
 ====
-When you commit to the rollback by setting the stage to `Idle`, all the resources created by the {lcao} is deleted.
+Committing to the change deletes all the resources created by the {lcao}.
 ====
 
 .Verification
 
-. Check the status of the `imageBasedUpgrade` CR:
+. Check the status of the `ImageBasedUpgrade` CR:
 +
 [source,terminal]
 ----
-$ oc get seedgenerator -A -oyaml
+$ oc get ibu -A -oyaml
 ----
 
 +

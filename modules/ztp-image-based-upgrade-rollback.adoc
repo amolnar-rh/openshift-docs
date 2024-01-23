@@ -7,17 +7,13 @@
 = (Optional) Initiating rollback of the {sno} cluster after an image-based upgrade
 
 In case the upgrade fails, an automatic rollback is initiated.
-You can also manually roll back by using the {cgu-operator} if you encounter unresolvable issues after an upgrade.
+You can also manually roll back if you encounter unresolvable issues after an upgrade.
 
 .Prerequisites
 
-* You have installed the OpenShift CLI (`oc`).
+* You installed the OpenShift CLI (`oc`).
 
-* You have logged in to the hub cluster as a user with `cluster-admin` privileges.
-
-* You have installed {cgu-operator}.
-
-* You have issues after an upgrade on your target cluster.
+* You logged in to the hub cluster as a user with `cluster-admin` privileges.
 
 // are there other prereqs?
 
@@ -34,47 +30,26 @@ metadata:
 spec:
   stage: Rollback
   seedImageRef:
-    version: 4.14.0
-    image: <seed_container_image>
-----
-// For telco, we need a sample with extraManifests and oadpContent
-// Switch out with oc patch command
-
-. Apply the `ImageBasedUpgrade` policy with {cgu-operator}.
-+
-[source,terminal]
-----
-$ oc apply -f example-upgrade.yml
-----
-// Please check command
-
-+
-The {lcao} reboots the cluster with the previously installed version of {product-title}.
-
-. Commit to the rollback by changing the `Rollback` value to `Idle` in the `ImageBasedUpgrade` CR.
-+
-[source,yaml]
-----
-apiVersion: lca.openshift.io/v1alpha1
-kind: ImageBasedUpgrade
-metadata:
-  name: example-upgrade
-spec:
-  stage: Idle
-  seedImageRef:
-    version: 4.14.0
+    version: 4.14.6
     image: <seed_container_image>
 ----
 // For telco, we need a sample with extraManifests and oadpContent
 
-. Apply the `ImageBasedUpgrade` policy with {cgu-operator}.
+. Move to the rollback stage by changing the `Upgrade` value to `Rollback` in the `ImageBasedUpgrade` CR.
 +
 [source,terminal]
 ----
-$ oc apply -f example-upgrade.yml
+$ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Rollback"}}' --type=merge
 ----
-// Switch to oc patch
 
-// What else, if anything?
+
+. The {lcao} reboots the cluster with the previously installed version of {product-title}.
+
+. Commit to the rollback by changing the `Rollback` value to `Idle` in the `ImageBasedUpgrade` CR:
++
+[source,terminal]
+----
+$ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Idle"}}' --type=merge -n openshift-lifecycle-agent
+----
 
 // Verification/Troubleshooting?
