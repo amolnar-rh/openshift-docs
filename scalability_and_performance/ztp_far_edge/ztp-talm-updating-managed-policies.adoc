@@ -80,16 +80,16 @@ include::modules/ztp-image-based-upgrade-generate-seed-image.adoc[leveloffset=+2
 
 * xref:../../backup_and_restore/application_backup_and_restore/installing/oadp-installing-operator.adoc[Installing the OADP Operator]
 
-* xref:../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.adoc[Creating a Backup CR]
-
-* xref:../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.adoc#oadp-creating-restore-cr_restoring-applications[Creating a Restore CR]
-
 include::modules/ztp-image-based-upgrade-prep.adoc[leveloffset=+2]
 
 [role="_additional-resources"]
 .Additional resources
 
 * xref:../../backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.adoc#oadp-about-backup-snapshot-locations_installing-oadp-ocs[About backup and snapshot locations and their secrets]
+
+* xref:../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.adoc[Creating a Backup CR]
+
+* xref:../../backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.adoc#oadp-creating-restore-cr_restoring-applications[Creating a Restore CR]
 
 include::modules/ztp-image-based-upgrade-with-backup.adoc[leveloffset=+2]
 

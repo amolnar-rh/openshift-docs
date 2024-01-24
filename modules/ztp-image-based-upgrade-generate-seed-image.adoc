@@ -42,6 +42,15 @@ Use the {lcao} to generate the seed image with the `SeedGenerator` CR. The Opera
 
 . Detach the seed cluster manually or provide the `hubKubeConfig` information in the `Secret` CR.
 
+.. (Optional) To manually detach the seed cluster from the hub cluster, run the following command:
++
+[source,terminal]
+----
+$ oc delete managedcluster sno-worker-example
+----
+
+.. Wait until the `ManagedCluster` CR is removed. Once the CR is removed, create the proper `SeedGenerator` CR. The {lcao} cleans up the {rh-rhacm} artifacts.
+
 . Create the `Secret` CR in the `openshift-lifecycle-agent` namespace.
 +
 --
@@ -77,9 +86,11 @@ $ podman login --authfile ${AUTHFILE} -u ${MY_USER} quay.io/${MY_USER}
 ----
 $ base64 -w 0 ${AUTHFILE} ; echo
 ----
+--
 
 .. (Optional) Create the `Kubeconfig` file by running the following command:
 +
+--
 .hubKubeconfig file
 [source,terminal]
 ----
@@ -100,17 +111,6 @@ $ base64 -w 0 ${HUBKUBECONFIGFILE} ; echo
 ----
 $ oc apply -f secretseedgenerator.yaml
 ----
-
-. (Optional) If you did not populate the `hubKubeconfig` field in the `Secret` CR, detach the seed cluster from the hub cluster and remove all {rh-rhacm} and multicluster engine certificates that cannot be regenerated in the target cluster.
-
-.. Detach the seed cluster from the hub cluster:
-+
-[source,terminal]
-----
-$ oc delete managedcluster sno-worker-example
-----
-
-.. Wait until the `ManagedCluster` CR is removed. Once the CR is removed, create the proper `SeedGenerator` CR. The {lcao} cleans up the {rh-rhacm} artifacts.
 
 . Create the `SeedGenerator` CR:
 +
@@ -169,7 +169,7 @@ $ podman logs -f ibu_imager
 ----
 ////
 
-. Once the cluster recovers and available, you can check the status of the `SeedGenerator` CR:
+. Once the cluster recovers and it is available, you can check the status of the `SeedGenerator` CR:
 +
 --
 [source,terminal]

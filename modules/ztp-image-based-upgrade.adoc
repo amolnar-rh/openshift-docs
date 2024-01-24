@@ -7,7 +7,7 @@
 = Image-based upgrade for {sno} cluster with the {lcao}
 
 You can upgrade the platform version of a managed {sno} cluster with the {lcao}.
-By using a generated seed image, this upgrade process allows you to skip multiple minor releases and it is faster than the standard upgrade method.
+Using a generated seed image allows you to skip multiple minor releases and it is faster than the standard upgrade method.
 
 You generate the seed image from a seed cluster, which is deployed and configured with the desired {product-title} and applications. You can upgrade the platform version on any {sno} that matches the cluster profile of the seed image.
 
@@ -21,7 +21,7 @@ Each different hardware platform requires a separate custom image.
 The {lcao} uses two custom resources (CRs):
 
 * The `SeedGenerator` CR specifies the repository to pull the seed image from.
-* The `ImageBasedUpgrade` CR specifies the seed container image for the upgrade of the target cluster and the OADP `Backup` and `Restore` CR configurations for the backup of your workloads.
+* The `ImageBasedUpgrade` CR specifies the seed container image for the upgrade of the target cluster and the OADP `Backup` and `Restore` CR configurations to back up your workloads.
 
 After generating the seed image, you can move throught the stages by setting the `spec.stage` field to the following values in the `ImageBasedUpgrade` CR:
 
