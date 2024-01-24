@@ -21,29 +21,12 @@ You can also manually roll back if you encounter unresolvable issues after an up
 
 . Move to the rollback stage by changing the `Upgrade` value to `Rollback` in the `ImageBasedUpgrade` CR.
 +
-[source,yaml]
-----
-apiVersion: lca.openshift.io/v1alpha1
-kind: ImageBasedUpgrade
-metadata:
-  name: example-upgrade
-spec:
-  stage: Rollback
-  seedImageRef:
-    version: 4.14.6
-    image: <seed_container_image>
-----
-// For telco, we need a sample with extraManifests and oadpContent
-
-. Move to the rollback stage by changing the `Upgrade` value to `Rollback` in the `ImageBasedUpgrade` CR.
-+
 [source,terminal]
 ----
 $ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Rollback"}}' --type=merge
 ----
 
-
-. The {lcao} reboots the cluster with the previously installed version of {product-title}.
+. The {lcao} reboots the cluster with the previously installed version of {product-title} and it restores the applications.
 
 . Commit to the rollback by changing the `Rollback` value to `Idle` in the `ImageBasedUpgrade` CR:
 +
@@ -51,5 +34,10 @@ $ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "R
 ----
 $ oc patch imagebasedupgrades.lca.openshift.io upgrade -p='{"spec": {"stage": "Idle"}}' --type=merge -n openshift-lifecycle-agent
 ----
+
+[NOTE]
+====
+Committing to the change deletes all the resources created by the {lcao}.
+====
 
 // Verification/Troubleshooting?
