@@ -27,7 +27,7 @@ This example procedure demonstrates how to back up and upgrade a cluster with ap
 The target cluster does not need to be detached from the hub cluster.
 ====
 
-. (Optional) Create your OADP `Backup` and `Restore` CRs. For more information, see _"Additonal resources"_.
+. (Optional) Create your OADP `Backup` and `Restore` CRs. For more information on how to create the OADP CRs, see _Additonal resources_.
 
 .. Define the restore order for the OADP Operator in the `Restore` CR by using the `lca.openshift.io/apply-wave` field:
 +

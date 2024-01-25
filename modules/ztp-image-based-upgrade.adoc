@@ -9,7 +9,7 @@
 You can upgrade the platform version of a managed {sno} cluster with the {lcao}.
 Using a generated seed image allows you to skip multiple minor releases and it is faster than the standard upgrade method.
 
-You generate the seed image from a seed cluster, which is deployed and configured with the desired {product-title} and applications. You can upgrade the platform version on any {sno} that matches the cluster profile of the seed image.
+You generate the seed image from a {sno} seed cluster, which is deployed and configured with the desired {product-title} and applications. You can upgrade the platform version on any {sno} that has the same combination of hardware, Day 2 Operators, and cluster configuration.
 
 [IMPORTANT]
 ====
@@ -18,12 +18,12 @@ Each different hardware platform requires a separate custom image.
 ====
 // TODO agree on how much we should specify this. Is this enough or detail about CPU topology, deployment method, etc.
 
-The {lcao} uses two custom resources (CRs):
+The {lcao} uses two custom resources (CRs) on the participating clusters:
 
-* The `SeedGenerator` CR specifies the repository to pull the seed image from.
-* The `ImageBasedUpgrade` CR specifies the seed container image for the upgrade of the target cluster and the OADP `Backup` and `Restore` CR configurations to back up your workloads.
+* On the seed cluster, the `SeedGenerator` CR allows the seed image generation. This CR specifies the repository to push the seed image to.
+* On the target cluster, the `ImageBasedUpgrade` CR specifies the seed container image for the upgrade of the target cluster and the backup configurations for your workloads.
 
-After generating the seed image, you can move throught the stages by setting the `spec.stage` field to the following values in the `ImageBasedUpgrade` CR:
+After generating the seed image on the seed cluster, you can move throught the stages on the target cluster by setting the `spec.stage` field to the following values in the `ImageBasedUpgrade` CR:
 
 * `Idle`
 * `Prep`
