@@ -44,7 +44,7 @@ Changing to this stage ensures that the {lcao} cleans up resources, so the clust
 
 You can complete this stage before a scheduled maintenance window.
 
-In the `Prep` stage, the {lcao} ensures that the target clusters are ready to proceed to the `Upgrade` stage by checking if they meet certain conditions.
+In the `Prep` stage, the {lcao} ensures that the target cluster is ready to proceed to the `Upgrade` stage by checking if it meets certain conditions.
 The Operator uses the `ostree` versioning system and the OADP Operator to create a backup, which allow complete cluster reconfiguration after upgrade or rollback.
 
 At the `Prep` stage, the {lcao} pulls the seed image and additional container images specified in the seed image.
@@ -54,17 +54,17 @@ You can stop the upgrade process. If you stop, the Operator performs cleanup ope
 [discrete]
 == Upgrade stage
 
-Just before the {lcao} starts the upgrade process, the OADP Operator creates a backup of the user-specified resources on a compatible Object storage solution, such as an Amazon S3 bucket.
-These OADP `Backup` and `Restore` CRs are applied to the target cluster after the upgrade.
-Once the upgrade is successful, the target cluster boots with the new platform version, then the Operator applies the cluster and application configurations.
+Before the {lcao} starts the upgrade process, you can create an optional backup of your cluster resources with the OADP Operator.
+The OADP Operator creates a backup of the user-specified resources on a compatible Object storage solution, which are defined in the `Backup` CR.
+After the target cluster reboots with the new platform version, the Operator applies the cluster and application configurations defined in the `Restore` CR.
 
 The Operator also regenerates the cluster certificate.
 This ensures that each {sno} cluster upgraded with the same seed image has unique and valid cryptographic objects.
 
 [discrete]
-== Rollback stage (Optional)
+== (Optional) Rollback stage
 
-You can use the backup from the `Upgrade` stage to manually start a rollback if the upgrade fails.
+You can manually start a rollback if the upgrade fails.
 
 If you roll back the upgrade, the cluster boots up with the previous release of {product-title} and application configurations.
 
