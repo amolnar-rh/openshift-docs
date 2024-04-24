@@ -1,11 +1,6 @@
 :_mod-docs-content-type: ASSEMBLY
-<<<<<<< HEAD
-[id="ibi-image-based-install-standalone"]
-= About image-based deployments for {sno}
-=======
 [id="ibi-image-based-install-standalone_{context}"]
 = About image-based deployments for standalone {sno} clusters
->>>>>>> 48d0c841bb (TELCODOCS-1887: Adding section for IBI workflow)
 include::_attributes/common-attributes.adoc[]
 :context: ibi-edge-image-based-install
 

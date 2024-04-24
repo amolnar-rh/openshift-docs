@@ -5,6 +5,7 @@
 :_mod-docs-content-typetent-type: REFERENCE
 [id="ibi-managed-cluster-config-resources_{context}"]
 = Cluster configuration resources for deploying a preinstalled host
+
 To complete a deployment for a preinstalled host at a remote site, you must configure the following site-specifc cluster configuration resources in the hub cluster for each bare-metal host.
 
 .Cluster configuration resources reference
