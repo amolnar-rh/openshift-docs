@@ -1,0 +1,7 @@
+:_mod-docs-content-type: ASSEMBLY
+[id="cnf-image-based-upgrade-shared-varlibcontainers"]
+= Configuring a shared container directory for the image-based upgrade
+include::_attributes/common-attributes.adoc[]
+:context: shared-container-directory
+
+placeholder for build

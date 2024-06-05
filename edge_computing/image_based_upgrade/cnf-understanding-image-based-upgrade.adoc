@@ -1,0 +1,7 @@
+:_mod-docs-content-type: ASSEMBLY
+[id="understanding-image-based-upgrade-for-sno"]
+= Understanding the image-based upgrade for {sno} clusters
+include::_attributes/common-attributes.adoc[]
+:context: understanding-image-based-upgrade
+
+placeholder for build
