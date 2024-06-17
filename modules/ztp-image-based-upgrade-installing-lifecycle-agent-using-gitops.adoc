@@ -5,7 +5,7 @@
 [id="zp-image-based-upgrade-installing-operators-with-gitops_{context}"]
 = Installing {lcao} and the OADP Operator with ZTP GitOps
 
-You need both the {lcao} and the OADP Operator to do an image-based upgrade with ZTP GitOps.
+Both the {lcao} and the OADP Operator are required to do an image-based upgrade with ZTP GitOps.
 
 [id="zp-image-based-upgrade-installing-lcao-with-gitops_{context}"]
 == Installing the {lcao} with GitOps ZTP
@@ -14,7 +14,7 @@ Install the {lcao} with GitOps ZTP to do an image-based upgrade.
 
 .Prerequisites
 
-* Create a directory called `custom-crs` in the `source-crs` directory. The `source-crs` directory must be located in the same location as `kustomization.yaml` file.
+* Create a directory called `custom-crs` in the `source-crs` directory. The `source-crs` directory must be in the same location as the `kustomization.yaml` file.
 
 .Procedure
 
@@ -113,11 +113,11 @@ spec:
 [id="zp-image-based-upgrade-installing-oadp-with-gitops_{context}"]
 == Installing and configuring the OADP Operator with GitOps ZTP
 
-You can install and configure the OADP Operator with GitOps ZTP well before you want to start the upgrade.
+You can install and configure the OADP Operator with GitOps ZTP well prior to starting the upgrade.
 
 .Prerequisites
 
-* Create a directory called `custom-crs` in the `source-crs` directory. The `source-crs` directory must be located in the same location as `kustomization.yaml` file.
+* Create a directory called `custom-crs` in the `source-crs` directory. The `source-crs` directory must be in the same location as the `kustomization.yaml` file.
 
 .Procedure
 

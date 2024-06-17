@@ -6,9 +6,9 @@ include::_attributes/common-attributes.adoc[]
 
 toc::[]
 
-You need to prepare your clusters for the upgrade by installing the {lcao} and the OADP Operator.
+Prepare your clusters for the upgrade by installing the {lcao} and the OADP Operator.
 
-To install the OADP Operator with the non-GitOps method, see _Additional resources_.
+To install the OADP Operator with the non-GitOps method, see _Installing the OADP Operator_.
 
 :FeatureName: The Lifecycle Agent
 
