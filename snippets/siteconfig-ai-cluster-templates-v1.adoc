@@ -23,9 +23,8 @@ data:
     [...]
         siteconfig.open-cluster-management.io/sync-wave: "3"
     [...]
-immutable: true
 kind: ConfigMap
 metadata:
-  name: ai-cluster-templates-v1
-  namespace: siteconfig-operator
+  name: assisted-installer-templates
+  namespace: example-namespace
 ----

@@ -4,17 +4,8 @@
 apiVersion: siteconfig.open-cluster-management.io/v1alpha1
 kind: ClusterInstance
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      <last_applied_configuration>
-  creationTimestamp: "2024-07-01T09:00:53Z"
-  finalizers:
-    - clusterinstance.siteconfig.open-cluster-management.io/finalizer
-  generation: 1
   name: example-cluster
   namespace: example-cluster
-  resourceVersion: "<resource_version>"
-  uid: <uid>
 spec:
   additionalNTPSources:
     - <NTP_resource>

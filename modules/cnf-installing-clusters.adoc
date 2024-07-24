@@ -39,8 +39,6 @@ $ oc apply -f ibi-node-templates-v1.yaml
 apiVersion: v1
 kind: Namespace 
 metadata:
-  labels:
-    name: clusterinstance-namespace
   name: example-sno
 ----
 
@@ -214,13 +212,13 @@ The {sco} continues to monitor for changes in the `ClusterDeployment` CRs to upd
 $ oc get clusterinstance <cluster_name> -n <target_namespace> -o yaml
 ----
 
-.Example output for successful manifest generation
+.Example output from status.conditions section for successful manifest generation
 [source,terminal]
 ----
-      message: Provisioning cluster
-      reason: InProgress
-      status: "True"
-      type: Provisioned
+message: Applied site config manifests
+reason: Completed
+status: "True"
+type: RenderedTemplatesApplied
 ----
 
 For more information about status conditions, see "ClusterInstance CR conditions".
@@ -230,7 +228,7 @@ For more information about status conditions, see "ClusterInstance CR conditions
 +
 [source,terminal]
 ----
-$ oc get clusterinstance <cluster_name> -n <target_namespace> -o yaml
+$ oc get clusterinstance <cluster_name> -n <target_namespace> -o jsonpath='{.status.manifestsRendered}'
 ----
 
 +

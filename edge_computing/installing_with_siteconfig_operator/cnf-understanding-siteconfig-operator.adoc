@@ -7,7 +7,8 @@ include::_attributes/common-attributes.adoc[]
 toc::[]
 
 With the {sco}, you can deploy clusters with all available installation methods.
-The {sco} uses the unified `ClusterInstance` API, which decouples parameters that define a cluster from the manner in which the cluster is deployed.
+The {sco} introduces a unified `ClusterInstance` API, which is derived from the `SiteConfig` API from the SiteConfig Generator kustomize plugin.
+For example, the `ClusterInstance` API decouples parameters that define a cluster from the manner in which the cluster is deployed.
 This separation removes certain limitations that are presented by the `SiteConfig` kustomize plugin in the current xref:../../edge_computing/ztp-deploying-far-edge-sites.adoc#ztp-deploying-far-edge-sites[{ztp-first} flow], such as agent cluster installations and scalability constraints posed by ArgoCD.
 Using the unified `ClusterInstance` API, the {sco} offers the following improvements:
 
