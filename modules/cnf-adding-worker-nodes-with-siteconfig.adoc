@@ -1,0 +1,84 @@
+// Module included in the following assemblies:
+// Epic CNF-9657 (TELCODOCS-1540) (4.16)
+// * edge_computing/cnf-understanding-siteconfig-operator.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="cnf-adding-worker-nodes-with-siteconfig_{context}"]
+= Adding {sno} worker nodes with the {sco}
+
+Increase the resources of your clusters by adding {sno} worker nodes with the {sco}.
+
+.Prerequisites
+
+* Install and configure {rh-rhacm} 2.11 or later in an {product-title} 4.17 or later cluster
+* Configure the Central Infrastructure Management as described in the {rh-rhacm} documentation
+
+.Procedure
+
+. Add your new worker node to the `spec.clusters.nodes` section in the `ClusterInstance` CR, named `worker-clusterinstance.yaml`:
++
+[source,yaml]
+----
+[...]
+nodes:
+- hostName: "example-workernode1.example.com"
+    role: "worker"
+    bmcAddress: <BMC_address>
+    bmcCredentialsName:
+      name: <BMC_secret_name>
+    bootMACAddress: <BMC_MAC_address>
+    bootMode: UEFI
+    hostName: example-cluster.example.redhat.com
+    ironicInspect: ""
+    nodeNetwork:
+      config:
+        <network_configuration>
+      interfaces:
+        <interfaces>
+    templateRefs:
+        - name: my-node-templates-v1
+          namespace: siteconfig-operator
+[...]
+----
+
+. Create a BMC authentication secret for the new host, as referenced by the `bmcCredentialsName` field in the `spec.nodes` section of your `ClusterInstance` CR.
++
+[source,yaml]
+----
+apiVersion: v1
+data:
+  password: "password"
+  username: "username"
+kind: Secret
+metadata:
+  name: "example-workernode1.example.com"
+  namespace: example-sno
+type: Opaque
+----
+//which namespace should this be in?
+
+. Provision the worker node by running the following command on the hub cluster:
++
+[source,terminal]
+----
+$ oc apply -f worker-clusterinstance.yaml
+----
+
+.Verification
+
+. Check that the new worker node was successfully added to the cluster with a status of `Ready`:
++
+--
+[source,terminal]
+----
+$ oc get nodes
+----
+
+.Example output
+[source,terminal]
+----
+NAME                                     STATUS   ROLES           AGE   VERSION
+control-plane.example.com                Ready    master,worker   56m   v1.29.4
+example-workernode1.example.com          Ready    worker          11m   v1.29.4
+----
+--

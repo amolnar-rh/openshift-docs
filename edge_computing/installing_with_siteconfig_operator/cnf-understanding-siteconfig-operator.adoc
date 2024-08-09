@@ -59,4 +59,6 @@ include::modules/cnf-installing-clusters.adoc[leveloffset=+1]
 
 * xref::../../edge_computing/installing_with_siteconfig_operator/cnf-understanding-siteconfig-operator#cnf-clusterinstance-conditions-reference_siteconfig-operator[ClusterInstance CR conditions]
 
+include::modules/cnf-adding-worker-nodes-with-siteconfig.adoc[leveloffset=+1]
+
 include::modules/cnf-deprovisioning-clusters.adoc[leveloffset=+1]
