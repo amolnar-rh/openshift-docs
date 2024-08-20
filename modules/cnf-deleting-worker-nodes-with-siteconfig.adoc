@@ -1,0 +1,67 @@
+// Module included in the following assemblies:
+// Epic CNF-9657 (TELCODOCS-1540) (4.16)
+// * edge_computing/cnf-understanding-siteconfig-operator.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="cnf-deleting-worker-nodes-with-siteconfig_{context}"]
+= Deleting {sno} worker nodes with the {sco}
+
+Delete a node from an existing cluster by annotating the `ClusterInstance` CR on the hub cluster.
+
+.Prerequisites
+
+* Install and configure {rh-rhacm} 2.11 or later in an {product-title} 4.17 or later cluster
+
+.Procedure
+
+. Add the `"bmac.agent-install.openshift.io/remove-agent-and-node-on-delete=true"` annotation to the worker node with in the `ClusterInstance` CR, named `worker-clusterinstance.yaml`:
++
+[source,yaml]
+----
+[...]
+nodes:
+- hostname: "example-workernode1.example.com"
+  role: "worker"
+  crAnnotations:
+    add:
+      BareMetalHost:
+        bmac.agent-install.openshift.io/remove-agent-and-node-on-delete: true
+  suppressedManifests:
+    - BareMetalHost <1>
+[...]
+----
+<1> Suppress the generation of the `BareMetalHost` CR by adding the node-level `suppressedManifests` field in the `ClusterInstance` CR.
+
+
+. Delete the worker node by running the following command on the hub cluster:
++
+[source,terminal]
+----
+$ oc apply -f worker-clusterinstance.yaml
+----
+
+.Verification
+
+. Verify that the `BareMetalHost` and `Agent` CRs for the worker node are deleted from the hub cluster.
++
+[source,terminal]
+----
+$ oc get bmh -n <cluster-ns>
+$ oc get agent -n <cluster-ns>
+----
+
+. Verify that the node was deleted from the spoke cluster by running the following command:
++
+--
+[source,terminal]
+----
+$ oc get nodes
+----
+
+.Example output
+[source,terminal]
+----
+NAME                                     STATUS   ROLES           AGE   VERSION
+control-plane.example.com                Ready    master,worker   56m   v1.29.4
+----
+--
