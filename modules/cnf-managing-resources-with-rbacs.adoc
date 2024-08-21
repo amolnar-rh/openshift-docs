@@ -1,0 +1,48 @@
+// Module included in the following assemblies:
+// * edge_computing/installing_with_siteconfig_operator/cnf-understanding-siteconfig-operator.adoc
+
+:_mod-docs-content-type: CONCEPT
+[id="cnf-managing-resources-with-rbac_{context}"]
+= Managing custom resources with RBAC
+
+When you create custom resources, the {sco} needs permission to access these custom resources.
+
+For more information about RBAC, see link:https://docs.redhat.com/en/documentation/red_hat_advanced_cluster_management_for_kubernetes/2.11/html/access_control/access-control#rbac-rhacm[Role-based access control]
+//placeholder or maybe we can reuse this section
+
+.Prerequisites
+
+* Install the `oc` CLI.
+* Obtain permission to view the cluster roles and bindings.
+//Any others?
+
+.Procedure
+
+. Create your custom resources in the `custom-ns` namespace.
+//Which namespace/project does the user have to do this?
+
+. Create a role by running the following command:
+// Are we creating a local or cluster role?
++
+[source,terminal]
+----
+$ oc create role <name> --verb=<verb> --resource=<resource> -n <project>
+----
+// What are the options for verb? Do we have recommendations/requirements to which verbs to define here? Giving admin perms is probably not ideal so what's the optimal list?
+
+. Bind the role to the {sco} by running the following command:
++
+[source,terminal]
+----
+$ oc adm policy add-role-to-user admin siteconfig-controller-manager -n custom-ns
+----
+//Do we bind the SCO to the custom-ns where the new resources are?
+
+.Verification
+
+. View the local role bindings and verify the addition in the output:
++
+[source,terminal]
+----
+$ oc describe rolebinding.rbac -n <project>
+----
