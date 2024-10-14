@@ -107,6 +107,6 @@ include::modules/ibi-validated-software-versions.adoc[leveloffset=+1]
 [role="_additional-resources"]
 .Additional resources
 
-* link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.7/html/about/welcome-to-red-hat-advanced-cluster-management-for-kubernetes#multicluster-architecture[Multicluster architecture]
+* link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.12/html/about/welcome-to-red-hat-advanced-cluster-management-for-kubernetes#multicluster-architecture[Multicluster architecture]
 
-* link:https://docs.openshift.com/container-platform/4.16/edge_computing/image_based_upgrade/cnf-understanding-image-based-upgrade.html[Understanding the image-based upgrade for {sno} clusters]
+* xref:../../edge_computing/image_based_upgrade/cnf-understanding-image-based-upgrade.adoc#cnf-understanding-image-based-upgrade[Understanding the image-based upgrade for {sno} clusters]

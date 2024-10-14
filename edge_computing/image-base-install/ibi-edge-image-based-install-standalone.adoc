@@ -17,5 +17,4 @@ include::modules/ibi-extra-manifests-standalone.adoc[leveloffset=+1]
 [role="_additional-resources"]
 == Additional resources
 
-* link:https://docs.openshift.com/container-platform/4.15/openshift_images/managing_images/using-image-pull-secrets.html[Using image pull secrets]
-//* xref:../../openshift_images/managing_images/using-image-pull-secrets.adoc[[Using image pull secrets]
+* xref:../../openshift_images/managing_images/using-image-pull-secrets.adoc[[Using image pull secrets]

@@ -45,7 +45,7 @@ include::modules/ibi-extra-manifests-configmap.adoc[leveloffset=+1]
 
 * link:https://docs.openshift.com/container-platform/4.15/post_installation_configuration/bare-metal-configuration.html#about-the-baremetalhost-resource_post-install-bare-metal-configuration[About the BareMetalHost resource]
 
-* link:https://docs.openshift.com/container-platform/4.15/openshift_images/managing_images/using-image-pull-secrets.html[Using image pull secrets]
+* xref:../../openshift_images/managing_images/using-image-pull-secrets.adoc[[Using image pull secrets]
 
 
 
